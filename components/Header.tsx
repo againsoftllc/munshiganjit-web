@@ -92,16 +92,23 @@ const catbarEvents = { onClick: shutOnClick, onMouseOut: reopenOnLeave };
 
 /* Category dropdown: single column, count after the name — the category's sub-categories (a brand is a sub-category named after it,
    e.g. Power Bank > Baseus), "View All <category> (total)" at the bottom. No brand list or brand flyout of its own. */
+/* Techland-style mega dropdown: sub-categories in up to 3 columns (8 per column); a sub-category with brands opens a 2-column brand panel beside it */
+const colsOf = (n: number) => Math.max(1, Math.min(3, Math.ceil(n / 8)));
+const dropStyle = (n: number) => ({ '--cols': colsOf(n) } as React.CSSProperties);
+const flyStyle = (n: number) => ({ '--fcols': n > 6 ? 2 : 1 } as React.CSSProperties);
+const liCls = (i: number, n: number, fly: boolean) => [fly ? 'has-fly' : '', colsOf(n) > 1 && i % colsOf(n) === colsOf(n) - 1 ? 'lc' : ''].filter(Boolean).join(' ');
+
 function CatDrop({ c, subs }: { c: (typeof categories)[number]; subs?: (typeof categories)[number]['subs'] }) {
+  const list = subs ?? c.subs;
   return (
-    <ul className="cb-drop">
-      {(subs ?? c.subs).map(s => {
+    <ul className="cb-drop" style={dropStyle(list.length)}>
+      {list.map((s, i) => {
         const kids = s[3] || [];
         return (
-          <li key={s[0]} className={kids.length ? 'has-fly' : ''}>
-            <Link prefetch={false} href={catUrl(c.slug, { sub: s[0] })}><span>{s[0]} <em>({s[1]})</em></span>{kids.length > 0 && <Icon name="right" size={13} />}</Link>
+          <li key={s[0]} className={liCls(i, list.length, kids.length > 0)}>
+            <Link prefetch={false} href={catUrl(c.slug, { sub: s[0] })}><span>{s[0]}</span>{kids.length > 0 && <Icon name="right" size={13} />}</Link>
             {kids.length > 0 && (
-              <ul className="cb-fly">
+              <ul className="cb-fly" style={flyStyle(kids.length)}>
                 {kids.map(k => <li key={k[0]}><Link prefetch={false} href={catUrl(c.slug, { sub: s[0], sub2: k[0] })}>{k[0]} <em>({k[1]})</em></Link></li>)}
               </ul>
             )}
@@ -123,11 +130,11 @@ function MenuBar() {
   const menu = activeMenu();
   const shown = menu.slice(0, MENU_MAX), rest = menu.slice(MENU_MAX);
   const plain = (it: MenuItem) => it.children.length > 0 && (
-    <ul className="cb-drop">
-      {it.children.map(ch => (
-        <li key={ch.id} className={ch.children.length ? 'has-fly' : ''}>
+    <ul className="cb-drop" style={dropStyle(it.children.length)}>
+      {it.children.map((ch, i) => (
+        <li key={ch.id} className={liCls(i, it.children.length, ch.children.length > 0)}>
           <Link prefetch={false} href={menuLink(ch, it)}><span>{ch.label}</span>{ch.children.length > 0 && <Icon name="right" size={13} />}</Link>
-          {ch.children.length > 0 && <ul className="cb-fly">{ch.children.map(g => <li key={g.id}><Link prefetch={false} href={menuLink(g, ch)}>{g.label}</Link></li>)}</ul>}
+          {ch.children.length > 0 && <ul className="cb-fly" style={flyStyle(ch.children.length)}>{ch.children.map(g => <li key={g.id}><Link prefetch={false} href={menuLink(g, ch)}>{g.label}</Link></li>)}</ul>}
         </li>
       ))}
     </ul>
