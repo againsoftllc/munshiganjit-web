@@ -116,14 +116,13 @@ export interface HomeCfg {
 }
 
 export const DEFAULT_SLIDES: Banner[] = [
-  { src: '/img/banners/slide-my-gadget-setup.webp', alt: 'My Gadget Setup — find the perfect charger, cable, power bank, earphone and case for your phone in one click', href: '/my-gadget-setup' },
-  { src: '/img/banners/slide-free-delivery.webp', alt: 'Free home delivery all over Bangladesh on orders of ৳1,000 or more', href: '/policy#delivery' },
-  { src: '/img/banners/slide-tronic-hg11795a.webp', alt: 'TRONIC HG11795A 20000mAh 15W Power Bank — 6 months warranty', href: productUrl('tronic-hg11795a-20000mah-power-bank') },
-  { src: '/img/banners/slide-acefast-n11.webp', alt: 'ACEFAST N11 Bluetooth Neckband with Speaker — 12 months warranty', href: catUrl('neckband', { brand: 'Acefast' }) },
+  { src: '/img/banners/slide-mit-everything-it.jpg', alt: 'Munshiganj IT — Everything IT, one place. Laptop, desktop, components, gadgets and networking', href: '/products' },
+  { src: '/img/banners/slide-mit-genuine.jpg', alt: '100% genuine products with official warranty from Munshiganj IT', href: '/about-us' },
+  { src: '/img/banners/slide-mit-free-delivery.jpg', alt: 'Free home delivery all over Bangladesh on orders of ৳1,000 or more', href: '/policy#delivery' },
 ];
 export const DEFAULT_SIDE: SideCard[] = [
-  { kind: 'image', icon: '', title: '', text: '', button: '', src: '/img/banners/side-reseller.webp', alt: 'Become an Munshiganj IT Reseller — direct import from China, reseller prices, nationwide delivery. Apply now.', href: '/reseller' },
-  { kind: 'image', icon: '', title: '', text: '', button: '', src: '/img/banners/side-genuine-products.webp', alt: '100% genuine products, direct import from China, wholesale value and dedicated customer care', href: '/about' },
+  { kind: 'image', icon: '', title: '', text: '', button: '', src: '/img/banners/side-mit-reseller.jpg', alt: 'Become a Munshiganj IT reseller — wholesale prices and nationwide delivery. Apply now.', href: '/reseller' },
+  { kind: 'image', icon: '', title: '', text: '', button: '', src: '/img/banners/side-mit-genuine.jpg', alt: '100% genuine products, official warranty support, best price in Bangladesh', href: '/about-us' },
 ];
 export const DEFAULT_QUICK: QuickItem[] = [
   { icon: 'chat', title: 'Raise a Complain', sub: 'Share your experience', href: '/complain' },
