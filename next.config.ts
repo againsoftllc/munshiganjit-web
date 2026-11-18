@@ -1,7 +1,5 @@
 import type { NextConfig } from 'next';
 
-const SITE = (process.env.NEXT_PUBLIC_SITE_URL?.trim() || 'https://www.munshiganjit.com.bd').replace(/\/$/, '');
-
 // the API's photos (product pictures) are optimized too: its address is allowed as an image source
 const apiUrl = (() => { try { return new URL((process.env.NEXT_PUBLIC_AGAINERP_API || '').trim()); } catch { return null; } })();
 
@@ -26,10 +24,7 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      // The shop's own Vercel address (munshiganjit-web.vercel.app) sends everyone to the real domain, same page, same ?query.
-      // Left alone on purpose: /api/revalidate (the API's refresh call still uses this address) and /robots.txt (Google reads this
-      // address's own robots.txt: it must not be told the real domain's rules). Vercel preview addresses are not matched.
-      { source: '/:path((?!api/revalidate$|robots\\.txt$).*)', has: [{ type: 'host', value: 'munshiganjit-web.vercel.app' }], destination: `${SITE}/:path`, permanent: true },
+      // (The redirect from munshiganjit-web.vercel.app to the real domain was removed: the Vercel address now serves the site itself.)
       { source: '/about', destination: '/about-us', permanent: true },
       { source: '/faq', destination: '/help-support', permanent: true },
       { source: '/pc-builder', destination: '/my-gadget-setup', permanent: true },
