@@ -11,7 +11,6 @@ import { initials, catUrl } from '@/lib/format';
 import { Icon, PImg, ProductImg, Art, Stars, Modal, StarInput } from '@/components/ui';
 import { useStore } from '@/components/store';
 import HeroBanners, { SideBanners } from '@/components/HeroBanners';
-import NewsTicker from '@/components/NewsTicker';
 import FlashSale from '@/components/FlashSale';
 import { BrandStrip } from '@/components/BrandStrip';
 import { ProductRow, ShopByCategory } from '@/components/HomeRails';
@@ -134,27 +133,9 @@ export default function HomeClient({ h1 }: { h1?: string }) {
         </div>
       </section>
     ),
-    strip: (
-      <TimedStrip hidden={cfg.strip.hidden} from={cfg.strip.showFrom} until={cfg.strip.showUntil} always={!!le}>
-      <section className="band tint joined">
-        <div className="wrap">
-          <Link prefetch={false} className="wide-strip" href={cfg.strip.href}>
-            {(cfg.strip.tag || cfg.strip.tagSub) && <span className="ws-tag">{cfg.strip.tag}<small>{cfg.strip.tagSub}</small></span>}
-            {isHtml(cfg.strip.text)
-              ? <span className="ws-text" dangerouslySetInnerHTML={{ __html: inlineHtml(cfg.strip.text) }} />
-              : <span className="ws-text">{boldParts(cfg.strip.text).map((p, i) => p.b ? <b key={i}>{p.t}</b> : p.t)}</span>}
-            <span className="ws-arts">{cfg.strip.images.slice(0, 3).map(id => <span key={id}><PImg id={id} size={70} /></span>)}</span>
-            <span className="btn btn-accent">{cfg.strip.button}</span>
-          </Link>
-        </div>
-      </section>
-      </TimedStrip>
-    ),
-    ticker: (
-      <section className="band tint joined">
-        <div className="wrap"><NewsTicker /></div>
-      </section>
-    ),
+    // "10.10 Mega Sale" strip and News ticker removed from the home page
+    strip: null,
+    ticker: null,
     /* Featured Category — all main-menu categories, product photos instead of icons */
     featured: (
       <section className="band tint" id="featured">
