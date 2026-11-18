@@ -95,7 +95,7 @@ const catbarEvents = { onClick: shutOnClick, onMouseOut: reopenOnLeave };
 /* Techland-style mega dropdown: sub-categories in up to 3 columns (8 per column); a sub-category with brands opens a 2-column brand panel beside it */
 const colsOf = (n: number) => Math.max(1, Math.min(3, Math.ceil(n / 8)));
 const dropStyle = (n: number) => ({ '--cols': colsOf(n) } as React.CSSProperties);
-const flyStyle = (n: number) => ({ '--fcols': n > 6 ? 2 : 1 } as React.CSSProperties);
+const flyStyle = (n: number) => ({ '--fcols': n > 36 ? 3 : n > 6 ? 2 : 1 } as React.CSSProperties);
 const liCls = (i: number, n: number, fly: boolean) => [fly ? 'has-fly' : '', colsOf(n) > 1 && i % colsOf(n) === colsOf(n) - 1 ? 'lc' : ''].filter(Boolean).join(' ');
 
 function CatDrop({ c, subs }: { c: (typeof categories)[number]; subs?: (typeof categories)[number]['subs'] }) {
@@ -109,13 +109,13 @@ function CatDrop({ c, subs }: { c: (typeof categories)[number]; subs?: (typeof c
             <Link prefetch={false} href={catUrl(c.slug, { sub: s[0] })}><span>{s[0]}</span>{kids.length > 0 && <Icon name="right" size={13} />}</Link>
             {kids.length > 0 && (
               <ul className="cb-fly" style={flyStyle(kids.length)}>
-                {kids.map(k => <li key={k[0]}><Link prefetch={false} href={catUrl(c.slug, { sub: s[0], sub2: k[0] })}>{k[0]} <em>({k[1]})</em></Link></li>)}
+                {kids.map(k => <li key={k[0]}><Link prefetch={false} href={catUrl(c.slug, { sub: s[0], sub2: k[0] })}>{k[0]}</Link></li>)}
               </ul>
             )}
           </li>
         );
       })}
-      <li className="cb-all"><Link prefetch={false} href={catUrl(c.slug)}>View All {c.name} <em>({c.count})</em></Link></li>
+      <li className="cb-all"><Link prefetch={false} href={catUrl(c.slug)}>View All {c.name}{c.count > 0 && <em> ({c.count})</em>}</Link></li>
     </ul>
   );
 }

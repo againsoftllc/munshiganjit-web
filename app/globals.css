@@ -3183,7 +3183,7 @@ body.le-embed-on .le-section { cursor: pointer; }
 
 /* ---------- Techland-style home: white menu bar · wide slider (2.6:1) + two stacked side banners (29.5%) ---------- */
 .catbar { background: #FFFFFF; border-top: 1px solid var(--line-2); border-bottom: 0; box-shadow: 0 2px 6px rgba(0, 39, 65, .08); }
-.cb-link, .cb-more .cb-link { color: #002741; font-weight: 700; background: none; padding: 0 .35em; font-size: clamp(9px, calc((min(100vw, 1320px) - 2 * var(--gut) - 15px) / 96), 15px); }
+.cb-link, .cb-more .cb-link { color: #002741; font-weight: 700; background: none; padding: 0 .35em; font-size: clamp(8.5px, calc((min(100vw, 1320px) - 2 * var(--gut) - 15px) / 118), 15px); }
 .cb-link:hover, .cb-item:hover .cb-link { background: none; color: var(--accent); box-shadow: inset 0 -3px 0 var(--accent); }
 .cb-more .cb-link { background: none; }
 @media (min-width: 1101px) {
@@ -3205,3 +3205,7 @@ ul.cb-drop ul.cb-fly { display: grid; grid-template-columns: repeat(var(--fcols,
 ul.cb-drop > li.lc > .cb-fly, .cb-item.right .cb-fly { left: auto; right: 100%; }
 ul.cb-drop > li > a .ico { color: var(--ink); stroke-width: 3; width: 15px; height: 15px; }
 ul.cb-drop > li:hover > a .ico { color: #FFFFFF; }
+.cb-fly { max-height: min(520px, 70vh); overflow-y: auto; overscroll-behavior: contain; }
+ul.cb-drop { max-height: none; }
+ul.cb-drop > li > a { padding: 9px 18px; }
+.cb-fly a { padding: 8px 18px; }

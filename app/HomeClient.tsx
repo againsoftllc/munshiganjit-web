@@ -49,7 +49,7 @@ export function CatTile({ c, i, image, name }: { c: Category; i: number; /** a p
   return (
     <Link prefetch={false} className={'fcat-tile fc-c' + (i % 6)} href={catUrl(c.slug)}>
       <span className="fcat-ic fcat-pic">{image ? <img src={image} alt="" width={44} height={44} style={{ width: '100%', height: '100%', objectFit: 'cover' }} loading="lazy" /> : pic ? <ProductImg p={pic} size={44} /> : <Art kind={c.art || 'gadget'} hue="blue" size={44} />}</span>
-      <b>{name || c.name}</b><span>{c.count} products</span>
+      <b>{name || c.name}</b>{c.count > 0 && <span>{c.count} products</span>}
     </Link>
   );
 }
