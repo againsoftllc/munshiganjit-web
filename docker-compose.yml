@@ -1,0 +1,60 @@
+# Local development: `docker compose up` → http://localhost:3000
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: munshiganjit-web-dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules   # keep the container's Linux node_modules
+      - /app/.next
+    environment:
+      - WATCHPACK_POLLING=true   # file-change detection on Windows bind mounts
+      - CHOKIDAR_USEPOLLING=true
+      - DATABASE_URL=postgresql://munshiganjit:munshiganjit@db:5432/munshiganjit
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # Production build (fast, like Vercel) — start with:
+  #   docker compose --profile prod up -d --build web-prod   →  http://localhost:3001
+  web-prod:
+    profiles: ["prod"]
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    container_name: munshiganjit-web-prod
+    ports:
+      - "3001:3000"
+    environment:
+      - DATABASE_URL=postgresql://munshiganjit:munshiganjit@db:5432/munshiganjit
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # PostgreSQL for local development (not used by the mock-data demo yet)
+  db:
+    image: postgres:16-alpine
+    container_name: munshiganjit-db
+    ports:
+      - "5433:5432"   # 5433 on the host: a local PostgreSQL may already own 5432
+    environment:
+      - POSTGRES_USER=munshiganjit
+      - POSTGRES_PASSWORD=munshiganjit
+      - POSTGRES_DB=munshiganjit
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U munshiganjit -d munshiganjit"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  pgdata:

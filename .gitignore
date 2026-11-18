@@ -1,0 +1,15 @@
+node_modules
+.next
+out
+.vercel
+*.tsbuildinfo
+next-env.d.ts
+.env*.local
+npm-debug.log*
+.DS_Store
+
+.vercel
+.env*
+
+# API data cache (written by scripts/sync-data.mjs)
+lib/generated/
