@@ -96,7 +96,7 @@ const catbarEvents = { onClick: shutOnClick, onMouseOut: reopenOnLeave };
 const colsOf = (n: number) => Math.max(1, Math.min(3, Math.ceil(n / 8)));
 const dropStyle = (n: number) => ({ '--cols': colsOf(n) } as React.CSSProperties);
 const flyStyle = (n: number) => ({ '--fcols': n > 36 ? 3 : n > 6 ? 2 : 1 } as React.CSSProperties);
-const liCls = (i: number, n: number, fly: boolean) => [fly ? 'has-fly' : '', colsOf(n) > 1 && i % colsOf(n) === colsOf(n) - 1 ? 'lc' : ''].filter(Boolean).join(' ');
+const liCls = (i: number, n: number, fly: boolean) => [fly ? 'has-fly' : '', colsOf(n) > 1 && i % colsOf(n) === colsOf(n) - 1 ? 'lcol' : ''].filter(Boolean).join(' ');
 
 function CatDrop({ c, subs }: { c: (typeof categories)[number]; subs?: (typeof categories)[number]['subs'] }) {
   const list = subs ?? c.subs;
