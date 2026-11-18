@@ -115,7 +115,6 @@ function CatDrop({ c, subs }: { c: (typeof categories)[number]; subs?: (typeof c
           </li>
         );
       })}
-      <li className="cb-all"><Link prefetch={false} href={catUrl(c.slug)}>View All {c.name}{c.count > 0 && <em> ({c.count})</em>}</Link></li>
     </ul>
   );
 }

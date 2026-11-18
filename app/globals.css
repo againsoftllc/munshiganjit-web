@@ -3217,3 +3217,9 @@ ul.cb-drop > li > a .ico { flex: 0 0 auto; width: 13px; height: 13px; }
 ul.cb-drop > li.cb-all > a { justify-content: flex-start; }
 .cb-fly { padding: 8px 6px; }
 .cb-fly a { min-height: 36px; font-weight: 500; }
+/* spacing between dropdown items */
+ul.cb-drop { gap: 6px 10px; padding: 12px 10px; }
+ul.cb-drop > li > a { min-height: 42px; }
+.cb-fly { padding: 10px; }
+.cb-fly li + li { margin-top: 4px; }
+.cb-fly { gap: 4px 8px; }
