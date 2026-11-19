@@ -3470,3 +3470,8 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
   .bn-img-side { flex-direction: column; gap: 10px; }
   .sb-img { flex: none; width: 100%; }
 }
+/* phones: the two side banners sit side by side under the slider (like a marketplace app) */
+@media (max-width: 640px) {
+  .bn-img-side { flex-direction: row; gap: 8px; }
+  .sb-img { flex: 1 1 0; width: auto; min-width: 0; border-radius: 10px; }
+}
