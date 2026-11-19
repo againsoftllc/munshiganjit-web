@@ -88,15 +88,45 @@ const reopenOnLeave = (e: React.MouseEvent<HTMLElement>) => {
   const item = (e.target as HTMLElement).closest('.cb-item');
   if (item && !item.contains(e.relatedTarget as Node | null)) item.classList.remove('shut');
 };
-const catbarEvents = { onClick: shutOnClick, onMouseOut: reopenOnLeave };
+/* Width follows the content (CSS). On hover the panel is nudged left only as far as needed to stay on screen; a brand flyout opens to the
+   right when it fits, else to the left, and slides up when it would cross the bottom edge. */
+const EDGE = 8;
+const placeOnEnter = (e: React.MouseEvent<HTMLElement>) => {
+  const t = e.target as HTMLElement, from = e.relatedTarget as Node | null;
+  const vw = document.documentElement.clientWidth, vh = document.documentElement.clientHeight;
+  const item = t.closest('.cb-item') as HTMLElement | null;
+  if (item && !(from && item.contains(from))) {
+    const panel = item.querySelector(':scope > .cb-drop') as HTMLElement | null;
+    if (panel) {
+      panel.style.left = ''; panel.style.maxHeight = ''; panel.style.overflowY = '';
+      const ir = item.getBoundingClientRect(), pr = panel.getBoundingClientRect();
+      if (ir.left + pr.width > vw - EDGE) panel.style.left = Math.max((vw - EDGE) - (ir.left + pr.width), EDGE - ir.left) + 'px';
+      if (pr.height > vh - ir.bottom - EDGE) { panel.style.maxHeight = (vh - ir.bottom - EDGE) + 'px'; panel.style.overflowY = 'auto'; }
+    }
+  }
+  const li = t.closest('li.has-fly') as HTMLElement | null;
+  if (li && !(from && li.contains(from))) {
+    const fly = li.querySelector(':scope > .cb-fly') as HTMLElement | null;
+    if (fly) {
+      fly.classList.remove('flip'); fly.style.left = ''; fly.style.top = '';
+      const lr = li.getBoundingClientRect(), fr = fly.getBoundingClientRect();
+      const fitsRight = lr.right - 2 + fr.width <= vw - EDGE, fitsLeft = lr.left + 2 - fr.width >= EDGE;
+      if (!fitsRight && fitsLeft) fly.classList.add('flip');
+      else if (!fitsRight) fly.style.left = ((vw - EDGE - fr.width) - lr.left) + 'px';
+      const over = lr.top + fr.height - (vh - EDGE);
+      if (over > 0) fly.style.top = -Math.min(over, Math.max(lr.top - EDGE, 0)) + 'px';
+    }
+  }
+};
+const catbarEvents = { onClick: shutOnClick, onMouseOut: reopenOnLeave, onMouseOver: placeOnEnter };
 
 /* Category dropdown: single column, count after the name — the category's sub-categories (a brand is a sub-category named after it,
    e.g. Power Bank > Baseus), "View All <category> (total)" at the bottom. No brand list or brand flyout of its own. */
 /* Techland-style mega dropdown: sub-categories in up to 3 columns (8 per column); a sub-category with brands opens a 2-column brand panel beside it */
-const colsOf = (n: number) => Math.max(1, Math.min(3, Math.ceil(n / 8)));
-const dropStyle = (n: number) => ({ '--cols': colsOf(n) } as React.CSSProperties);
-const flyStyle = (n: number) => ({ '--fcols': n > 36 ? 3 : n > 6 ? 2 : 1 } as React.CSSProperties);
-const liCls = (i: number, n: number, fly: boolean) => [fly ? 'has-fly' : '', colsOf(n) > 1 && i % colsOf(n) === colsOf(n) - 1 ? 'lcol' : ''].filter(Boolean).join(' ');
+const rowsOf = (n: number, base: number) => Math.max(1, Math.max(Math.min(n, base), Math.ceil(n / 4)));
+const dropStyle = (n: number) => ({ '--rows': rowsOf(n, 9) } as React.CSSProperties);
+const flyStyle = (n: number) => ({ '--frows': rowsOf(n, 10) } as React.CSSProperties);
+const liCls = (_i: number, _n: number, fly: boolean) => (fly ? 'has-fly' : '');
 
 function CatDrop({ c, subs }: { c: (typeof categories)[number]; subs?: (typeof categories)[number]['subs'] }) {
   const list = subs ?? c.subs;

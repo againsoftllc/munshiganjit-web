@@ -3314,3 +3314,14 @@ ul.cb-drop > li > a { min-height: 42px; }
 :root { --menu-fs: clamp(10px, calc((min(100vw, var(--wrap-max)) - 2 * var(--gut) - 15px) / 104), 16px); }
 .cb-link, .cb-more .cb-link { font-size: var(--menu-fs); }
 ul.cb-drop > li > a, .cb-drop > li > a, .cb-fly a, .cb-fly li a, ul.cb-drop > li.cb-all > a { font-size: var(--menu-fs); }
+
+/* ---------- mega dropdown, content-sized: columns fill top → bottom, width = widest item ---------- */
+ul.cb-drop { display: grid; grid-auto-flow: column; grid-template-rows: repeat(var(--rows, 1), auto); grid-template-columns: none; grid-auto-columns: max-content; width: max-content; min-width: 200px; max-width: calc(100vw - 16px); gap: 2px 14px; padding: 10px; left: 0; right: auto; }
+.cb-item.right ul.cb-drop { left: 0; right: auto; }
+ul.cb-drop > li { min-width: 0; }
+ul.cb-drop > li > a { display: flex; align-items: center; justify-content: space-between; gap: 28px; white-space: nowrap; min-height: 42px; padding: 8px 16px; }
+ul.cb-drop > li > a .ico { flex: 0 0 auto; }
+ul.cb-drop ul.cb-fly, .cb-fly { display: grid; grid-auto-flow: column; grid-template-rows: repeat(var(--frows, 1), auto); grid-template-columns: none; grid-auto-columns: max-content; width: max-content; min-width: 170px; max-height: calc(100vh - 150px); overflow-y: auto; gap: 2px 10px; padding: 10px; top: -6px; left: 100%; right: auto; }
+ul.cb-drop > li.lcol > .cb-fly, .cb-item.right .cb-fly { left: 100%; right: auto; }
+ul.cb-drop .cb-fly.flip, .cb-item.right .cb-fly.flip { left: auto; right: 100%; }
+.cb-fly a { white-space: nowrap; }
