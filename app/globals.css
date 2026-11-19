@@ -3447,3 +3447,5 @@ ul.cb-drop ul.cb-fly, .cb-fly { gap: 0 6px; padding: 6px; }
 /* footer bottom logo: no white box */
 .mf-logo { background: transparent; padding: 0; border-radius: 0; box-shadow: none; }
 .mf-logo img { height: 34px; }
+/* footer credit */
+.mf-credit { color: #FFC83D; font-weight: 700; }

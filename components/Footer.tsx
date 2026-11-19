@@ -147,7 +147,7 @@ export default function Footer() {
           {/* 5 Â· bottom line */}
           <div className="mf-bottom">
             <span className="mf-logo">{/* eslint-disable-next-line @next/next/no-img-element */}<img src="/img/mit-logo.png" alt="Munshiganj IT" width={120} height={37} loading="lazy" /></span>
-            <p>&copy; {new Date().getFullYear()}, Munshiganj IT, All Rights Reserved. Developed By: <a href="https://www.xsellencebdltd.com/" target="_blank" rel="noopener noreferrer">Xsellence Bd Ltd</a></p>
+            <p>&copy; {new Date().getFullYear()}, Munshiganj IT, All Rights Reserved. Developed By: <b className="mf-credit">Againsoft</b></p>
             <button type="button" className="mf-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Back to top"><Icon name="arrow" size={16} /></button>
           </div>
         </div>
