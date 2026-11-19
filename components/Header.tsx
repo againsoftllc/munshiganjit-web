@@ -1,5 +1,5 @@
-'use client';
-/* Header — TV Hut layout: top bar · logo / search / actions / My Cart · category bar */
+﻿'use client';
+/* Header â€” TV Hut layout: top bar Â· logo / search / actions / My Cart Â· category bar */
 import Link from 'next/link';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { Suspense, useEffect, useRef, useState } from 'react';
@@ -14,7 +14,7 @@ import { LiveEditChrome } from './live-edit/LiveEditSection';
 import { boldParts } from '@/lib/home';
 import { fixedImg } from '@/lib/img';
 
-/* Motion View-style logo: logo → admin-set images (headerLogoAnim) → logo (CSS keyframes in globals.css).
+/* Motion View-style logo: logo â†’ admin-set images (headerLogoAnim) â†’ logo (CSS keyframes in globals.css).
    A normal client-side link (no full page reload, so no white flash); already on the home page, the click scrolls to the top and refreshes the data. */
 function LogoAnim({ logo, anim }: { logo: string; anim: { off: boolean; items: string[] | null } }) {
   // the pictures: the products picked in Live Edit, else the built-in four; none (or switched off) = the logo stays alone
@@ -28,7 +28,7 @@ function LogoAnim({ logo, anim }: { logo: string; anim: { off: boolean; items: s
       onClick={e => { if (path === '/') { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); router.refresh(); } }}>
       <span className="la-logo">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img {...fixedImg(logo, 199)} alt="Munshiganj IT — Enter the New Era of Tech" width={199} height={44} fetchPriority="high" />
+        <img {...fixedImg(logo, 199)} alt="Munshiganj IT â€” Enter the New Era of Tech" width={199} height={44} fetchPriority="high" />
       </span>
       {pics.length > 0 && <span className="la-prods" aria-hidden="true">
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -59,7 +59,7 @@ function SearchBox({ placeholder }: { placeholder: string }) {
         {cats.map(c => <Link prefetch={false} key={c.slug} className="sg-row" href={catUrl(c.slug)}><Icon name={c.icon} size={16} />{c.name}<em>{c.count} products</em></Link>)}
         {prods.length > 0 && <div className="sg-h">Products</div>}
         {prods.map(p => <Link prefetch={false} key={p.id} className="sg-row" href={productUrl(p.id)}><span className="sg-img"><ProductImg p={p} size={36} /></span><span>{p.name}</span><b>{money(p.price)}</b></Link>)}
-        <Link prefetch={false} className="sg-all" href={'/search?q=' + encodeURIComponent(q)}>See all results for “{q}”</Link>
+        <Link prefetch={false} className="sg-all" href={'/search?q=' + encodeURIComponent(q)}>See all results for â€œ{q}â€</Link>
       </div>
     </form>
   );
@@ -73,7 +73,7 @@ export function LangSwitch() {
   return (
     <span className="lang notranslate" translate="no" role="group" aria-label="Language">
       <button className={lang === 'en' ? 'on' : ''} onClick={() => pick('en')}>EN</button>
-      <button className={lang === 'bn' ? 'on' : ''} onClick={() => pick('bn')}>বাংলা</button>
+      <button className={lang === 'bn' ? 'on' : ''} onClick={() => pick('bn')}>à¦¬à¦¾à¦‚à¦²à¦¾</button>
     </span>
   );
 }
@@ -120,7 +120,7 @@ const placeOnEnter = (e: React.MouseEvent<HTMLElement>) => {
 };
 const catbarEvents = { onClick: shutOnClick, onMouseOut: reopenOnLeave, onMouseOver: placeOnEnter };
 
-/* Category dropdown: single column, count after the name — the category's sub-categories (a brand is a sub-category named after it,
+/* Category dropdown: single column, count after the name â€” the category's sub-categories (a brand is a sub-category named after it,
    e.g. Power Bank > Baseus), "View All <category> (total)" at the bottom. No brand list or brand flyout of its own. */
 /* Techland-style mega dropdown: sub-categories in up to 3 columns (8 per column); a sub-category with brands opens a 2-column brand panel beside it */
 const rowsOf = (n: number, base: number) => Math.max(1, Math.max(Math.min(n, base), Math.ceil(n / 4)));
@@ -153,7 +153,7 @@ function CatDrop({ c, subs }: { c: (typeof categories)[number]; subs?: (typeof c
    its dropdown lists the Others sub-types, then the IN_OTHERS categories and any beyond 17, then "View All Others" */
 const MENU_MAX = 17;
 const IN_OTHERS = ['computer-accessories', 'car-accessories'];
-/* The same bar built from the menu the admin made in Live Edit → Main menu. A category keeps its rich dropdown (sub-types with
+/* The same bar built from the menu the admin made in Live Edit â†’ Main menu. A category keeps its rich dropdown (sub-types with
    counts, brand flyouts), limited to the sub-types the menu kept; any other item gets a plain dropdown of its sub-items. */
 function MenuBar() {
   const menu = activeMenu();
@@ -220,7 +220,7 @@ function CatBar() {
 
 export default function Header() {
   const { header: hd } = useHomeCfg();
-  const { compare, cartCount, cartTotal, openDrawer, ready, customer, signOut } = useStore();
+  const { cartCount, cartTotal, openDrawer, ready, customer, signOut } = useStore();
   const [stuck, setStuck] = useState(false);
   useEffect(() => { const on = () => setStuck(scrollY > 40); addEventListener('scroll', on, { passive: true }); on(); return () => removeEventListener('scroll', on); }, []);
   return (
@@ -265,7 +265,6 @@ export default function Header() {
               <Link prefetch={false} href="/search?q=CCTV%20Camera"><Icon name="chip" size={16} />CC Builder</Link>
             </div>
           </div>
-          <Link prefetch={false} className="ha hide-m" href="/compare"><span className="ha-ic"><Icon name="compare" size={20} />{ready && compare.length > 0 && <span className="badge">{compare.length}</span>}</span><span className="lbl">Compare</span></Link>
           <button className="cart-btn" aria-label="Cart" onClick={() => openDrawer('cart')}>
             <Icon name="cart" size={19} /><span className="ct">My Cart</span><span className="sep" /><span className="ct">{money(ready ? cartTotal : 0)}</span>
             {ready && cartCount > 0 && <span className="badge">{cartCount}</span>}
