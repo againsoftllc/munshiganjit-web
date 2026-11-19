@@ -3924,3 +3924,20 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
   .mf-mark { margin-bottom: -4px; }
   .to-top { bottom: 84px; }
 }
+/* mobile: the footer ends exactly where the bottom bar starts — the watermark sits right on the bar */
+@media (max-width: 900px) {
+  .mf { padding-bottom: calc(var(--bnav-h, 64px) + env(safe-area-inset-bottom)); }
+  .mf-mark { margin-bottom: 0; }
+  :root { --bnav-h: 64px; }
+}
+/* bar height is fixed = footer bottom padding, so the footer's watermark rests exactly on the bar */
+@media (max-width: 900px) {
+  :root { --bnav-h: 66px; }
+  .bnav { box-sizing: border-box; height: calc(var(--bnav-h) + env(safe-area-inset-bottom)); align-items: center; padding-top: 0; padding-bottom: env(safe-area-inset-bottom); }
+  .bnav a, .bnav .bn-mid { justify-content: center; }
+  .bnav .bn-mid { justify-content: flex-end; height: 100%; padding-bottom: 6px; }
+  .bnav .bn-fab { margin-top: 0; margin-bottom: -2px; transform: translateY(-22px); }
+  .bnav .bn-mid.open .bn-fab { transform: translateY(-22px) rotate(90deg); }
+  .bnav .bn-mid em { margin-top: -18px; }
+  .mf { padding-bottom: calc(var(--bnav-h) + env(safe-area-inset-bottom)); }
+}
