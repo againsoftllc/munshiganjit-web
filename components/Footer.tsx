@@ -27,7 +27,7 @@ export default function Footer() {
   const mapEmbed = ft.mapEmbed || site.map.embed;
   return (
     <LiveEditChrome id="footer" label="footer">
-      {!ft.hideTrust && trust.length > 0 && <section className="trust-strip trust4"><div className="wrap trust-in">
+      {false && !ft.hideTrust && trust.length > 0 && <section className="trust-strip trust4"><div className="wrap trust-in">
         {trust.map(t => (
           <div className="trust" key={t.title}>
             <span className="ti"><Icon name={t.icon} size={28} /></span>
