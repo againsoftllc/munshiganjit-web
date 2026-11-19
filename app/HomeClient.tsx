@@ -163,32 +163,8 @@ export default function HomeClient({ h1 }: { h1?: string }) {
         </div>
       </section>
     ),
-    /* Customer Experience — share box + latest reviews scrolling with date & time */
-    cx: (
-      <section className="band hr-band" id="share">
-        <div className="wrap">
-          <div className="hr-box hr-cx">
-          <div className="hr-bar">
-            <span className="hr-title"><Icon name="chat" size={19} />{cfg.cx.title}</span>
-            <Link prefetch={false} className="hr-all" href="/reviews">{viewAll ? <>{viewAll[1]}<span className="hr-all-cat">{viewAll[2]}</span></> : cfg.cx.viewAll} <Icon name="arrow" size={14} /></Link>
-          </div>
-          <div className="voices cx">
-            <div className="share-box cx-share">
-              <div className="score"><b>{cfg.cx.rating.toFixed(1)}</b><div><Stars rating={cfg.cx.rating} size={16} /><div className="sm">from {cfg.cx.countText}</div></div></div>
-              <h3>{cfg.cx.shareTitle}</h3>
-              {isHtml(cfg.cx.shareText) ? <div className="rich" dangerouslySetInnerHTML={{ __html: safeHtml(cfg.cx.shareText) }} /> : <p>{cfg.cx.shareText}</p>}
-              <button className="btn btn-accent" onClick={() => setShareOpen(true)}><Icon name="chat" size={16} />{cfg.cx.button}</button>
-            </div>
-            <div className="cx-right">
-              <div className="cx-rail" ref={rvRail} onMouseEnter={() => { rvPaused.current = true; }} onMouseLeave={() => { rvPaused.current = false; }}>
-                {latest.map((r, i) => <ReviewCard key={i} r={r} />)}
-              </div>
-            </div>
-          </div>
-          </div>
-        </div>
-      </section>
-    ),
+    // "Customer Experience" section removed from the home page
+    cx: null,
     /* SEO text — TV Hut style, admin-editable */
     seo: (
       <section className="band tint">
