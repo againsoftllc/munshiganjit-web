@@ -3611,3 +3611,57 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 /* last section -> footer: same 48px as between sections */
 .mf { margin-top: 24px; }
 @media (max-width: 640px) { .mf { margin-top: 16px; } }
+/* ---------- Header: premium dark glass ---------- */
+.hdr-main { background:
+    radial-gradient(ellipse 40% 160% at 0% 0%, rgba(24, 119, 242, .32), transparent 70%),
+    radial-gradient(ellipse 30% 160% at 100% 100%, rgba(237, 27, 36, .16), transparent 70%),
+    linear-gradient(180deg, #003151 0%, #002741 100%); border-bottom: 1px solid rgba(255, 255, 255, .06); }
+.hdr.stuck .hdr-main { background:
+    radial-gradient(ellipse 40% 160% at 0% 0%, rgba(24, 119, 242, .32), transparent 70%),
+    linear-gradient(180deg, #003151 0%, #002741 100%); box-shadow: 0 14px 30px -14px rgba(0, 20, 40, .7); }
+.hdr-main-in { height: 84px; gap: 28px; }
+/* search: glass pill with a blue button */
+.hsearch { box-shadow: 0 0 0 1px rgba(255, 255, 255, .18), 0 10px 24px -14px rgba(0, 0, 0, .8); border-radius: 14px; overflow: hidden; }
+.hsearch input { height: 50px; font-size: 15px; }
+.hsearch button { background: linear-gradient(145deg, #2A87FF, #1877F2); }
+/* actions: icon in a glass circle, label below */
+.hactions { gap: 6px; align-items: center; }
+.hdr-main .ha { position: relative; gap: 5px; padding: 6px 12px; border-radius: 14px; font-size: 12.5px; font-weight: 600; letter-spacing: .01em; color: #FFFFFF; transition: background .18s; }
+.hdr-main .ha:hover { background: rgba(255, 255, 255, .07); opacity: 1; }
+.hdr-main .ha .ha-ic { position: relative; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; color: #FFFFFF; background: rgba(255, 255, 255, .09); border: 1px solid rgba(255, 255, 255, .14); transition: background .18s, border-color .18s, transform .18s; }
+.hdr-main .ha:hover .ha-ic { background: #1877F2; border-color: #1877F2; transform: translateY(-2px); }
+.hdr-main .ha.offer .ha-ic { color: #FFFFFF; background: linear-gradient(145deg, #FF4A52, #ED1B24); border-color: transparent; box-shadow: 0 8px 16px -8px rgba(237, 27, 36, .9); }
+.hdr-main .ha.offer:hover .ha-ic { background: linear-gradient(145deg, #FF4A52, #ED1B24); }
+.hdr-main .ha.hh .ha-ic { color: #FFC83D; }
+.hdr-main .ha .lbl { display: inline-flex; align-items: center; gap: 4px; color: #FFFFFF; white-space: nowrap; }
+.hdr-main .ha .ico { color: inherit; }
+.hdr-main .ha .badge { top: -5px; right: -5px; }
+.hdr-main .ha.acct { padding: 0; }
+.hdr-main .ha.acct > .ha, .hdr-main .ha.acct > .ha.ha { padding: 6px 12px; }
+.hdr-main .ha.acct > .ha:hover { background: rgba(255, 255, 255, .07); }
+/* dropdowns (account + builder) keep dark text on white */
+.hdr-main .acct-menu { color: #002741; right: -20px; border-radius: 14px; border: 0; box-shadow: 0 24px 48px -16px rgba(0, 20, 40, .55); }
+.hdr-main .acct-menu > a, .hdr-main .acct-menu a { color: #002741; }
+.hdr-main .acct-menu > a:hover { background: #E8F1FE; color: #1877F2; }
+.hdr-main .acct-menu .btn-brand { color: #FFFFFF; }
+.hdr-main .bld .acct-menu { width: 200px; right: auto; left: 50%; transform: translateX(-50%) translateY(6px); }
+.hdr-main .bld:hover .acct-menu, .hdr-main .bld:focus-within .acct-menu { transform: translateX(-50%); }
+/* cart: gradient pill */
+.cart-btn { height: 50px; padding: 0 20px; border-radius: 14px; background: linear-gradient(145deg, #2A87FF, #1877F2 55%, #0F5CC4); box-shadow: 0 14px 26px -12px rgba(24, 119, 242, .9), inset 0 1px 0 rgba(255, 255, 255, .3); transition: transform .18s, box-shadow .18s; }
+.cart-btn:hover { transform: translateY(-2px); box-shadow: 0 18px 30px -12px rgba(24, 119, 242, 1), inset 0 1px 0 rgba(255, 255, 255, .35); }
+@media (max-width: 1200px) { .hdr-main .ha { padding: 6px 8px; } .hdr-main-in { gap: 18px; } }
+
+/* phones / small tablets: icons only in the header row (cart stays visible) */
+@media (max-width: 900px) {
+  .hdr-main .ha .lbl { display: none; }
+  .hdr-main .ha, .hdr-main .ha.acct > .ha { padding: 0; }
+  .hdr-main .ha .ha-ic { width: 40px; height: 40px; }
+  .hactions { gap: 8px; }
+}@media (max-width: 900px) { .cart-btn { height: 42px; padding: 0 12px; border-radius: 12px; } .hdr-main-in { gap: 12px; } }@media (max-width: 480px) {
+  .hdr-main-in { gap: 8px; }
+  .logo-anim { width: 118px; }
+  .logo-anim .la-logo img { height: 30px; }
+  .hactions { gap: 6px; margin-left: auto; }
+  .hdr-main .ha .ha-ic { width: 36px; height: 36px; }
+  .cart-btn { height: 38px; padding: 0 10px; }
+}

@@ -239,11 +239,10 @@ export default function Header() {
         <LogoAnim logo={hd.logo} anim={hd.anim} />
         <Suspense fallback={<form className="hsearch" />}><SearchBox placeholder={hd.searchPlaceholder} /></Suspense>
         <nav className="hactions">
-          {hd.actions.filter(a => !a.hidden).map(a => (
-            <Link prefetch={false} key={a.href + a.label} className={'ha hide-m' + (a.key === 'offer' ? ' offer' : a.key === 'pcb' ? ' pcb' : '')} href={a.href}><Icon name={a.icon || 'tag'} size={22} /><span className="lbl">{a.label}</span>{a.key === 'compare' && ready && compare.length > 0 && <span className="badge">{compare.length}</span>}</Link>
-          ))}
+          <Link prefetch={false} className="ha hide-m hh" href="/happy-hour"><span className="ha-ic"><Icon name="bolt" size={20} /></span><span className="lbl">Happy Hour</span></Link>
+          <Link prefetch={false} className="ha hide-m offer" href="/offers"><span className="ha-ic"><Icon name="tag" size={20} /></span><span className="lbl">Offers</span></Link>
           <div className="ha acct">
-            <Link prefetch={false} href="/account" className="ha" aria-label="Account" style={{ color: 'inherit' }}><Icon name="user" size={22} /><span className="lbl">Account</span></Link>
+            <Link prefetch={false} href="/account" className="ha" aria-label="Account" style={{ color: 'inherit' }}><span className="ha-ic"><Icon name="user" size={20} /></span><span className="lbl">Account</span></Link>
             <div className="acct-menu">
               {ready && customer ? (
                 <div className="am-head"><b>Hello, {customer.name.split(' ')[0]}</b><span>{customer.phone || customer.email}</span>
@@ -259,6 +258,14 @@ export default function Header() {
               <Link prefetch={false} href="/partner"><Icon name="briefcase" size={16} />Partner Account (Reseller / Corporate)</Link>
             </div>
           </div>
+          <div className="ha acct bld hide-m">
+            <span className="ha" tabIndex={0}><span className="ha-ic"><Icon name="setup" size={20} /></span><span className="lbl">Builder<Icon name="down" size={12} /></span></span>
+            <div className="acct-menu">
+              <Link prefetch={false} href="/pc-builder"><Icon name="desktop" size={16} />PC Builder</Link>
+              <Link prefetch={false} href="/search?q=CCTV%20Camera"><Icon name="chip" size={16} />CC Builder</Link>
+            </div>
+          </div>
+          <Link prefetch={false} className="ha hide-m" href="/compare"><span className="ha-ic"><Icon name="compare" size={20} />{ready && compare.length > 0 && <span className="badge">{compare.length}</span>}</span><span className="lbl">Compare</span></Link>
           <button className="cart-btn" aria-label="Cart" onClick={() => openDrawer('cart')}>
             <Icon name="cart" size={19} /><span className="ct">My Cart</span><span className="sep" /><span className="ct">{money(ready ? cartTotal : 0)}</span>
             {ready && cartCount > 0 && <span className="badge">{cartCount}</span>}
