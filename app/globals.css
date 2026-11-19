@@ -3749,3 +3749,80 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
   .mf-join button { width: 100%; height: 52px; justify-content: center; border-radius: 14px; }
   .mf-join-msg { position: static; display: block; margin-top: 2px; }
 }
+/* =====================================================================
+   Fluid typography — every text role scales smoothly with the screen width.
+   phone (≈360–480) → tablet (≈768) → laptop (≈1280) → desktop (≈1440–1920) → large monitor (2200+)
+   Change a size for ALL devices by editing one token here.
+   ===================================================================== */
+:root {
+  --t-h2: clamp(21px, 15px + 1.55vw, 34px);        /* section titles */
+  --t-sub: clamp(13px, 11.6px + .36vw, 17px);      /* section sub titles */
+  --t-lead: clamp(15px, 13.4px + .4vw, 18px);      /* intro / first paragraph */
+  --t-body: clamp(14px, 13px + .28vw, 16px);       /* normal text */
+  --t-small: clamp(12px, 11px + .26vw, 14px);      /* captions, links in lists */
+  --t-label: clamp(10.5px, 9.8px + .2vw, 12.5px);  /* uppercase labels */
+  --t-btn: clamp(13.5px, 12.4px + .3vw, 16px);     /* buttons */
+  --t-card: clamp(13px, 11.8px + .34vw, 15.5px);   /* product names, tile names */
+  --t-price: clamp(15px, 13.4px + .42vw, 19px);    /* prices */
+  --t-num: clamp(15px, 13.6px + .4vw, 19px);       /* hotline numbers, counters */
+  --t-hero: clamp(30px, 18px + 3.3vw, 58px);       /* big promise heading */
+}
+@media (min-width: 2200px) {
+  :root { --t-h2: 40px; --t-sub: 19px; --t-lead: 20px; --t-body: 17.5px; --t-small: 15.5px; --t-label: 13.5px; --t-btn: 17.5px; --t-card: 17px; --t-price: 21px; --t-num: 21px; --t-hero: 68px; --wrap-max: 1880px; }
+}
+
+/* section headings */
+.fcx-head h2, .fsx-head h2, .seo-pro h2 { font-size: var(--t-h2); line-height: 1.2; }
+.fcx-head p, .fsx-head p { font-size: var(--t-sub); line-height: 1.45; }
+.seo-pro h2 { font-size: clamp(22px, 15px + 1.6vw, 34px); }
+.seo-eyebrow, .mf-eyebrow, .mf-label, .mf h3 { font-size: var(--t-label); }
+.mf-title, .mf-brand h5 { font-size: clamp(14px, 12.6px + .34vw, 17px); }
+
+/* featured category tiles, product cards, flash sale */
+.fcx-name { font-size: var(--t-card); }
+.fsx-name { font-size: var(--t-card); height: calc(var(--t-card) * 2.8); }
+.fsx-price b { font-size: var(--t-price); }
+.fsx-price s { font-size: var(--t-small); }
+.fsx-save { font-size: var(--t-label); }
+.fsx-btn { font-size: var(--t-btn); }
+.fsx-all { font-size: var(--t-btn); }
+.fsx-cd .cd .box { font-size: clamp(14px, 12.6px + .4vw, 18px); }
+.fsx-cd .cd .box small { font-size: clamp(8px, 7.4px + .15vw, 10px); }
+@media (max-width: 640px) {
+  .fsx-head h2, .fcx-head h2 { font-size: var(--t-h2); }
+  .fsx-head p, .fcx-head p { font-size: var(--t-sub); }
+  .fsx-name { font-size: var(--t-card); }
+  .fsx-btn { font-size: var(--t-btn); }
+  .fsx-all { font-size: var(--t-small); }
+  .fcx-name { font-size: clamp(11px, 9.6px + .52vw, 12.5px); }
+}
+
+/* service dock */
+.sv-tx b { font-size: clamp(14px, 12.6px + .4vw, 17px); }
+.sv-tx small { font-size: var(--t-small); }
+
+/* SEO / description card */
+.seo-pro .more p, .seo-pro .seo-rich p, .seo-pro .seo-rich { font-size: var(--t-body); }
+.seo-pro .more p:first-child, .seo-pro .seo-rich > p:first-child { font-size: var(--t-lead); }
+.seo-pro .seo-rich h3 { font-size: clamp(16px, 14px + .5vw, 20px); }
+.seo-pro .seo-btn { font-size: var(--t-btn); }
+
+/* header */
+.topbar { font-size: clamp(11.5px, 10.8px + .2vw, 13.5px); }
+.hdr-main .ha { font-size: clamp(13px, 11.8px + .3vw, 15px); }
+.hsearch input { font-size: var(--t-body); }
+.cart-btn { font-size: var(--t-btn); }
+
+/* footer */
+.mf-hero h2 { font-size: var(--t-hero); }
+.mf-hero p { font-size: var(--t-body); }
+.mf-board small { font-size: var(--t-label); }
+.mf-board b { font-size: var(--t-num); }
+.mf-groups a, .mf-pages a { font-size: var(--t-small); }
+.mf-offices b { font-size: clamp(14.5px, 13px + .36vw, 17px); }
+.mf-offices p { font-size: var(--t-small); }
+.mf-trust-t { font-size: var(--t-label); }
+.mf-join input { font-size: var(--t-body); }
+.mf-join button { font-size: var(--t-btn); }
+.mf-bottom p { font-size: var(--t-small); }
+@media (max-width: 640px) { .mf-board b { font-size: var(--t-num); } }
