@@ -3444,3 +3444,6 @@ ul.cb-drop ul.cb-fly, .cb-fly { gap: 0 6px; padding: 6px; }
 .mf-members span { width: 96px; height: 72px; padding: 8px; border: 0; border-radius: 16px; background: #FFFFFF; box-shadow: 0 10px 22px -12px rgba(0, 0, 0, .75), inset 0 0 0 1px rgba(0, 39, 65, .06); }
 .mf-members span:hover { transform: translateY(-4px); box-shadow: 0 16px 26px -12px rgba(24, 119, 242, .65), inset 0 0 0 1px rgba(0, 39, 65, .06); }
 .mf-members img { border-radius: 10px; }
+/* footer bottom logo: no white box */
+.mf-logo { background: transparent; padding: 0; border-radius: 0; box-shadow: none; }
+.mf-logo img { height: 34px; }
