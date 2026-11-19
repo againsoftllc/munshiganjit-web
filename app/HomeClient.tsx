@@ -111,7 +111,7 @@ export default function HomeClient({ h1 }: { h1?: string }) {
   const le = useLiveEdit();
   const cfg = useHomeCfg();
   const rails = cfg.rails ? cfg.rails.filter(r => !r.hidden) : homeRails;
-  const seo = cfg.seo ?? { title: seoText.title, paragraphs: null as string[] | null, html: '' };
+  const seo = cfg.seo ?? { title: seoText.title, paragraphs: null as string[] | null, html: seoText.html || '' };
   const viewAll = /^(View All)(.*)$/.exec(cfg.cx.viewAll);
   // Shop by Brand: the brands picked in Live Edit (by name), else every brand
   const brandList = cfg.brands.items

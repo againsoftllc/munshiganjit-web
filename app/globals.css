@@ -3579,3 +3579,12 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 /* SEO card: collapsed height matches the short text, no empty gap above the button */
 .seo-pro .more { max-height: 118px; }
 @media (max-width: 900px) { .seo-pro .more { max-height: 150px; } }
+/* SEO card: long description with headings (the shop's own home-page text) */
+.seo-pro .more { max-height: 190px; }
+.seo-pro .more > .seo-rich { break-inside: auto; }
+.seo-pro .seo-rich { color: #3B4A5E; font-size: 15px; line-height: 1.85; }
+.seo-pro .seo-rich p { margin: 0 0 16px; font-size: 15px; line-height: 1.85; color: #3B4A5E; }
+.seo-pro .seo-rich h3 { margin: 6px 0 8px; font-size: 18px; line-height: 1.35; font-weight: 800; color: #002741; break-after: avoid; }
+.seo-pro .seo-rich h3::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 10px; border-radius: 2px; background: #ED1B24; transform: rotate(45deg) translateY(-2px); }
+.seo-pro .seo-rich > p:first-child { font-size: 16.5px; color: #002741; }
+@media (max-width: 900px) { .seo-pro .more { max-height: 210px; } }

@@ -104,7 +104,7 @@ interface StoreShape {
   REVIEW_TOPICS: [string, string][]; reviews: Review[]; spotlightCategories: string[];
   homeRails: { title: string; icon: string; tone: 'new' | 'top' | 'cat'; source: string; link: string }[];
   trustItems: { icon: string; title: string; points: string[] }[];
-  seoText: { title: string; paragraphs: (string | [string, string])[][] };
+  seoText: { title: string; paragraphs: (string | [string, string])[][]; /** the shop's own home-page description (headings + paragraphs), when set it is shown instead of `paragraphs` */ html?: string };
   newsHeadlines: NewsHeadline[]; flashSales: FlashSale[]; offers: Offer[]; deals: Deal[];
   details: Record<string, ProductDetails>;
   gadget: { v2?: Gadget } | null;
