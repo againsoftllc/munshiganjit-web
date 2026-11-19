@@ -3238,3 +3238,34 @@ ul.cb-drop > li > a { min-height: 42px; }
 @media (max-width: 1100px) { .fcx-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
 @media (max-width: 800px) { .fcx-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; } .fcx-ic svg { width: 50px; height: 50px; } .fcx-head h2 { font-size: 22px; } }
 @media (max-width: 520px) { .fcx-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .fcx-tile { padding: 16px 6px 14px; gap: 10px; } .fcx-name { font-size: 12.5px; } }
+
+/* ---------- Flash Sale (Techland-style row) ---------- */
+.fsx-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.fsx-head h2 { font-size: 28px; font-weight: 800; color: var(--ink); line-height: 1.15; }
+.fsx-head p { margin-top: 4px; font-size: 15px; color: var(--muted); }
+.fsx-ctl { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.fsx-arrow { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: #FFFFFF; border: 1px solid var(--line); color: var(--ink); transition: border-color .15s, color .15s; }
+.fsx-arrow:hover { border-color: var(--brand); color: var(--brand); }
+.fsx-all { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 18px; border-radius: 999px; background: #FFFFFF; border: 1px solid var(--line); color: var(--ink); font-size: 14px; font-weight: 600; }
+.fsx-all:hover { border-color: var(--brand); color: var(--brand); }
+.fsx-rail { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 2px 2px 6px; }
+.fsx-rail::-webkit-scrollbar { display: none; }
+.fsx-card { flex: 0 0 calc((100% - 80px) / 6); min-width: 0; scroll-snap-align: start; display: flex; flex-direction: column; gap: 10px; padding: 16px 18px 18px; background: #FFFFFF; border: 1px solid var(--line-2); border-radius: 12px; box-shadow: 0 1px 2px rgba(0, 39, 65, .04); }
+.fsx-img { position: relative; display: flex; align-items: center; justify-content: center; height: 150px; margin-bottom: 4px; }
+.fsx-img .pimg, .fsx-img svg { max-width: 100%; max-height: 140px; width: auto; height: auto; object-fit: contain; }
+.fsx-save { position: absolute; top: 0; left: 0; z-index: 1; padding: 4px 8px; border-radius: 4px; background: var(--ink); color: #FFFFFF; font-size: 12px; font-weight: 700; line-height: 1.2; }
+.fsx-name { font-size: 13.5px; font-weight: 600; line-height: 1.4; color: var(--ink); height: 38px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.fsx-name:hover { color: var(--brand); }
+.fsx-price { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.fsx-price b { font-size: 17px; font-weight: 800; color: var(--accent); }
+.fsx-price s { font-size: 13px; color: var(--faint); }
+.fsx-cd .cd { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 0; border: 1.5px solid var(--accent); border-radius: 8px; overflow: hidden; }
+.fsx-cd .cd .sep { display: none; }
+.fsx-cd .cd .box { width: auto; height: auto; padding: 6px 0 5px; border-radius: 0; background: transparent; color: var(--ink); font-size: 16px; font-weight: 800; box-shadow: none; border-left: 1px solid rgba(237, 27, 36, .25); }
+.fsx-cd .cd .box:first-child { border-left: 0; }
+.fsx-cd .cd .box small { margin-top: 1px; font-size: 9px; font-weight: 600; color: var(--accent); letter-spacing: .04em; }
+.fsx-btn { margin-top: auto; display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 42px; border-radius: 8px; background: var(--accent); color: #FFFFFF; font-size: 14.5px; font-weight: 700; transition: background .15s, transform .15s; }
+.fsx-btn:hover { background: var(--ink); color: #FFFFFF; }
+@media (max-width: 1200px) { .fsx-card { flex-basis: calc((100% - 48px) / 4); } }
+@media (max-width: 900px) { .fsx-card { flex-basis: calc((100% - 32px) / 3); } }
+@media (max-width: 640px) { .fsx-card { flex-basis: calc((100% - 16px) / 2); padding: 12px; } .fsx-head h2 { font-size: 22px; } .fsx-arrow { display: none; } }
