@@ -3454,3 +3454,6 @@ ul.cb-drop ul.cb-fly, .cb-fly { gap: 0 6px; padding: 6px; }
   .mf-bottom { flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-align: center; }
   .mf-bottom p { flex: none; width: 100%; }
 }
+/* watermark: SVG text stretched to exactly the footer width (never wider than the screen) */
+svg.mf-mark { display: block; width: 100%; height: auto; margin: -6px 0 0; font-size: inherit; line-height: normal; height: auto; overflow: hidden; pointer-events: none; user-select: none; }
+svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-width: 1.4; font-family: inherit; font-weight: 900; letter-spacing: 0; }

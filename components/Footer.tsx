@@ -151,7 +151,7 @@ export default function Footer() {
             <button type="button" className="mf-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Back to top"><Icon name="arrow" size={16} /></button>
           </div>
         </div>
-        <div className="mf-mark" aria-hidden="true">MUNSHIGANJ IT</div>
+        <svg className="mf-mark" viewBox="0 0 1000 100" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false"><text x="500" y="118" textAnchor="middle" textLength="960" lengthAdjust="spacingAndGlyphs" fontSize="150">MUNSHIGANJ IT</text></svg>
       </footer>
     </LiveEditChrome>
   );
