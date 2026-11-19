@@ -13,6 +13,7 @@ import { useStore } from '@/components/store';
 import FeaturedCats from '@/components/FeaturedCats';
 import HeroBanners, { SideBanners } from '@/components/HeroBanners';
 import FlashSale from '@/components/FlashSale';
+import ProductSection from '@/components/ProductSection';
 import { BrandStrip } from '@/components/BrandStrip';
 import { ProductRow, ShopByCategory } from '@/components/HomeRails';
 
@@ -150,7 +151,7 @@ export default function HomeClient({ h1 }: { h1?: string }) {
     /* only while a sale is live */
     flash: <FlashSale />,
     /* New Arrival, Top Sales (+ any admin-added rows) — same size as Flash Sale */
-    rails: <>{rails.map(r => <ProductRow key={r.title} {...r} />)}</>,
+    rails: <><ProductSection k="featured" /><ProductSection k="latest" /><ProductSection k="best" /></>,
     spotlight: <ShopByCategory slugs={cfg.spotlight.slugs ?? spotlightCategories} tabs={cfg.spotlight.tabs} title={cfg.spotlight.title} />,
     quick: (
       <section className="band">
