@@ -3709,3 +3709,5 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .mf-call .ico { width: 14px; height: 14px; }
 @media (max-width: 640px) { .mf-board b { font-size: 15px; } }
 .bn-img-slider .bn-dots { left: auto; right: 22px; transform: none; bottom: 18px; }
+
+@media (max-width: 900px) { .hdr-main-in { height: auto; flex-wrap: wrap; padding-top: 10px; padding-bottom: 10px; } }
