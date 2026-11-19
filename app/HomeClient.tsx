@@ -145,15 +145,8 @@ export default function HomeClient({ h1 }: { h1?: string }) {
         </div>
       </section>
     ),
-    brands: (
-      <section className="band">
-        <div className="wrap">
-          <CenterHead title={cfg.brands.title} sub={cfg.brands.subtitle} />
-          <BrandStrip only={brandList} />
-          <div className="center-more" style={{ marginTop: 14 }}><Link prefetch={false} className="link-more" href="/brands">{cfg.brands.linkText} <Icon name="arrow" size={14} /></Link></div>
-        </div>
-      </section>
-    ),
+    // "Shop by Brand" section removed from the home page
+    brands: null,
     /* only while a sale is live */
     flash: <FlashSale />,
     /* New Arrival, Top Sales (+ any admin-added rows) — same size as Flash Sale */
