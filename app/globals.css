@@ -3221,7 +3221,7 @@ ul.cb-drop > li.cb-all > a { justify-content: flex-start; }
 ul.cb-drop { gap: 6px 10px; padding: 12px 10px; }
 ul.cb-drop > li > a { min-height: 42px; }
 .cb-fly { padding: 10px; }
-.cb-fly li + li { margin-top: 4px; }
+.cb-fly li + li { margin-top: 0; }
 .cb-fly { gap: 4px 8px; }
 
 /* ---------- Featured Categories: centered heading + 8 × 2 icon tiles ---------- */
@@ -3309,3 +3309,8 @@ ul.cb-drop > li > a { min-height: 42px; }
 .cb-drop > li > a, ul.cb-drop > li > a { font-size: 15px; }
 .cb-fly a { font-size: 14.5px; }
 @media (max-width: 800px) { .fcx-head h2, .fsx-head h2 { font-size: 24px; } .fcx-head p, .fsx-head p { font-size: 14px; } .fsx-name { font-size: 14px; } .fsx-btn { font-size: 14px; } }
+
+/* sub-menu text is always exactly the main menu's font size (one variable drives both) */
+:root { --menu-fs: clamp(10px, calc((min(100vw, var(--wrap-max)) - 2 * var(--gut) - 15px) / 104), 16px); }
+.cb-link, .cb-more .cb-link { font-size: var(--menu-fs); }
+ul.cb-drop > li > a, .cb-drop > li > a, .cb-fly a, .cb-fly li a, ul.cb-drop > li.cb-all > a { font-size: var(--menu-fs); }
