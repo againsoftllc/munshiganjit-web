@@ -3947,3 +3947,5 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
   .main > .band:last-child { padding-bottom: 0; }
   .mf { margin-top: 20px; }
 }
+.seo-eyebrow::before { display: none; }
+.seo-eyebrow { gap: 0; }
