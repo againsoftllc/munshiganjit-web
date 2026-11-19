@@ -255,7 +255,7 @@ export default function Header() {
               <Link prefetch={false} href="/account#orders"><Icon name="box" size={16} />My Orders</Link>
               <Link prefetch={false} href="/wishlist"><Icon name="heart" size={16} />Wishlist</Link>
               <Link prefetch={false} href="/track-order"><Icon name="truck" size={16} />Track Your Order</Link>
-              <Link prefetch={false} href="/partner"><Icon name="briefcase" size={16} />Partner Account (Reseller / Corporate)</Link>
+              <Link prefetch={false} href="/partner"><Icon name="briefcase" size={16} />Partner Account</Link>
             </div>
           </div>
           <div className="ha acct bld hide-m">
