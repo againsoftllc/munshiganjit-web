@@ -3325,3 +3325,10 @@ ul.cb-drop ul.cb-fly, .cb-fly { display: grid; grid-auto-flow: column; grid-temp
 ul.cb-drop > li.lcol > .cb-fly, .cb-item.right .cb-fly { left: 100%; right: auto; }
 ul.cb-drop .cb-fly.flip, .cb-item.right .cb-fly.flip { left: auto; right: 100%; }
 .cb-fly a { white-space: nowrap; }
+
+/* tighter dropdown rows: smaller hover box, less padding */
+ul.cb-drop { gap: 0 10px; padding: 6px; }
+ul.cb-drop > li > a { min-height: 34px; padding: 5px 12px; gap: 22px; border-radius: 5px; }
+ul.cb-drop ul.cb-fly, .cb-fly { gap: 0 6px; padding: 6px; }
+.cb-fly a { min-height: 30px; padding: 4px 12px; border-radius: 5px; }
+.cb-fly li + li { margin-top: 0; }
