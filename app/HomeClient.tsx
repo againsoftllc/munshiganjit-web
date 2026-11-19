@@ -157,8 +157,14 @@ export default function HomeClient({ h1 }: { h1?: string }) {
     quick: (
       <section className="band">
         <div className="wrap">
-          <div className="qs-grid qs6">
-            {cfg.quick.filter(q => !q.hidden).map(q => <Link prefetch={false} key={q.title} className="qs-card" href={q.href}><span className="qs-ic"><Icon name={q.icon} size={22} /></span><span><b>{q.title}</b><span>{q.sub}</span></span></Link>)}
+          <div className="sv-dock">
+            {cfg.quick.filter(q => !q.hidden).map((q, i) => (
+              <Link prefetch={false} key={q.title} className={'sv-item' + (i % 2 ? ' red' : '')} href={q.href}>
+                <span className="sv-ic"><Icon name={q.icon} size={24} /></span>
+                <span className="sv-tx"><b>{q.title}</b><small>{q.sub}</small></span>
+                <span className="sv-go" aria-hidden="true"><Icon name="arrow" size={15} /></span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -169,7 +175,8 @@ export default function HomeClient({ h1 }: { h1?: string }) {
     seo: (
       <section className="band tint">
         <div className="wrap">
-          <div className={'seo-text seo-tv' + (seoOpen ? ' open' : '')}>
+          <div className={'seo-text seo-tv seo-pro' + (seoOpen ? ' open' : '')}>
+            <span className="seo-eyebrow">About Munshiganj IT</span>
             <h2>{seo.title}</h2>
             <div className="more">
               {seo.html
@@ -180,7 +187,7 @@ export default function HomeClient({ h1 }: { h1?: string }) {
                   <p key={i}>{para.map((part, j) => typeof part === 'string' ? part : <Link prefetch={false} key={j} href={part[1]}>{part[0]}</Link>)}</p>
                 ))}
             </div>
-            <button className="seo-btn" onClick={() => setSeoOpen(o => !o)}>{seoOpen ? 'View Less' : 'View More'}<Icon name={seoOpen ? 'up' : 'down'} size={14} /></button>
+            <button className="seo-btn" onClick={() => setSeoOpen(o => !o)}><span>{seoOpen ? 'View Less' : 'View More'}</span><Icon name={seoOpen ? 'up' : 'down'} size={14} /></button>
           </div>
         </div>
       </section>

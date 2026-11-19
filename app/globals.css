@@ -3518,3 +3518,64 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
   .fsx-all:hover, .fsx-all:active { background: #1877F2; }
   .fsx-all:hover .ico, .fsx-all:active .ico { color: #1877F2; }
 }
+/* ---------- Service dock (quick links) ---------- */
+.sv-dock { position: relative; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-radius: 22px; overflow: hidden; background:
+    linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px) 0 0 / 40px 40px,
+    linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px) 0 0 / 40px 40px,
+    radial-gradient(ellipse 50% 120% at 0% 0%, rgba(24, 119, 242, .42), transparent 70%),
+    radial-gradient(ellipse 40% 120% at 100% 100%, rgba(237, 27, 36, .26), transparent 70%),
+    linear-gradient(120deg, #002741, #093654); box-shadow: 0 30px 56px -30px rgba(0, 39, 65, .7); }
+.sv-item { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 26px 22px 24px; color: #FFFFFF; transition: background .22s; }
+.sv-item + .sv-item::before { content: ""; position: absolute; left: 0; top: 22px; bottom: 22px; width: 1px; background: linear-gradient(180deg, transparent, rgba(255, 255, 255, .2), transparent); }
+.sv-item::after { content: ""; position: absolute; left: 22px; right: 22px; bottom: 0; height: 3px; border-radius: 3px 3px 0 0; background: #1877F2; transform: scaleX(0); transform-origin: left; transition: transform .28s; }
+.sv-item.red::after { background: #ED1B24; }
+.sv-item:hover { background: rgba(255, 255, 255, .06); color: #FFFFFF; }
+.sv-item:hover::after { transform: scaleX(1); }
+.sv-ic { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; color: #FFFFFF; background: linear-gradient(145deg, #2A87FF, #1877F2 55%, #0F5CC4); box-shadow: 0 12px 22px -10px rgba(24, 119, 242, .9), inset 0 1px 0 rgba(255, 255, 255, .35); transition: transform .25s; }
+.sv-item.red .sv-ic { background: linear-gradient(145deg, #FF4A52, #ED1B24 55%, #C4121A); box-shadow: 0 12px 22px -10px rgba(237, 27, 36, .9), inset 0 1px 0 rgba(255, 255, 255, .35); }
+.sv-item:hover .sv-ic { transform: translateY(-4px) rotate(-6deg); }
+.sv-tx b { display: block; font-size: 16px; font-weight: 700; line-height: 1.25; color: #FFFFFF; }
+.sv-tx small { display: block; margin-top: 4px; font-size: 13px; line-height: 1.4; color: rgba(255, 255, 255, .62); }
+.sv-go { position: absolute; top: 24px; right: 20px; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 255, 255, .12); color: #FFFFFF; opacity: 0; transform: translateX(-8px); transition: opacity .22s, transform .22s, background .22s; }
+.sv-item:hover .sv-go { opacity: 1; transform: none; }
+.sv-item:hover .sv-go { background: #FFFFFF; color: #002741; }
+@media (max-width: 1100px) { .sv-dock { grid-template-columns: repeat(3, minmax(0, 1fr)); } .sv-item:nth-child(3n + 1)::before { display: none; } .sv-item:nth-child(n + 4) { border-top: 1px solid rgba(255, 255, 255, .1); } }
+@media (max-width: 640px) {
+  .sv-dock { grid-template-columns: repeat(2, minmax(0, 1fr)); border-radius: 18px; }
+  .sv-item { padding: 18px 16px 16px; gap: 12px; }
+  .sv-item:nth-child(3n + 1)::before { display: block; }
+  .sv-item:nth-child(2n + 1)::before { display: none; }
+  .sv-item:nth-child(n + 3) { border-top: 1px solid rgba(255, 255, 255, .1); }
+  .sv-ic { width: 44px; height: 44px; border-radius: 14px; }
+  .sv-tx b { font-size: 14.5px; }
+  .sv-tx small { font-size: 12px; }
+  .sv-go { display: none; }
+}
+
+/* ---------- SEO text: editorial card ---------- */
+.seo-pro { position: relative; overflow: hidden; padding: 40px 48px 34px; border: 0; border-radius: 24px; background: #FFFFFF; box-shadow: 0 34px 64px -40px rgba(0, 39, 65, .45); }
+.seo-pro::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 5px; background: linear-gradient(90deg, #1877F2, #002741 55%, #ED1B24); }
+.seo-pro::after { content: ""; position: absolute; right: -90px; top: -110px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(24, 119, 242, .16), transparent 68%); pointer-events: none; }
+.seo-pro > * { position: relative; z-index: 1; }
+.seo-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 12.5px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: #ED1B24; }
+.seo-eyebrow::before { content: ""; width: 30px; height: 2px; background: #ED1B24; }
+.seo-pro h2 { margin: 12px 0 18px; max-width: 900px; font-size: 32px; line-height: 1.22; font-weight: 800; letter-spacing: -.01em; color: #002741; }
+.seo-pro .more { column-count: 2; column-gap: 56px; max-height: 150px; }
+.seo-pro .more > * { break-inside: avoid-column; }
+.seo-pro .more p { margin: 0 0 14px; font-size: 15px; line-height: 1.85; color: #3B4A5E; }
+.seo-pro .more p:first-child { font-size: 16.5px; color: #002741; }
+.seo-pro .more a { color: #1877F2; font-weight: 700; text-decoration: underline; text-decoration-color: rgba(24, 119, 242, .35); text-underline-offset: 3px; }
+.seo-pro .more a:hover { color: #ED1B24; text-decoration-color: #ED1B24; }
+.seo-pro:not(.open) .more::after { height: 90px; background: linear-gradient(rgba(255, 255, 255, 0), #FFFFFF 85%); }
+.seo-pro.open .more { max-height: none; }
+.seo-pro .seo-btn { display: inline-flex; align-items: center; gap: 12px; margin: 22px auto 0; padding: 8px 8px 8px 24px; border: 0; border-radius: 999px; background: #002741; color: #FFFFFF; font-size: 14.5px; font-weight: 700; cursor: pointer; transition: background .18s, transform .18s; }
+.seo-pro .seo-btn .ico { width: 30px; height: 30px; padding: 8px; box-sizing: border-box; border-radius: 50%; background: #FFFFFF; color: #002741; transition: color .18s; }
+.seo-pro .seo-btn:hover { background: #1877F2; transform: translateY(-2px); }
+.seo-pro .seo-btn:hover .ico { color: #1877F2; }
+.seo-pro { text-align: left; }
+.seo-pro .seo-btn { display: flex; width: max-content; }
+@media (max-width: 900px) { .seo-pro { padding: 30px 24px 26px; border-radius: 20px; } .seo-pro h2 { font-size: 24px; } .seo-pro .more { column-count: 1; max-height: 160px; } .seo-pro .more p:first-child { font-size: 15.5px; } }
+
+/* SEO card: collapsed height matches the short text, no empty gap above the button */
+.seo-pro .more { max-height: 118px; }
+@media (max-width: 900px) { .seo-pro .more { max-height: 150px; } }
