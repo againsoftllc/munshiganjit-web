@@ -3665,3 +3665,37 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
   .hdr-main .ha .ha-ic { width: 36px; height: 36px; }
   .cart-btn { height: 38px; padding: 0 10px; }
 }
+/* ---------- Header v2: compact inline actions, pill search, highlighted Offers ---------- */
+.hdr-main-in { height: 78px; gap: 26px; }
+/* search: full white pill */
+.hsearch { border-radius: 999px; overflow: hidden; box-shadow: 0 0 0 2px rgba(255, 255, 255, .14), 0 12px 26px -16px rgba(0, 0, 0, .9); background: #FFFFFF; }
+.hsearch input { height: 48px; padding-left: 24px; font-size: 15px; background: #FFFFFF; }
+.hsearch button { width: 56px; height: 48px; background: #ED1B24; }
+.hsearch button:hover { background: #1877F2; }
+/* actions: icon + label on one line */
+.hactions { gap: 4px; }
+.hdr-main .ha { flex-direction: row; align-items: center; gap: 9px; padding: 10px 14px; border-radius: 999px; font-size: 14px; font-weight: 600; white-space: nowrap; }
+.hdr-main .ha .ha-ic { width: auto; height: auto; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; transform: none; display: inline-flex; }
+.hdr-main .ha:hover .ha-ic { background: none; border: 0; transform: none; }
+.hdr-main .ha:hover { background: rgba(255, 255, 255, .1); }
+.hdr-main .ha .ico { width: 21px; height: 21px; }
+.hdr-main .ha .lbl .ico { width: 13px; height: 13px; opacity: .8; }
+.hdr-main .ha.hh .ha-ic { color: #FFC83D; }
+/* Offers: filled red pill */
+.hdr-main .ha.offer { background: #ED1B24; box-shadow: 0 10px 20px -10px rgba(237, 27, 36, .95); }
+.hdr-main .ha.offer .ha-ic, .hdr-main .ha.offer .lbl { color: #FFFFFF; }
+.hdr-main .ha.offer:hover { background: #FF3B44; }
+.hdr-main .ha.offer .ha-ic { background: none; box-shadow: none; }
+/* account / builder wrappers: no own padding so only the inner pill shows */
+.hdr-main .ha.acct { padding: 0; background: none; }
+.hdr-main .ha.acct:hover { background: none; }
+.hdr-main .ha.acct > .ha { padding: 10px 14px; }
+.hdr-main .ha .badge { top: -9px; right: -11px; }
+/* thin divider before the cart */
+.cart-btn { margin-left: 10px; height: 48px; border-radius: 999px; padding: 0 22px; }
+.hactions .cart-btn::before { content: ""; position: absolute; left: -12px; top: 12px; bottom: 12px; width: 1px; background: rgba(255, 255, 255, .22); }
+.cart-btn { position: relative; }
+@media (max-width: 1300px) { .hdr-main .ha { padding: 10px 10px; gap: 7px; font-size: 13.5px; } .hdr-main .ha.acct > .ha { padding: 10px 10px; } }
+@media (max-width: 900px) { .hdr-main .ha, .hdr-main .ha.acct > .ha { padding: 0; } .hdr-main .ha .ha-ic { width: 40px; height: 40px; justify-content: center; align-items: center; border-radius: 50%; background: rgba(255, 255, 255, .1); border: 1px solid rgba(255, 255, 255, .16); } .hdr-main .ha.offer { background: none; box-shadow: none; } .hdr-main .ha.offer .ha-ic { background: #ED1B24; border-color: transparent; } .cart-btn { margin-left: 0; height: 42px; padding: 0 12px; } .hactions .cart-btn::before { display: none; } .hsearch { border-radius: 12px; } .hsearch input, .hsearch button { height: 44px; } }.hsearch { border: 0; padding: 0; }
+.hsearch button { border-radius: 0; }
+.hsearch button .ico { color: #FFFFFF; }
