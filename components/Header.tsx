@@ -222,6 +222,8 @@ export default function Header() {
   const { header: hd } = useHomeCfg();
   const { cartCount, cartTotal, openDrawer, ready, customer, signOut } = useStore();
   const [stuck, setStuck] = useState(false);
+  const [sOpen, setSOpen] = useState(false); // phones: the search box opens from the search icon
+  const toggleSearch = () => { setSOpen(o => { if (!o) setTimeout(() => document.querySelector<HTMLInputElement>('.hsearch-wrap input')?.focus(), 60); return !o; }); };
   useEffect(() => { const on = () => setStuck(scrollY > 40); addEventListener('scroll', on, { passive: true }); on(); return () => removeEventListener('scroll', on); }, []);
   return (
     <header className={'hdr' + (stuck ? ' stuck' : '')}>
@@ -237,8 +239,9 @@ export default function Header() {
       <LiveEditChrome id="header" label="header"><div className="hdr-main"><div className="wrap hdr-main-in">
         <button className="hamb" aria-label="Menu" onClick={() => openDrawer('nav')}><Icon name="menu" size={24} /></button>
         <LogoAnim logo={hd.logo} anim={hd.anim} />
-        <Suspense fallback={<form className="hsearch" />}><SearchBox placeholder={hd.searchPlaceholder} /></Suspense>
+        <div className={'hsearch-wrap' + (sOpen ? ' open' : '')}><Suspense fallback={<form className="hsearch" />}><SearchBox placeholder={hd.searchPlaceholder} /></Suspense></div>
         <nav className="hactions">
+          <button type="button" className="ha hsearch-btn" aria-label={sOpen ? 'Close search' : 'Search'} aria-expanded={sOpen} onClick={toggleSearch}><span className="ha-ic"><Icon name={sOpen ? 'close' : 'search'} size={20} /></span></button>
           <Link prefetch={false} className="ha hide-m hh" href="/happy-hour"><span className="ha-ic"><Icon name="bolt" size={20} /></span><span className="lbl">Happy Hour</span></Link>
           <Link prefetch={false} className="ha hide-m offer" href="/offers"><span className="ha-ic"><Icon name="tag" size={20} /></span><span className="lbl">Offers</span></Link>
           <div className="ha acct">

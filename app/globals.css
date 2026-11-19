@@ -3711,3 +3711,15 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .bn-img-slider .bn-dots { left: auto; right: 22px; transform: none; bottom: 18px; }
 
 @media (max-width: 900px) { .hdr-main-in { height: auto; flex-wrap: wrap; padding-top: 10px; padding-bottom: 10px; } }
+
+/* phones: Account is replaced by a Search icon; tapping it opens the search box under the header row */
+.hsearch-wrap { display: contents; }
+.hsearch-btn { display: none; background: none; border: 0; cursor: pointer; }
+@media (max-width: 900px) {
+  .hdr-main .ha.acct { display: none; }
+  .hdr-main .hsearch-btn { display: inline-flex; }
+  .hsearch-wrap { display: none; flex: 1 1 100%; order: 5; }
+  .hsearch-wrap.open { display: block; animation: hsOpen .22s ease-out; }
+  .hsearch-wrap .hsearch { max-width: none; width: 100%; }
+}
+@keyframes hsOpen { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
