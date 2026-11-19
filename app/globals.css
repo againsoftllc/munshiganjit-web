@@ -3740,3 +3740,12 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 }
 .mf-eyebrow::before { display: none; }
 .mf-eyebrow { gap: 0; }
+
+/* phones: Join Now = email field on top, full-width Subscribe button below (two clear elements) */
+@media (max-width: 640px) {
+  .mf-join { flex-direction: column; gap: 10px; padding: 0; border: 0; background: none; backdrop-filter: none; border-radius: 0; }
+  .mf-join input { flex: none; width: 100%; height: 52px; padding: 0 18px; border: 1px solid rgba(255, 255, 255, .28); border-radius: 14px; background: rgba(255, 255, 255, .1); color: #FFFFFF; }
+  .mf-join input:focus { border-color: #4A9BF7; background: rgba(255, 255, 255, .15); }
+  .mf-join button { width: 100%; height: 52px; justify-content: center; border-radius: 14px; }
+  .mf-join-msg { position: static; display: block; margin-top: 2px; }
+}
