@@ -3732,3 +3732,9 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
   .hdr-main-in > .hsearch-wrap { grid-column: 1 / -1; grid-row: 2; margin-top: 10px; }
   .hsearch-wrap .hsearch { border-radius: 12px; }
 }
+/* phones: the open search box floats OVER the page (nothing below it moves) */
+@media (max-width: 900px) {
+  .hdr-main { position: relative; }
+  .hdr-main-in > .hsearch-wrap.open { position: absolute; left: 0; right: 0; top: 100%; margin: 0; padding: 10px var(--gut) 14px; background: #002741; border-top: 1px solid rgba(255, 255, 255, .1); box-shadow: 0 22px 34px -12px rgba(0, 15, 35, .65); z-index: 80; }
+  .hdr-main-in { position: static; }
+}

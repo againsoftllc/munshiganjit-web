@@ -223,6 +223,9 @@ export default function Header() {
   const { cartCount, cartTotal, openDrawer, ready, customer, signOut } = useStore();
   const [stuck, setStuck] = useState(false);
   const [sOpen, setSOpen] = useState(false); // phones: the search box opens from the search icon
+  const routePath = usePathname(); // closeOnRoute: the search box closes when a page is opened
+  useEffect(() => { setSOpen(false); }, [routePath]);
+  useEffect(() => { if (!sOpen) return; const k = (e: KeyboardEvent) => { if (e.key === 'Escape') setSOpen(false); }; addEventListener('keydown', k); return () => removeEventListener('keydown', k); }, [sOpen]);
   const toggleSearch = () => { setSOpen(o => { if (!o) setTimeout(() => document.querySelector<HTMLInputElement>('.hsearch-wrap input')?.focus(), 60); return !o; }); };
   useEffect(() => { const on = () => setStuck(scrollY > 40); addEventListener('scroll', on, { passive: true }); on(); return () => removeEventListener('scroll', on); }, []);
   return (
