@@ -3281,3 +3281,31 @@ ul.cb-drop > li > a { min-height: 42px; }
 .fsx-btn.dk { background: var(--ink); }
 .fsx-btn.dk:hover { background: var(--brand); }
 .fsx-card .fsx-price { margin-bottom: 4px; }
+
+/* ---------- Techland-like type scale + wider page container ---------- */
+:root { --wrap-max: 1680px; }
+.wrap { max-width: var(--wrap-max); }
+/* main menu: ~16px on a wide screen, shrinking with the window so 17 items always fit on one line */
+.cb-link, .cb-more .cb-link { font-weight: 600; letter-spacing: 0; padding: 0 .3em; font-size: clamp(10px, calc((min(100vw, var(--wrap-max)) - 2 * var(--gut) - 15px) / 104), 16px); }
+.catbar-in { height: 50px; }
+.cb-link { height: 50px; }
+/* section headings + sub headings */
+.fcx-head h2, .fsx-head h2 { font-size: 30px; font-weight: 700; letter-spacing: -.01em; }
+.fcx-head p, .fsx-head p { font-size: 16px; }
+/* featured category tiles */
+.fcx-name { font-size: 15.5px; font-weight: 600; }
+/* product cards (Flash Sale + product rows) */
+.fsx-name { font-size: 15px; font-weight: 600; height: 42px; }
+.fsx-price b { font-size: 18px; font-weight: 700; }
+.fsx-price s { font-size: 14px; }
+.fsx-save { font-size: 13px; }
+.fsx-btn { font-size: 15px; font-weight: 600; height: 44px; }
+.fsx-all { font-size: 15px; font-weight: 600; }
+.fsx-cd .cd .box { font-size: 17px; }
+.fsx-cd .cd .box small { font-size: 9.5px; }
+/* small links + service strip */
+.qs-card b { font-size: 16px; }
+.qs-card span span { font-size: 13.5px; }
+.cb-drop > li > a, ul.cb-drop > li > a { font-size: 15px; }
+.cb-fly a { font-size: 14.5px; }
+@media (max-width: 800px) { .fcx-head h2, .fsx-head h2 { font-size: 24px; } .fcx-head p, .fsx-head p { font-size: 14px; } .fsx-name { font-size: 14px; } .fsx-btn { font-size: 14px; } }
