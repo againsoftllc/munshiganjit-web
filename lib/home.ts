@@ -116,6 +116,7 @@ export interface HomeCfg {
 }
 
 export const DEFAULT_SLIDES: Banner[] = [
+  { src: '/img/banners/slide-mit-mega-deals.jpg', alt: 'Munshiganj IT Mega Deals - official warranty, fast delivery, genuine products, EMI facility', href: '/offers' },
   { src: '/img/banners/slide-mit-everything-it.jpg', alt: 'Munshiganj IT — Everything IT, one place. Laptop, desktop, components, gadgets and networking', href: '/products' },
   { src: '/img/banners/slide-mit-genuine.jpg', alt: '100% genuine products with official warranty from Munshiganj IT', href: '/about-us' },
   { src: '/img/banners/slide-mit-free-delivery.jpg', alt: 'Free home delivery all over Bangladesh on orders of ৳1,000 or more', href: '/policy#delivery' },
