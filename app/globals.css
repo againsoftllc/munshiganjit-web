@@ -3918,3 +3918,9 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
   .mf { padding-bottom: 76px; }
   .to-top { bottom: 90px; }
 }
+/* mobile: smaller gap between the footer end and the bottom bar */
+@media (max-width: 900px) {
+  .mf { padding-bottom: 58px; }
+  .mf-mark { margin-bottom: -4px; }
+  .to-top { bottom: 84px; }
+}
