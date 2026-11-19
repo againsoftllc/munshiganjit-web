@@ -3449,3 +3449,8 @@ ul.cb-drop ul.cb-fly, .cb-fly { gap: 0 6px; padding: 6px; }
 .mf-logo img { height: 34px; }
 /* footer credit */
 .mf-credit { color: #FFC83D; font-weight: 700; }
+/* mobile: logo above the copyright text, everything centered */
+@media (max-width: 640px) {
+  .mf-bottom { flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-align: center; }
+  .mf-bottom p { flex: none; width: 100%; }
+}
