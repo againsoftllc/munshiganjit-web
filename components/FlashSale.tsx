@@ -31,8 +31,8 @@ export default function FlashSale() {
           <div className="fsx-ctl">
             <button className="fsx-arrow" aria-label="Previous" onClick={() => scroll(-1)}><Icon name="left" size={16} /></button>
             <button className="fsx-arrow" aria-label="Next" onClick={() => scroll(1)}><Icon name="right" size={16} /></button>
-            <Link prefetch={false} href="/deals" className="fsx-all">View All <Icon name="arrow" size={14} /></Link>
           </div>
+          <Link prefetch={false} href="/deals" className="fsx-all">View All <Icon name="arrow" size={14} /></Link>
         </div>
         <div className="fsx-rail" ref={rail}>
           {items.map(({ p }) => {
