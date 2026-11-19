@@ -7,11 +7,13 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { activeFlashSale, byId, type FlashSale as Sale } from '@/lib/data';
 import { money, productUrl } from '@/lib/format';
+import { useRailBar } from './useRailBar';
 import { Icon, ProductImg, Countdown } from './ui';
 
 export default function FlashSale() {
   const [sale, setSale] = useState<Sale | null>(null);
   const rail = useRef<HTMLDivElement>(null);
+  const bar = useRailBar(rail, sale);
   useEffect(() => { setSale(activeFlashSale()); }, []);
   if (!sale) return null;
 
@@ -32,9 +34,9 @@ export default function FlashSale() {
             <button className="fsx-arrow" aria-label="Previous" onClick={() => scroll(-1)}><Icon name="left" size={16} /></button>
             <button className="fsx-arrow" aria-label="Next" onClick={() => scroll(1)}><Icon name="right" size={16} /></button>
           </div>
-          <Link prefetch={false} href="/deals" className="fsx-all">View All <Icon name="arrow" size={14} /></Link>
+          <Link prefetch={false} href="/deals" className="fsx-all"><span className="fsx-all-t">View All</span><Icon name="arrow" size={14} /></Link>
         </div>
-        <div className="fsx-rail" ref={rail}>
+        <div className="fsx-rail" ref={rail} onScroll={bar.onScroll}>
           {items.map(({ p }) => {
             const save = (p.old ?? p.price) - p.price;
             return (
@@ -51,6 +53,7 @@ export default function FlashSale() {
             );
           })}
         </div>
+        <div className="fsx-bar" aria-hidden="true"><span ref={bar.thumb} /></div>
       </div>
     </section>
   );

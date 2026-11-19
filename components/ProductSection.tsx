@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useRef } from 'react';
 import { byId, visibleProducts, type Product } from '@/lib/data';
 import { money, productUrl } from '@/lib/format';
+import { useRailBar } from './useRailBar';
 import { Icon, ProductImg } from './ui';
 
 export type SectionKey = 'featured' | 'latest' | 'best';
@@ -36,6 +37,7 @@ function pick(key: SectionKey): Product[] {
 
 export default function ProductSection({ k }: { k: SectionKey }) {
   const rail = useRef<HTMLDivElement>(null);
+  const bar = useRailBar(rail);
   const meta = SECTIONS[k];
   const items = pick(k);
   if (!items.length) return null;
@@ -52,9 +54,9 @@ export default function ProductSection({ k }: { k: SectionKey }) {
             <button className="fsx-arrow" aria-label="Previous" onClick={() => scroll(-1)}><Icon name="left" size={16} /></button>
             <button className="fsx-arrow" aria-label="Next" onClick={() => scroll(1)}><Icon name="right" size={16} /></button>
           </div>
-          <Link prefetch={false} href={meta.href} className="fsx-all">View All <Icon name="arrow" size={14} /></Link>
+          <Link prefetch={false} href={meta.href} className="fsx-all"><span className="fsx-all-t">View All</span><Icon name="arrow" size={14} /></Link>
         </div>
-        <div className="fsx-rail" ref={rail}>
+        <div className="fsx-rail" ref={rail} onScroll={bar.onScroll}>
           {items.map(p => {
             const save = p.old && p.old > p.price ? p.old - p.price : 0;
             return (
@@ -70,6 +72,7 @@ export default function ProductSection({ k }: { k: SectionKey }) {
             );
           })}
         </div>
+        <div className="fsx-bar" aria-hidden="true"><span ref={bar.thumb} /></div>
       </div>
     </section>
   );
