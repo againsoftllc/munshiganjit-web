@@ -3435,3 +3435,12 @@ ul.cb-drop ul.cb-fly, .cb-fly { gap: 0 6px; padding: 6px; }
 @media (max-width: 1200px) { .mf-main { grid-template-columns: 1fr; gap: 44px; } .mf-hero { grid-template-columns: 1fr; gap: 34px; } }
 @media (max-width: 900px) { .mf-board { grid-template-columns: repeat(2, minmax(0, 1fr)); } .mf-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); } .mf-trust { flex-direction: column; align-items: flex-start; gap: 20px; padding: 22px; } .mf-trust-sep { display: none; } .mf-trust-blk { flex-direction: column; align-items: flex-start; gap: 12px; width: 100%; } .mf-trust-pay img { margin-left: 0; width: 100%; } }
 @media (max-width: 640px) { .mf { margin-top: 60px; } .mf-hero { padding: 44px 0 30px; } .mf-board { grid-template-columns: 1fr; } .mf-board b { font-size: 20px; } .mf-join { flex-direction: column; border-radius: 18px; gap: 6px; } .mf-join button { justify-content: center; } .mf-bottom { justify-content: center; text-align: center; } }
+
+/* trust strip: no white card — glass strip on the navy; membership logos are rounded white tiles */
+.mf-trust { background: linear-gradient(135deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .02)); border: 1px solid rgba(255, 255, 255, .12); box-shadow: none; backdrop-filter: blur(4px); }
+.mf-trust-t { color: #FFFFFF; }
+.mf-trust-sep { background: linear-gradient(180deg, transparent, rgba(255, 255, 255, .28), transparent); }
+.mf-members { gap: 14px; }
+.mf-members span { width: 96px; height: 72px; padding: 8px; border: 0; border-radius: 16px; background: #FFFFFF; box-shadow: 0 10px 22px -12px rgba(0, 0, 0, .75), inset 0 0 0 1px rgba(0, 39, 65, .06); }
+.mf-members span:hover { transform: translateY(-4px); box-shadow: 0 16px 26px -12px rgba(24, 119, 242, .65), inset 0 0 0 1px rgba(0, 39, 65, .06); }
+.mf-members img { border-radius: 10px; }
