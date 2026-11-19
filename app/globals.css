@@ -3509,3 +3509,12 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
   .fsx-bar { display: block; position: relative; width: 120px; height: 4px; margin: 16px auto 4px; border-radius: 4px; background: rgba(0, 39, 65, .12); }
   .fsx-bar span { position: absolute; top: 0; bottom: 0; left: 0; width: 40%; border-radius: 4px; background: #ED1B24; transition: left .06s linear; }
 }
+
+/* phones: View All is a clear labelled pill — "View All" + a small round arrow */
+@media (max-width: 640px) {
+  .fsx-all { grid-row: 1 / 3; align-self: center; width: auto; height: 38px; padding: 0 5px 0 16px; gap: 10px; border-radius: 999px; background: #002741; color: #FFFFFF; font-size: 13.5px; font-weight: 700; letter-spacing: .01em; white-space: nowrap; }
+  .fsx-all-t { display: inline; }
+  .fsx-all .ico { width: 28px; height: 28px; padding: 7px; box-sizing: border-box; flex: 0 0 auto; border-radius: 50%; background: #FFFFFF; color: #002741; transition: background .15s, color .15s; }
+  .fsx-all:hover, .fsx-all:active { background: #1877F2; }
+  .fsx-all:hover .ico, .fsx-all:active .ico { color: #1877F2; }
+}
