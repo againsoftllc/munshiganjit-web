@@ -10,6 +10,7 @@ import { useLiveEdit, useHomeCfg } from '@/components/live-edit/EmbedLiveEdit';
 import { initials, catUrl } from '@/lib/format';
 import { Icon, PImg, ProductImg, Art, Stars, Modal, StarInput } from '@/components/ui';
 import { useStore } from '@/components/store';
+import FeaturedCats from '@/components/FeaturedCats';
 import HeroBanners, { SideBanners } from '@/components/HeroBanners';
 import FlashSale from '@/components/FlashSale';
 import { BrandStrip } from '@/components/BrandStrip';
@@ -140,8 +141,7 @@ export default function HomeClient({ h1 }: { h1?: string }) {
     featured: (
       <section className="band tint" id="featured">
         <div className="wrap">
-          <CenterHead title={cfg.featured.title} sub={cfg.featured.subtitle} link={cfg.featured.link} />
-          <div className="fcat-grid">{featured.map(({ c, it }, i) => <CatTile key={c.slug} c={c} i={i} image={it?.image} name={it?.name} />)}</div>
+          <FeaturedCats />
         </div>
       </section>
     ),

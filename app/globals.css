@@ -3223,3 +3223,18 @@ ul.cb-drop > li > a { min-height: 42px; }
 .cb-fly { padding: 10px; }
 .cb-fly li + li { margin-top: 4px; }
 .cb-fly { gap: 4px 8px; }
+
+/* ---------- Featured Categories: centered heading + 8 × 2 icon tiles ---------- */
+.fcx-head { text-align: center; margin: 6px 0 22px; }
+.fcx-head h2 { font-size: 26px; font-weight: 800; color: var(--ink); line-height: 1.2; }
+.fcx-head p { margin-top: 6px; font-size: 15px; color: var(--muted); }
+.fcx-grid { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 14px; }
+.fcx-tile { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 24px 10px 20px; background: #FFFFFF; border: 1px solid var(--line-2); border-radius: 12px; box-shadow: 0 1px 2px rgba(0, 39, 65, .04); color: var(--ink); transition: border-color .18s, box-shadow .18s, transform .18s; }
+.fcx-ic { display: flex; color: var(--ink); transition: color .18s; }
+.fcx-ic svg { width: 62px; height: 62px; }
+.fcx-name { font-size: 14.5px; font-weight: 600; text-align: center; line-height: 1.25; }
+.fcx-tile:hover { border-color: var(--brand); box-shadow: 0 10px 22px -12px rgba(24, 119, 242, .45); transform: translateY(-2px); }
+.fcx-tile:hover .fcx-ic, .fcx-tile:hover .fcx-name { color: var(--brand); }
+@media (max-width: 1100px) { .fcx-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+@media (max-width: 800px) { .fcx-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; } .fcx-ic svg { width: 50px; height: 50px; } .fcx-head h2 { font-size: 22px; } }
+@media (max-width: 520px) { .fcx-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .fcx-tile { padding: 16px 6px 14px; gap: 10px; } .fcx-name { font-size: 12.5px; } }
