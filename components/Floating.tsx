@@ -248,6 +248,7 @@ function RecentlyBought() {
 }
 
 export default function Floating() {
+  const [bld, setBld] = useState(false); // mobile bottom bar: Builder sheet
   const { compare, cartCount, openDrawer, closeDrawer, drawer, toasts, bump, ready } = useStore();
   const path = usePathname();
   const [top, setTop] = useState(false);
@@ -269,11 +270,18 @@ export default function Floating() {
       <button className={'to-top' + (top ? ' show' : '')} aria-label="Back to top" onClick={() => scrollTo({ top: 0, behavior: 'smooth' })}><Icon name="up" size={18} /></button>
       {idle && <LiveChat />}
       <nav className="bnav" aria-label="Quick links">
-        <Link prefetch={false} href="/" className={path === '/' ? 'on' : ''}><Icon name="home" size={20} />Home</Link>
-        <button onClick={() => openDrawer('nav')}><Icon name="grid" size={20} />Categories</button>
-        <button onClick={() => openDrawer('cart')}><Icon name="cart" size={20} />Cart{ready && cartCount > 0 && <span className="badge">{cartCount}</span>}</button>
-        <Link prefetch={false} href="/compare" className={path === '/compare' ? 'on' : ''}><Icon name="compare" size={20} />Compare</Link>
-        <Link prefetch={false} href="/account" className={path === '/account' ? 'on' : ''}><Icon name="user" size={20} />Account</Link>
+        <Link prefetch={false} href="/happy-hour" className={path === '/happy-hour' ? 'on' : ''} onClick={() => setBld(false)}><span className="bn-ic"><Icon name="bolt" size={20} /></span><em>Happy Hour</em></Link>
+        <Link prefetch={false} href="/offers" className={path === '/offers' ? 'on' : ''} onClick={() => setBld(false)}><span className="bn-ic"><Icon name="tag" size={20} /></span><em>Offers</em></Link>
+        <div className={'bn-mid' + (bld ? ' open' : '')}>
+          <div className="bn-sheet" role="menu" aria-hidden={!bld}>
+            <Link prefetch={false} href="/pc-builder" role="menuitem" onClick={() => setBld(false)}><Icon name="desktop" size={18} />PC Builder</Link>
+            <Link prefetch={false} href="/search?q=CCTV%20Camera" role="menuitem" onClick={() => setBld(false)}><Icon name="chip" size={18} />CC Builder</Link>
+          </div>
+          <button type="button" className="bn-fab" aria-label="Builder" aria-expanded={bld} onClick={() => setBld(o => !o)}><Icon name={bld ? 'close' : 'setup'} size={24} /></button>
+          <em>Builder</em>
+        </div>
+        <Link prefetch={false} href="/compare" className={path === '/compare' ? 'on' : ''} onClick={() => setBld(false)}><span className="bn-ic"><Icon name="compare" size={20} />{ready && compare.length > 0 && <span className="badge">{compare.length}</span>}</span><em>Compare</em></Link>
+        <Link prefetch={false} href="/account" className={path === '/account' ? 'on' : ''} onClick={() => setBld(false)}><span className="bn-ic"><Icon name="user" size={20} /></span><em>Account</em></Link>
       </nav>
       <div className="toasts">{toasts.map(t => <div className="toast in" key={t.id}><Icon name={t.icon} size={18} /><span>{t.msg}</span></div>)}</div>
     </>

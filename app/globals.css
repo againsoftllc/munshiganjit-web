@@ -3826,3 +3826,34 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .mf-join button { font-size: var(--t-btn); }
 .mf-bottom p { font-size: var(--t-small); }
 @media (max-width: 640px) { .mf-board b { font-size: var(--t-num); } }
+
+/* ---------- Mobile bottom bar: floating dark pill — Happy Hour · Offers · [Builder] · Compare · Account ---------- */
+@media (max-width: 900px) {
+  .bnav { left: 12px; right: 12px; bottom: calc(10px + env(safe-area-inset-bottom)); grid-template-columns: repeat(5, 1fr); align-items: end; padding: 8px 6px 7px; border: 1px solid rgba(255, 255, 255, .14); border-radius: 26px; background:
+      radial-gradient(ellipse 60% 140% at 50% 0%, rgba(24, 119, 242, .35), transparent 70%),
+      linear-gradient(180deg, #0A3C6B, #002741); box-shadow: 0 22px 40px -12px rgba(0, 15, 35, .8), inset 0 1px 0 rgba(255, 255, 255, .12); z-index: 70; }
+  .bnav a, .bnav .bn-mid { position: relative; display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 0; color: rgba(255, 255, 255, .72); transition: color .15s; }
+  .bnav em { font-style: normal; font-size: clamp(10px, 9.2px + .22vw, 11.5px); font-weight: 600; letter-spacing: .01em; white-space: nowrap; }
+  .bnav .bn-ic { position: relative; width: 40px; height: 32px; border-radius: 12px; display: grid; place-items: center; transition: background .15s, color .15s, transform .15s; }
+  .bnav a:active .bn-ic { transform: scale(.92); }
+  .bnav a.on { color: #FFFFFF; }
+  .bnav a.on .bn-ic { background: #1877F2; box-shadow: 0 8px 16px -8px rgba(24, 119, 242, .95); }
+  .bnav a:nth-child(2) .bn-ic { color: #FF6B72; }
+  .bnav a:nth-child(2).on .bn-ic { background: #ED1B24; color: #FFFFFF; box-shadow: 0 8px 16px -8px rgba(237, 27, 36, .95); }
+  .bnav a:first-child .bn-ic { color: #FFC83D; }
+  .bnav a:first-child.on .bn-ic { background: #1877F2; color: #FFFFFF; }
+  .bnav .badge { top: -5px; right: -3px; }
+  /* centre Builder: raised round button */
+  .bnav .bn-mid { color: #FFFFFF; }
+  .bnav .bn-fab { width: 56px; height: 56px; margin-top: -30px; border: 4px solid #F2F4F8; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(145deg, #FF4A52, #ED1B24 55%, #C4121A); color: #FFFFFF; box-shadow: 0 14px 24px -8px rgba(237, 27, 36, .9); cursor: pointer; transition: transform .18s; }
+  .bnav .bn-mid.open .bn-fab { transform: rotate(90deg); background: linear-gradient(145deg, #2A87FF, #1877F2); box-shadow: 0 14px 24px -8px rgba(24, 119, 242, .9); }
+  .bnav .bn-sheet { position: absolute; left: 50%; bottom: calc(100% + 14px); display: grid; gap: 4px; min-width: 190px; padding: 8px; border-radius: 18px; background: #FFFFFF; box-shadow: 0 24px 44px -12px rgba(0, 15, 35, .65); opacity: 0; visibility: hidden; transform: translate(-50%, 10px) scale(.96); transform-origin: 50% 100%; transition: opacity .18s, transform .18s, visibility .18s; }
+  .bnav .bn-sheet::after { content: ""; position: absolute; left: 50%; bottom: -6px; width: 14px; height: 14px; margin-left: -7px; background: #FFFFFF; transform: rotate(45deg); border-radius: 3px; }
+  .bnav .bn-mid.open .bn-sheet { opacity: 1; visibility: visible; transform: translate(-50%, 0) scale(1); }
+  .bnav .bn-sheet a { flex-direction: row; justify-content: flex-start; gap: 12px; padding: 12px 14px; border-radius: 12px; font-size: 15px; font-weight: 700; color: #002741; white-space: nowrap; }
+  .bnav .bn-sheet a:hover, .bnav .bn-sheet a:active { background: #E8F1FE; color: #1877F2; }
+  /* floating buttons and content must clear the taller bar */
+  .main { padding-bottom: 96px; }
+  .mf { padding-bottom: 86px; }
+  .to-top { bottom: 96px; }
+}
