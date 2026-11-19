@@ -152,7 +152,8 @@ export default function HomeClient({ h1 }: { h1?: string }) {
     flash: <FlashSale />,
     /* New Arrival, Top Sales (+ any admin-added rows) — same size as Flash Sale */
     rails: <><ProductSection k="featured" /><ProductSection k="latest" /><ProductSection k="best" /></>,
-    spotlight: <ShopByCategory slugs={cfg.spotlight.slugs ?? spotlightCategories} tabs={cfg.spotlight.tabs} title={cfg.spotlight.title} />,
+    // "Shop by Category" section removed from the home page
+    spotlight: null,
     quick: (
       <section className="band">
         <div className="wrap">
