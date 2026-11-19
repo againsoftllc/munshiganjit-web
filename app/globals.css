@@ -3332,3 +3332,14 @@ ul.cb-drop > li > a { min-height: 34px; padding: 5px 12px; gap: 22px; border-rad
 ul.cb-drop ul.cb-fly, .cb-fly { gap: 0 6px; padding: 6px; }
 .cb-fly a { min-height: 30px; padding: 4px 12px; border-radius: 5px; }
 .cb-fly li + li { margin-top: 0; }
+
+/* header colors: top bar #093654, main header #002741 */
+:root { --hdr-top: #093654; --hdr-main: #002741; }
+.topbar { background: var(--hdr-top); }
+.hdr-main, .hdr.stuck .hdr-main { background: var(--hdr-main); }
+/* header actions on the dark main header: white text + icons */
+.hdr-main .ha, .hdr-main .ha .lbl, .hdr-main .ha.offer .lbl, .hdr-main .ha.acct > .ha { color: #FFFFFF; }
+.hdr-main .ha > .ico { color: #FFFFFF; }
+.hdr-main .ha.offer > .ico { color: var(--accent); }
+.hdr-main .ha:hover, .hdr-main .ha:hover .lbl { color: #FFFFFF; opacity: .85; }
+.hdr-main .hamb { color: #FFFFFF; }
