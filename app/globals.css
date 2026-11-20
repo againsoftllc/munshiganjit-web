@@ -4556,3 +4556,22 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .listing .pcard.detailed .pc-foot .btn-buy.notify { background: #ed1b2424; color: #ed1b24; }
 .listing .pcard.detailed .pc-foot .btn-buy.notify:hover { background: #ed1b2440; color: #ed1b24; }
 .listing .pcard.detailed .pc-foot .btn-buy.notify .ico { color: #ed1b24; }
+/* ---------- Button states on the listing card ----------
+   In stock       → Add to Cart     solid blue        #1778F2
+   Pre Order      → Pre Order       solid navy        #002741
+   Call for Price → Call for Price  outlined blue (white fill, blue border + text)
+   Up Coming      → Notify Me       soft blue         (#1778F2 at 14%)
+   Out of Stock   → Out of Stock    soft red          (#ed1b24 at 14%)  */
+.listing .pcard.detailed .pc-foot .btn-buy.pre { background: #002741; color: #FFFFFF; }
+.listing .pcard.detailed .pc-foot .btn-buy.pre:hover { background: #0B3F61; color: #FFFFFF; }
+.listing .pcard.detailed .pc-foot .btn-buy.call { background: #FFFFFF; color: #1778F2; box-shadow: inset 0 0 0 1.5px #1778F2; display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; }
+.listing .pcard.detailed .pc-foot .btn-buy.call:hover { background: #1778F2; color: #FFFFFF; }
+.listing .pcard.detailed .pc-foot .btn-buy.upc { background: #1778F224; color: #1778F2; }
+.listing .pcard.detailed .pc-foot .btn-buy.upc:hover { background: #1778F240; color: #1778F2; }
+.listing .pcard.detailed .pc-foot .btn-buy.upc .ico, .listing .pcard.detailed .pc-foot .btn-buy.call .ico { color: inherit; }
+/* "Call for Price" in place of the price */
+.listing .pcard.detailed .pc-foot .pc-price b.pc-call { font-size: calc(var(--ui-fs) * 1.2); font-weight: 800; color: #002741; letter-spacing: 0; }
+/* status badges on the picture */
+.pcard .flag.pre { background: #002741; color: #FFFFFF; border-radius: 6px; padding: 4px 9px; }
+.pcard .flag.up { background: #E8F1FE; color: #1778F2; border-radius: 6px; padding: 4px 9px; }
+.pcard .flag.out { background: #ed1b2424; color: #ed1b24; border-radius: 6px; padding: 4px 9px; }

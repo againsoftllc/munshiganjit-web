@@ -51,25 +51,42 @@ export function StockTag({ p }: { p: Product }) {
    Both Buy Now and Add to Cart open the right-side cart drawer (no page change); Buy Now highlights Checkout. */
 export function BuyButton({ p, className = '', qty = 1, color = null, mode = 'buy' }: { p: Product; className?: string; qty?: number; color?: string | null; mode?: 'buy' | 'add' }) {
   const { addAndOpen, toast } = useStore();
-  if (p.stock === 'in' || p.stock === 'preorder') {
-    const pre = p.stock === 'preorder';
+  // price 0 = "Call for Price": no cart, a call button instead
+  if (!(p.price > 0)) {
+    return <a className={'btn-buy call ' + className} href="tel:01979490143"><Icon name="phone" size={16} />Call for Price</a>;
+  }
+  if (p.stock === 'in') {
     const add = mode === 'add';
     return (
-      <button className={'btn-buy ' + (add ? 'add ' : pre ? 'pre ' : 'solid ') + className} onClick={() => addAndOpen(p.id, mode, qty, color)}>
-        <Icon name={add ? 'cart' : pre ? 'calendar' : 'bolt'} size={16} />{add ? 'Add to Cart' : pre ? 'Pre Order' : 'Buy Now'}
+      <button className={'btn-buy ' + (add ? 'add ' : 'solid ') + className} onClick={() => addAndOpen(p.id, mode, qty, color)}>
+        <Icon name={add ? 'cart' : 'bolt'} size={16} />{add ? 'Add to Cart' : 'Buy Now'}
+      </button>
+    );
+  }
+  if (p.stock === 'preorder') {
+    return (
+      <button className={'btn-buy pre ' + className} onClick={() => addAndOpen(p.id, mode, qty, color)}>
+        <Icon name="calendar" size={16} />Pre Order
+      </button>
+    );
+  }
+  if (p.stock === 'upcoming') {
+    return (
+      <button className={'btn-buy upc ' + className} onClick={() => toast('We will SMS you when it arrives', 'bell')}>
+        <Icon name="bell" size={16} />Notify Me
       </button>
     );
   }
   return (
     <button className={'btn-buy notify ' + className} onClick={() => toast('We will SMS you when it is available', 'bell')}>
-      <Icon name="bell" size={16} />{p.stock === 'upcoming' ? 'Notify Me' : 'Out of Stock'}
+      <Icon name="bell" size={16} />Out of Stock
     </button>
   );
 }
 
 /* card buttons (Q1): home page → Add to Cart only; everywhere else → Buy Now with Add to Cart under it */
 export function CartButtons({ p, home = false }: { p: Product; home?: boolean }) {
-  if (home || (p.stock !== 'in' && p.stock !== 'preorder')) return <BuyButton p={p} mode={home ? 'add' : 'buy'} />;
+  if (home || !(p.price > 0) || p.stock !== 'in') return <BuyButton p={p} mode={home ? 'add' : 'buy'} />;
   return <div className="cart-btns"><BuyButton p={p} /><BuyButton p={p} mode="add" /></div>;
 }
 
@@ -99,7 +116,7 @@ export function ProductCard({ p, detailed = false, qtyNote = false, home = false
   const inCmp = compare.includes(p.id);
   const { tier } = usePartner();
   const tp = partnerEntry(!!tier, p.id);
-  const price = <><div className="pc-price"><b>{money(p.price)}</b>{p.old && <s>{money(p.old)}</s>}</div>{tp && tier && <div className="pc-b2b"><Icon name="briefcase" size={12} />{TIER_LABEL[tier]}: <b>{money(cardPrice(tp))}</b></div>}</>;
+  const price = <><div className="pc-price">{p.price > 0 ? <b>{money(p.price)}</b> : <b className="pc-call">Call for Price</b>}{p.price > 0 && p.old && <s>{money(p.old)}</s>}</div>{tp && tier && <div className="pc-b2b"><Icon name="briefcase" size={12} />{TIER_LABEL[tier]}: <b>{money(cardPrice(tp))}</b></div>}</>;
   return (
     <article className={'pcard' + (detailed ? ' detailed' : '')}>
       <Link prefetch={false} className="pc-img" href={url}>
