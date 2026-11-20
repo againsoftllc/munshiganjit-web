@@ -4548,3 +4548,7 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 /* Add to Cart / Out of Stock / Pre-order buttons: #1778F2 */
 .listing .pcard.detailed .pc-foot .btn-buy, .listing .pcard.detailed .pc-foot .btn-buy.add, .listing .pcard.detailed .pc-foot .btn-buy.solid, .listing .pcard.detailed .pc-foot .btn-buy.notify, .listing .pcard.detailed .pc-foot .btn-buy.pre { background: #1778F2; color: #FFFFFF; }
 .listing .pcard.detailed .pc-foot .btn-buy:hover, .listing .pcard.detailed .pc-foot .btn-buy.notify:hover { background: #0F62CC; color: #FFFFFF; }
+/* Add to Cart = #1778F2 · Out of Stock (notify) = #ED1B24 */
+.listing .pcard.detailed .pc-foot .btn-buy.notify { background: #ED1B24; color: #FFFFFF; }
+.listing .pcard.detailed .pc-foot .btn-buy.notify:hover { background: #C4121A; color: #FFFFFF; }
+.listing .pcard.detailed .pc-foot .btn-buy.add, .listing .pcard.detailed .pc-foot .btn-buy.solid, .listing .pcard.detailed .pc-foot .btn-buy.pre { background: #1778F2; color: #FFFFFF; }
