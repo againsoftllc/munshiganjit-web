@@ -4358,3 +4358,9 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .listing .filters .range input[type=range]::-webkit-slider-thumb { width: 24px; height: 24px; border: 0; border-radius: 50%; background: #E3232D; box-shadow: 0 4px 10px -3px rgba(227, 35, 45, .7); transition: transform .12s; }
 .listing .filters .range input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border: 0; border-radius: 50%; background: #E3232D; box-shadow: 0 4px 10px -3px rgba(227, 35, 45, .7); }
 .listing .filters .range input[type=range]:active::-webkit-slider-thumb { transform: scale(1.12); }
+/* smaller range handles */
+.listing .filters .range { height: 20px; margin: 6px 6px 10px; }
+.listing .filters .range .track, .listing .filters .range .fill { top: 8.5px; height: 3px; }
+.listing .filters .range input[type=range] { height: 20px; }
+.listing .filters .range input[type=range]::-webkit-slider-thumb { width: 16px; height: 16px; box-shadow: 0 3px 7px -2px rgba(227, 35, 45, .7); }
+.listing .filters .range input[type=range]::-moz-range-thumb { width: 16px; height: 16px; }
