@@ -4707,3 +4707,12 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
   .sg-img { width: 54px; height: 54px; }
   .sg-tag { padding: 5px 9px; }
 }
+
+/* dropdown exactly as wide as the search box */
+@media (min-width: 901px) {
+  .hsearch .suggest { left: 0; right: 0; width: auto; min-width: 0; max-width: none; }
+  .hsearch .sg-item { padding: 10px 14px; gap: 12px; }
+  .hsearch .sg-img { width: 56px; height: 56px; }
+  .hsearch .sg-tag { padding: 5px 9px; }
+  .hsearch .sg-top { padding: 12px 16px; }
+}
