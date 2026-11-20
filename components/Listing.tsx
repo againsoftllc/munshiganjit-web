@@ -182,9 +182,11 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
   useEffect(() => { setPage(1); }, [f, sort, per, nameQ]);
   /* when a filter / sort / page size changes, bring the search + sort bar to the top of the screen (just under the sticky header) */
   const barRef = useRef<HTMLDivElement>(null);
-  const firstRun = useRef(true);
+  const lastKey = useRef(JSON.stringify([f, sort, per])); // the state the page opened with: no scrolling until it really changes
   useEffect(() => {
-    if (firstRun.current) { firstRun.current = false; return; }
+    const key = JSON.stringify([f, sort, per]);
+    if (key === lastKey.current) return;
+    lastKey.current = key;
     const id = setTimeout(() => {
       const el = barRef.current; if (!el) return;
       const hdr = window.innerWidth <= 900 ? 72 : 146;
