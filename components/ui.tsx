@@ -62,7 +62,7 @@ export function flyToCart(from: HTMLElement, targets: string[] = ['.fr-btn.cart 
   const size = Math.min(a.width, a.height, 150);
   const ghost = (img.tagName.toLowerCase() === 'img' ? (img.cloneNode(true) as HTMLElement) : document.createElement('div'));
   ghost.className = 'fly-ghost';
-  ghost.style.cssText = 'position:fixed;z-index:58;pointer-events:none;left:' + (a.left + a.width / 2 - size / 2) + 'px;top:' + (a.top + a.height / 2 - size / 2) + 'px;width:' + size + 'px;height:' + size + 'px;object-fit:contain;border-radius:14px;background:#fff;box-shadow:0 18px 36px -10px rgba(0,39,65,.55);padding:6px;box-sizing:border-box;transform-origin:center;';
+  ghost.style.cssText = 'position:fixed;z-index:' + (window.innerWidth <= 900 ? 9999 : 58) + ';pointer-events:none;left:' + (a.left + a.width / 2 - size / 2) + 'px;top:' + (a.top + a.height / 2 - size / 2) + 'px;width:' + size + 'px;height:' + size + 'px;object-fit:contain;border-radius:14px;background:#fff;box-shadow:0 18px 36px -10px rgba(0,39,65,.55);padding:6px;box-sizing:border-box;transform-origin:center;';
   document.body.appendChild(ghost);
   const dx = b.left + b.width / 2 - (a.left + a.width / 2), dy = b.top + b.height / 2 - (a.top + a.height / 2);
   // a bow-shaped arc (like a drawn bow): the straight line to the cart plus ONE smooth bulge sideways, biggest in the middle, zero at both ends
@@ -72,7 +72,8 @@ export function flyToCart(from: HTMLElement, targets: string[] = ['.fr-btn.cart 
   const ease = (x: number) => x * x * (3 - 2 * x);
   const frames: Keyframe[] = [];
   // the sticky menu: the flying copy slides along (partly tucked under) its lower edge instead of flying over it or off the top of the screen
-  const hdrB = (document.querySelector('.hdr') as HTMLElement | null)?.getBoundingClientRect().bottom ?? 0;
+  const phone = window.innerWidth <= 900; // on phones the cart is IN the header: the flying copy goes over it so it stays visible
+  const hdrB = phone ? -1e6 : (document.querySelector('.hdr') as HTMLElement | null)?.getBoundingClientRect().bottom ?? 0;
   const cy0 = a.top + a.height / 2;
   for (let i = 0; i <= 24; i++) {
     const k = i / 24, m = ease(k), w = Math.sin(k * Math.PI) * amp;
