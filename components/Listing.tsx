@@ -7,7 +7,7 @@
 import Link from 'next/link';
 import { useEffect, useMemo, useState, type MouseEvent, type ReactNode } from 'react';
 import { products, categories, catBySlug, site, type Product, type Stock } from '@/lib/data';
-import { money, STOCK, catUrl } from '@/lib/format';
+import { money, STOCK, catUrl, productUrl } from '@/lib/format';
 import { Icon, Stars, ProductCard, Crumb } from './ui';
 import { useStore } from './store';
 
@@ -48,6 +48,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
     stock: initial.stock ? [initial.stock] : [], brands: initial.brand && !isBrand ? [initial.brand] : [], subs: initial.sub && !cat ? [initial.sub] : [],
   }));
   const [sort, setSort] = useState(initial.sort || 'default');
+  const [nameQ, setNameQ] = useState('');
   const [per, setPer] = useState('20');
   const [page, setPage] = useState(1);
   const [view, setView] = useState<'grid' | 'list'>('grid');
@@ -84,15 +85,16 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
   const clearAll = () => setF(fresh());
 
   const results = useMemo(() => {
-    const r = base.filter(p => pass(p));
+    const nq = nameQ.trim().toLowerCase();
+    const r = base.filter(p => pass(p) && (!nq || p.name.toLowerCase().includes(nq)));
     const S: Record<string, (a: Product, b: Product) => number> = {
       'price-asc': (a, b) => a.price - b.price, 'price-desc': (a, b) => b.price - a.price, sold: (a, b) => b.sold - a.sold, rating: (a, b) => b.rating - a.rating,
       discount: (a, b) => (b.old ? b.old - b.price : 0) - (a.old ? a.old - a.price : 0),
     };
     return r.sort(S[sort] || ((a, b) => Number(a.stock === 'out') - Number(b.stock === 'out')));
-  }, [base, f, sort]);
+  }, [base, f, sort, nameQ]);
 
-  useEffect(() => { setPage(1); }, [f, sort, per]);
+  useEffect(() => { setPage(1); }, [f, sort, per, nameQ]);
   const perN = +per || 20;
   const pageCount = Math.max(1, Math.ceil(results.length / perN));
   const shown = results.slice((page - 1) * perN, page * perN);
@@ -147,6 +149,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
   // inside a sub-category (e.g. Networking > Router) the parent category's own pills (All Networking / Hotspot Router / Router / Wifi Adapter) are not repeated; only that sub-category's children (All Router / TP-Link) show
   const showTop = !(cat && sub && !isSearch && !isBrand);
   // "<name> Price in Bangladesh": worked out from the prices of the products listed here (before any filter), so it follows the catalog
+  const shopName = site.name || 'Munshiganj IT';
   const seoName = isBrand ? initial.brand || '' : initial.sub2 ? `${initial.sub2} ${sub}` : sub || cat?.name || '';
   const seoIntro = (() => {
     if (isBrand ? !initial.brand : mode !== 'category' || !cat) return '';
@@ -176,7 +179,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
     <>
       {!hideCrumb && <Crumb items={crumb} />}
       {seoIntro && <section className="cat-seo" aria-label={seoName + ' price in Bangladesh'}><div className="wrap">
-        <h2>{isBrand ? `${seoName} Products Price in Bangladesh` : `${seoName} Price in Bangladesh`}</h2>
+        <h1>{isBrand ? `${seoName} Products Price in Bangladesh` : `Latest ${seoName} Price in Bangladesh ${new Date().getFullYear()}`}</h1>
         <p>{seoIntro}</p>
       </div></section>}
       {(showTop || kids.length > 0) && <div className="lst-head"><div className="wrap">{showTop && <div className="subcats">
@@ -185,7 +188,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
           : cat
             ? <>
                 <Link prefetch={false} className={'pill' + (sub || initial.brand ? '' : ' on')} href={catUrl(cat.slug)}>All {cat.name} <em>({cat.count})</em></Link>
-                {cat.subs.map(s => <Link prefetch={false} key={s[0]} className={'pill' + (sub === s[0] && !initial.sub2 ? ' on' : '')} href={catUrl(cat.slug, { sub: s[0] })}>{s[0]} <em>({s[1]})</em></Link>)}
+                {cat.subs.filter(s => s[0] !== All \).map(s => <Link prefetch={false} key={s[0]} className={'pill' + (sub === s[0] && !initial.sub2 ? ' on' : '')} href={catUrl(cat.slug, { sub: s[0] })}>{s[0]} <em>({s[1]})</em></Link>)}
               </>
             : categories.map(c => <Link prefetch={false} key={c.slug} className="pill" href={catUrl(c.slug)}>{c.name} <em>({c.count})</em></Link>)}
       </div>}{kids.length > 0 && <div className="subcats sub2-row">
@@ -196,6 +199,8 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
       <div className="wrap listing">
         <aside className={'filters' + (drawer === 'filters' ? ' open' : '')} aria-label="Filters">
           <div className="row-between f-close" style={{ display: 'none', marginBottom: 6 }}><b>Filters</b><button onClick={closeDrawer} aria-label="Close"><Icon name="close" size={20} /></button></div>
+          <div className="f-top"><h3>Filters</h3><button type="button" onClick={clearAll}>Clear All</button></div>
+          {box('stock', 'Availability', STOCKS.map(s => ck('stock', s[0], s[1], cnt(p => p.stock === s[0], 'stock'))))}
           {box('price', 'Price Range', <>
             <div className="range">
               <div className="track" />
@@ -208,7 +213,6 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
               <input className="input" value={maxTxt} inputMode="numeric" aria-label="Max" onChange={e => setMaxTxt(e.target.value)} onBlur={commitPrice} onKeyDown={e => { if (e.key === 'Enter') commitPrice(); }} />
             </div>
           </>)}
-          {box('stock', 'Availability', STOCKS.map(s => ck('stock', s[0], s[1], cnt(p => p.stock === s[0], 'stock'))))}
           {(isSearch || isBrand) && cats.length > 1 && box('cats', 'Category', cats.map(c => ck('cats', c, catName(c), cnt(p => p.cat === c, 'cats'))))}
           {subs.length > 1 && box('subs', cat ? 'Type' : 'Sub Category', subs.map(s => ck('subs', s, s, cnt(p => p.sub === s, 'subs'))))}
           {!isBrand && brandList.length > 0 && box('brands', 'Brand', <div className="f-scroll">{brandList.map(b => ck('brands', b, b, cnt(p => p.brand === b, 'brands')))}</div>)}
@@ -231,22 +235,18 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
             <label className="check"><input type="checkbox" data-g="sale" value="1" checked={f.sale} onChange={e => setF(s => ({ ...s, sale: e.target.checked }))} /><span>Discounted</span><em>({cnt(p => p.old)})</em></label>
             <label className="check"><input type="checkbox" data-g="emi" value="1" checked={f.emi} onChange={e => setF(s => ({ ...s, emi: e.target.checked }))} /><span>EMI Available</span><em>({cnt(p => p.emi)})</em></label>
           </>)}
+          <button type="button" className="f-clear" onClick={clearAll}>Clear All</button>
         </aside>
 
         <section aria-label="Products">
-          <div className="lst-bar">
+          <div className="lst-bar lst-bar2">
             <button className="btn btn-line btn-sm fbtn" onClick={() => openDrawer('filters')}><Icon name="filter" size={15} />Filter</button>
-            <h1>{isSearch ? (q ? <>Search: “{q}”</> : 'All Products') : title}</h1>
-            <span className="count">(Showing {results.length ? (page - 1) * perN + 1 : 0}–{Math.min(page * perN, results.length)} of {results.length} products)</span>
-            <div className="tools">
-              <label htmlFor="per">Show:</label>
-              <select className="select" id="per" value={per} onChange={e => setPer(e.target.value)}>{['4', '8', '20', '40'].map(n => <option key={n}>{n}</option>)}</select>
-              <label htmlFor="sort">Sort By:</label>
-              <select className="select" id="sort" value={sort} onChange={e => setSort(e.target.value)}>{SORTS.map(o => <option key={o[0]} value={o[0]}>{o[1]}</option>)}</select>
-              <div className="vt">
-                <button className={view === 'grid' ? 'on' : ''} onClick={() => changeView('grid')} aria-label="Grid view"><Icon name="grid" size={16} /></button>
-                <button className={view === 'list' ? 'on' : ''} onClick={() => changeView('list')} aria-label="List view"><Icon name="list" size={16} /></button>
-              </div>
+            {!seoIntro && <h1>{isSearch ? (q ? <>Search: &ldquo;{q}&rdquo;</> : 'All Products') : title}</h1>}
+            <label className="lst-search"><Icon name="search" size={17} /><input type="search" value={nameQ} onChange={e => setNameQ(e.target.value)} placeholder="Search by product name..." aria-label="Search by product name" /></label>
+            <select className="select lst-sort" id="sort" value={sort} onChange={e => setSort(e.target.value)} aria-label="Sort by">{SORTS.map(o => <option key={o[0]} value={o[0]}>{o[1]}</option>)}</select>
+            <div className="vt">
+              <button className={view === 'grid' ? 'on' : ''} onClick={() => changeView('grid')} aria-label="Grid view"><Icon name="grid" size={16} /></button>
+              <button className={view === 'list' ? 'on' : ''} onClick={() => changeView('list')} aria-label="List view"><Icon name="list" size={16} /></button>
             </div>
           </div>
 
@@ -266,14 +266,47 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
                 </div>}
           </div>
 
-          <nav className="pagination" aria-label="Pagination">
-            {pageCount > 1 && <>
-              <button className={page === 1 ? 'faint' : ''} disabled={page === 1} onClick={() => goPage(page - 1)} aria-label="Previous"><Icon name="left" size={14} /></button>
-              {Array.from({ length: pageCount }, (_, i) => i + 1).map(n => <button key={n} className={n === page ? 'on' : ''} onClick={() => goPage(n)}>{n}</button>)}
-              <button className={page === pageCount ? 'faint' : ''} disabled={page === pageCount} onClick={() => goPage(page + 1)} aria-label="Next"><Icon name="right" size={14} /></button>
+          <div className="lst-foot">
+            <div className="lst-per"><select className="select" id="per" value={per} onChange={e => setPer(e.target.value)} aria-label="Products per page">{['20', '40', '60'].map(n => <option key={n} value={n}>{n}</option>)}</select><span>Showing {results.length ? (page - 1) * perN + 1 : 0}&ndash;{Math.min(page * perN, results.length)} of {results.length} products</span></div>
+            <nav className="pagination" aria-label="Pagination">
+              {pageCount > 1 && <>
+                <button className={page === 1 ? 'faint' : ''} disabled={page === 1} onClick={() => goPage(page - 1)} aria-label="Previous"><Icon name="left" size={14} /></button>
+                {Array.from({ length: pageCount }, (_, i) => i + 1).map(n => <button key={n} className={n === page ? 'on' : ''} onClick={() => goPage(n)}>{n}</button>)}
+                <button className={page === pageCount ? 'faint' : ''} disabled={page === pageCount} onClick={() => goPage(page + 1)} aria-label="Next"><Icon name="right" size={14} /></button>
+              </>}
+            </nav>
+          </div>
+
+          {!about && cat && !isSearch && !isBrand && results.length > 0 && <section className="cat-guide" aria-label={'Buy ' + seoName}>
+            <h2>Buy {seoName} at the Best Price in Bangladesh {new Date().getFullYear()}</h2>
+            <p>{seoIntro} {shopName} sells original {seoName} with official warranty, EMI facility and fast delivery to all 64 districts of Bangladesh. Compare specifications, check the latest price and order online or visit our shop.</p>
+            {cat.subs.length > 0 && <>
+              <h3>{cat.name} Categories Available in Bangladesh</h3>
+              <ul className="cg-links">{cat.subs.slice(0, 12).map(s => <li key={s[0]}><Link prefetch={false} href={catUrl(cat.slug, { sub: s[0] })}>{s[0]}</Link></li>)}</ul>
             </>}
-            {pageCount > 1 && <span className="pg-info">Page {page} of {pageCount}</span>}
-          </nav>
+            {brandList.length > 1 && <>
+              <h3>Popular {seoName} Brands</h3>
+              <p>Popular brands for {seoName} in BD include {brandList.slice(0, 8).join(', ')}. Every product comes with the official brand or importer warranty, and our team can help you pick the right model for your budget.</p>
+            </>}
+            <h3>Important Factors When Buying {seoName}</h3>
+            <ul className="cg-points">
+              <li><b>Performance</b> &ndash; check the main specification of the model against what you will use it for.</li>
+              <li><b>Warranty</b> &ndash; buy only products that carry an official warranty and keep your invoice.</li>
+              <li><b>Price</b> &ndash; prices change with the market; the list below shows today&rsquo;s price.</li>
+              <li><b>After-sales support</b> &ndash; Munshiganj IT has a service center and hotline for every department.</li>
+            </ul>
+            <h3>Popular {seoName} Models and Price List</h3>
+            <div className="cg-table"><table>
+              <thead><tr><th>Product</th><th>Price</th></tr></thead>
+              <tbody>{results.slice(0, 10).map(p => <tr key={p.id}><td><Link prefetch={false} href={productUrl(p.id)}>{p.name}</Link></td><td>{money(p.price)}</td></tr>)}</tbody>
+            </table></div>
+            <h3>{seoName} FAQs</h3>
+            <div className="cg-faq">
+              <details open><summary>What is the price of {seoName} in Bangladesh?</summary><p>{seoIntro.split(' Buy ')[0]}</p></details>
+              <details><summary>Where can I buy original {seoName}?</summary><p>You can buy original {seoName} online from {shopName} or from our shop at Somobay New Market, Chasara, Narayanganj, with official warranty.</p></details>
+              <details><summary>Do you deliver outside Narayanganj?</summary><p>Yes. We deliver all over Bangladesh and also offer cash on delivery and EMI on eligible products.</p></details>
+            </div>
+          </section>}
 
           {about && <section className="cat-about" aria-label={'About ' + seoName}>
             <h2>About {seoName}</h2>
