@@ -18,7 +18,9 @@ type SetKey = 'stock' | 'brands' | 'subs' | 'cats';
 interface Filters { stock: string[]; brands: string[]; subs: string[]; cats: string[]; min: number; max: number; rating: number; sale: boolean; emi: boolean; attrs: Record<string, string[]> }
 
 const SORTS: [string, string][] = [['default', 'Default'], ['price-asc', 'Price (Low > High)'], ['price-desc', 'Price (High > Low)'], ['sold', 'Best Selling'], ['rating', 'Top Rated'], ['discount', 'Biggest Saving']];
-const STOCKS: [Stock, string][] = [['in', 'In Stock'], ['preorder', 'Pre Order'], ['upcoming', 'Up Coming'], ['out', 'Out of Stock']];
+const STOCKS: [string, string][] = [['in', 'In Stock'], ['preorder', 'Pre Order'], ['upcoming', 'Up Coming'], ['out', 'Out of Stock'], ['call', 'Call for Price']];
+/** the availability group of a product: a product with no price is "Call for Price", whatever its stock */
+const skey = (p: Product): string => (p.price > 0 ? p.stock : 'call');
 const uniq = <T,>(a: T[]) => Array.from(new Set(a));
 const ALWAYS = ['stock', 'price'];
 const fmtNum = (s: string) => (s === '' ? '' : Number(s).toLocaleString('en-US')); // 185000 -> 185,000 // filter groups that are always open (no arrow)
@@ -148,7 +150,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
   useEffect(() => { setMinTxt(String(f.min)); setMaxTxt(String(f.max)); }, [f.min, f.max]);
 
   /* does p pass every active filter except the `skip` group? (faceted counts) */
-  const pass = (p: Product, skip?: string) => (skip === 'stock' || !f.stock.length || f.stock.includes(p.stock)) && (skip === 'brands' || !f.brands.length || f.brands.includes(p.brand)) &&
+  const pass = (p: Product, skip?: string) => (skip === 'stock' || !f.stock.length || f.stock.includes(skey(p))) && (skip === 'brands' || !f.brands.length || f.brands.includes(p.brand)) &&
     (skip === 'subs' || !f.subs.length || f.subs.includes(p.sub)) && (skip === 'cats' || !f.cats.length || f.cats.includes(p.cat)) && (skip === 'price' || (p.price >= f.min && p.price <= f.max)) &&
     (skip === 'rating' || !f.rating || p.rating >= f.rating) && (!f.sale || !!p.old) && (!f.emi || p.emi) &&
     Object.entries(f.attrs).every(([k, vs]) => skip === 'attr:' + k || !vs.length || vs.includes(p.attrs?.[k] ?? ''));
@@ -208,7 +210,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
 
   /* active filter chips */
   const chips: [string, string, string][] = [];
-  f.stock.forEach(v => chips.push(['stock', v, STOCK[v as Stock]?.[0] ?? v]));
+  f.stock.forEach(v => chips.push(['stock', v, v === 'call' ? 'Call for Price' : STOCK[v as Stock]?.[0] ?? v]));
   f.brands.forEach(v => chips.push(['brands', v, v]));
   f.subs.forEach(v => chips.push(['subs', v, v]));
   f.cats.forEach(v => chips.push(['cats', v, catName(v)]));
@@ -287,7 +289,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
             <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">{allOpen ? <><path d="M5.5 9L10 4.5 14.5 9" /><path d="M5.5 15L10 10.5 14.5 15" /></> : <><path d="M5.5 5L10 9.5 14.5 5" /><path d="M5.5 11L10 15.5 14.5 11" /></>}</svg>
           </button></div></div>
           <div className="f-wrap"><div className="f-body" ref={fBody} onScroll={fSync} onClick={fBurst}>
-          {box('stock', 'Availability', STOCKS.map(s => ck('stock', s[0], s[1], cnt(p => p.stock === s[0], 'stock'))))}
+          {box('stock', 'Availability', STOCKS.map(s => ck('stock', s[0], s[1], cnt(p => skey(p) === s[0], 'stock'))))}
           {box('price', 'Price Range', <>
             <div className="range">
               <div className="track" />
