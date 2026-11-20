@@ -4453,3 +4453,12 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .f-expand, .f-expand.on, .f-expand:hover, .f-expand.on:hover { width: 36px; height: 28px; border: 0; border-radius: 0; background: none; box-shadow: none; color: #1B3A8C; padding: 0; }
 .f-expand:hover { color: #ED1B24; transform: none; }
 .f-expand svg { width: 20px; height: 20px; }
+/* filter header: title left, two icons right (clear, expand/collapse); nothing at the bottom */
+.f-foot { display: none; }
+.f-actions { display: flex; align-items: center; gap: 4px; }
+.f-top .f-ico, .f-top .f-ico:hover, .f-top .f-ico.on { width: 32px; height: 32px; padding: 0; border: 0; border-radius: 8px; background: none; box-shadow: none; display: grid; place-items: center; color: #1B3A8C; cursor: pointer; transition: color .15s, background .15s; }
+.f-top .f-ico:hover { background: #F1F5FA; color: #ED1B24; }
+.f-top .f-clear-ico { color: #5B6B80; }
+.f-top .f-ico svg { width: 19px; height: 19px; }
+.f-top button { font-size: inherit; }
+.listing .filters .f-wrap { padding-bottom: 6px; }
