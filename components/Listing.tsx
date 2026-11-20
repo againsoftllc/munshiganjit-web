@@ -32,6 +32,34 @@ const pageList = (cur: number, total: number): number[] => {
 };
 const catName = (slug: string) => catBySlug(slug)?.name ?? slug;
 
+/** A dropdown with our own look: a button showing the chosen option, and a rounded list under (or over) it. */
+function Pick({ value, options, onChange, label, className = '', up = false }: { value: string; options: [string, string][]; onChange: (v: string) => void; label: string; className?: string; up?: boolean }) {
+  const [open, setOpen] = useState(false);
+  const box = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const away = (e: Event) => { if (box.current && !box.current.contains(e.target as Node)) setOpen(false); };
+    const esc = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('pointerdown', away); document.addEventListener('keydown', esc);
+    return () => { document.removeEventListener('pointerdown', away); document.removeEventListener('keydown', esc); };
+  }, [open]);
+  const cur = options.find(o => o[0] === value) || options[0];
+  return (
+    <div ref={box} className={'pick ' + className + (open ? ' open' : '') + (up ? ' up' : '')}>
+      <button type="button" className="pick-btn" aria-haspopup="listbox" aria-expanded={open} aria-label={label} onClick={() => setOpen(o => !o)}>
+        <span>{cur[1]}</span><Icon name="down" size={15} />
+      </button>
+      <ul className="pick-menu" role="listbox" aria-label={label}>
+        {options.map(o => (
+          <li key={o[0]} role="option" aria-selected={o[0] === value} className={o[0] === value ? 'on' : ''} onClick={() => { onChange(o[0]); setOpen(false); }}>
+            <span>{o[1]}</span>{o[0] === value && <Icon name="check" size={15} />}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export default function Listing({ mode, catSlug, initial, hideCrumb = false, about }: ListingProps) {
   const isBrand = mode === 'brand';
   const { drawer, openDrawer, closeDrawer } = useStore();
@@ -305,7 +333,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
             <button className="btn btn-line btn-sm fbtn" onClick={() => openDrawer('filters')}><Icon name="filter" size={15} />Filter</button>
             {!seoIntro && <h1>{isSearch ? (q ? <>Search: &ldquo;{q}&rdquo;</> : 'All Products') : title}</h1>}
             <label className="lst-search"><Icon name="search" size={17} /><input type="search" value={nameQ} onChange={e => setNameQ(e.target.value)} placeholder="Search by product name..." aria-label="Search by product name" /></label>
-            <select className="select lst-sort" id="sort" value={sort} onChange={e => setSort(e.target.value)} aria-label="Sort by">{SORTS.map(o => <option key={o[0]} value={o[0]}>{o[1]}</option>)}</select>
+            <Pick className="lst-sort" label="Sort by" value={sort} options={SORTS} onChange={setSort} />
             <div className="vt">
               <button className={view === 'grid' ? 'on' : ''} onClick={() => changeView('grid')} aria-label="Grid view"><Icon name="grid" size={16} /></button>
               <button className={view === 'list' ? 'on' : ''} onClick={() => changeView('list')} aria-label="List view"><Icon name="list" size={16} /></button>
@@ -329,7 +357,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
           </div>
 
           <div className="lst-foot">
-            <div className="lst-per"><select className="select" id="per" value={per} onChange={e => setPer(e.target.value)} aria-label="Products per page">{['20', '40', '60'].map(n => <option key={n} value={n}>{n}</option>)}</select><span>Showing {results.length ? (page - 1) * perN + 1 : 0}&ndash;{Math.min(page * perN, results.length)} of {results.length} products</span></div>
+            <div className="lst-per"><Pick className="lst-perpick" up label="Products per page" value={per} options={[['20', '20'], ['40', '40'], ['60', '60']]} onChange={setPer} /><span>Showing {results.length ? (page - 1) * perN + 1 : 0}&ndash;{Math.min(page * perN, results.length)} of {results.length} products</span></div>
             <nav className="pagination" aria-label="Pagination">
               {pageCount > 1 && <>
                 <button className={page === 1 ? 'faint' : ''} disabled={page === 1} onClick={() => goPage(page - 1)} aria-label="Previous"><Icon name="left" size={14} /></button>

@@ -4514,3 +4514,30 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
   .listing .pcard.detailed .flag.save { font-size: 10.5px; padding: 3px 7px; }
   .pc-pct { font-size: 10.5px; padding: 3px 8px; }
 }
+/* ---------- custom dropdown (Sort by / per page): same look on every device ---------- */
+.pick { position: relative; display: inline-block; }
+.pick-btn { width: 100%; height: 42px; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0 12px 0 14px; border: 1px solid #D6DFEA; border-radius: 10px; background: #FFFFFF; color: #2A3D52; font: inherit; font-size: calc(var(--ui-fs) * .95); font-weight: 600; cursor: pointer; text-align: left; transition: border-color .15s; }
+.pick-btn:hover { border-color: #B7C5D9; }
+.pick.open .pick-btn, .pick-btn:focus-visible { border-color: #1B3A8C; outline: none; }
+.pick-btn .ico { flex: none; color: #1B3A8C; transition: transform .22s ease; }
+.pick.open .pick-btn .ico { transform: rotate(180deg); }
+.pick-menu { position: absolute; z-index: 40; left: 0; right: 0; top: calc(100% + 6px); min-width: 100%; margin: 0; padding: 6px; list-style: none; border: 1px solid #E1E8F0; border-radius: 12px; background: #FFFFFF; box-shadow: 0 22px 40px -16px rgba(0, 39, 65, .45); opacity: 0; visibility: hidden; transform: translateY(-6px) scale(.98); transform-origin: top center; transition: opacity .16s ease, transform .16s ease, visibility .16s; }
+.pick.up .pick-menu { top: auto; bottom: calc(100% + 6px); transform: translateY(6px) scale(.98); transform-origin: bottom center; }
+.pick.open .pick-menu { opacity: 1; visibility: visible; transform: none; }
+.pick-menu li { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border-radius: 8px; font-size: calc(var(--ui-fs) * .95); font-weight: 500; color: #2A3D52; white-space: nowrap; cursor: pointer; transition: background .12s, color .12s; }
+.pick-menu li:hover { background: #EEF4FF; color: #1877F2; }
+.pick-menu li.on { background: #E8F1FE; color: #1B3A8C; font-weight: 700; }
+.pick-menu li .ico { color: #1B3A8C; }
+.lst-bar2 .pick.lst-sort { width: 200px; }
+.lst-bar2 .pick.lst-sort .pick-menu { left: auto; right: 0; min-width: 210px; }
+.lst-perpick { width: 76px; }
+.lst-perpick .pick-btn { height: 34px; padding: 0 10px; border-radius: 9px; }
+@media (max-width: 640px) { .lst-bar2 .pick.lst-sort { flex: 1; width: auto; } .lst-bar2 .pick.lst-sort .pick-menu { left: 0; right: 0; min-width: 0; } .pick-menu li { padding: 12px 12px; font-size: 14px; } }
+@media (prefers-reduced-motion: reduce) { .pick-menu, .pick-btn .ico { transition: none; } }
+/* the old select styling must not draw a second box around the custom dropdown */
+.lst-bar2 .pick.lst-sort { height: auto; padding: 0; border: 0; background: none; background-image: none; box-shadow: none; font-size: inherit; }
+.lst-bar2 .pick.lst-sort .pick-btn { height: 42px; }
+.lst-perpick { padding: 0; border: 0; background: none; background-image: none; height: auto; }
+.lst-per .lst-perpick .pick-btn { height: 34px; }
+.pick.open { z-index: 80; }
+.pick-menu { max-height: min(60vh, 360px); overflow-y: auto; }
