@@ -4673,3 +4673,5 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
   .lst-bar2 .pick.lst-sort .pick-btn { height: 44px; box-sizing: border-box; }
   .lst-bar2 .lst-search { flex: 1 1 100%; order: 3; height: 44px; margin: 0; }
 }
+/* the "Search: mouse" heading in the toolbar is not shown (the breadcrumb already says it); it stays in the page for screen readers and search engines */
+.lst-bar2 > h1 { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
