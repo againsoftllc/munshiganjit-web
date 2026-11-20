@@ -287,8 +287,8 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
           ? cats.map(c => <button key={c} className={'pill' + (f.cats.includes(c) ? ' on' : '')} onClick={() => toggle('cats', c)}>{catName(c)} <em>({cnt(p => p.cat === c, 'cats')})</em></button>)
           : cat
             ? <>
-                {(sub || initial.brand) && <Link prefetch={false} className="pill" href={catUrl(cat.slug)}>All {cat.name}</Link>}
-                {cat.subs.filter(s => s[0] !== 'All ' + cat.name).map(s => <Link prefetch={false} key={s[0]} className={'pill' + (sub === s[0] && !initial.sub2 ? ' on' : '')} href={catUrl(cat.slug, { sub: s[0] })}>{s[0]} <em>({s[1]})</em></Link>)}
+                {(sub || initial.brand) && !cat.subs.some(s => s[0] === 'All ' + cat.name) && <Link prefetch={false} className="pill" href={catUrl(cat.slug)}>All {cat.name}</Link>}
+                {cat.subs.map(s => { const isAll = s[0] === 'All ' + cat.name; /* "All Monitor" = the whole category */ return <Link prefetch={false} key={s[0]} className={'pill' + (isAll ? (!sub && !initial.brand ? ' on' : '') : (sub === s[0] && !initial.sub2 ? ' on' : ''))} href={isAll ? catUrl(cat.slug) : catUrl(cat.slug, { sub: s[0] })}>{s[0]} <em>({s[1]})</em></Link>; })}
               </>
             : categories.map(c => <Link prefetch={false} key={c.slug} className="pill" href={catUrl(c.slug)}>{c.name} <em>({c.count})</em></Link>)}
       </div>}{showTop && subMore && <button type="button" className={'subcat-toggle' + (subOpen ? ' open' : '')} aria-expanded={subOpen} aria-label={subOpen ? 'Show fewer categories' : 'Show all categories'} onClick={() => setSubOpen(o => !o)}><Icon name="down" size={14} /></button>}{kids.length > 0 && <div className="subcats sub2-row">

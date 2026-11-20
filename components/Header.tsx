@@ -145,7 +145,7 @@ function CatDrop({ c, subs }: { c: (typeof categories)[number]; subs?: (typeof c
         const kids = s[3] || [];
         return (
           <li key={s[0]} className={liCls(i, list.length, kids.length > 0)}>
-            <Link prefetch={false} href={catUrl(c.slug, { sub: s[0] })}><span>{s[0]}</span>{kids.length > 0 && <Icon name="right" size={13} />}</Link>
+            <Link prefetch={false} href={s[0] === 'All ' + c.name ? catUrl(c.slug) : catUrl(c.slug, { sub: s[0] })}><span>{s[0]}</span>{kids.length > 0 && <Icon name="right" size={13} />}</Link>
             {kids.length > 0 && (
               <ul className="cb-fly" style={flyStyle(kids.length)}>
                 {kids.map(k => <li key={k[0]}><Link prefetch={false} href={catUrl(c.slug, { sub: s[0], sub2: k[0] })}>{k[0]}</Link></li>)}
