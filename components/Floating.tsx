@@ -281,7 +281,7 @@ export default function Floating() {
         <Link prefetch={false} href="/compare" className={path === '/compare' ? 'on' : ''} onClick={() => setBld(false)}><span className="bn-ic"><Icon name="compare" size={20} />{ready && compare.length > 0 && <span className="badge">{compare.length}</span>}</span><em>Compare</em></Link>
         <Link prefetch={false} href="/account" className={path === '/account' ? 'on' : ''} onClick={() => setBld(false)}><span className="bn-ic"><Icon name="user" size={20} /></span><em>Account</em></Link>
       </nav>
-      <div className="toasts">{toasts.map(t => <div className="toast in" key={t.id}><Icon name={t.icon} size={18} /><span>{t.msg}</span></div>)}</div>
+      <div className="toasts" role="status" aria-live="polite">{toasts.map(t => <div className={'toast in ic-' + t.icon} key={t.id}><span className="t-ic"><Icon name={t.icon} size={18} /></span><span className="t-msg">{t.msg}</span><i className="t-bar" aria-hidden="true" /></div>)}</div>
     </>
   );
 }

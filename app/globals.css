@@ -4726,3 +4726,30 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
   .hsearch input { height: 100%; border-radius: var(--sr) 0 0 var(--sr); }
   .hsearch button { height: 100%; border-radius: 0 var(--sr) var(--sr) 0; }
 }
+/* ---------- Notifications (toasts): dark pill with a coloured icon bubble, pops up from the bottom, with a countdown line ---------- */
+.toasts { top: auto; bottom: 34px; left: 50%; transform: translateX(-50%); gap: 10px; z-index: 120; flex-direction: column-reverse; }
+.toast { position: relative; overflow: hidden; display: flex; align-items: center; gap: 12px; min-width: 260px; max-width: min(92vw, 520px); padding: 12px 20px 12px 12px; border: 1px solid rgba(255, 255, 255, .14); border-left: 1px solid rgba(255, 255, 255, .14); border-radius: 16px;
+  background: linear-gradient(145deg, #0B3F61, #002741); color: #FFFFFF; font-size: calc(var(--ui-fs) * 1.02); font-weight: 600; line-height: 1.35;
+  box-shadow: 0 26px 50px -14px rgba(0, 20, 45, .75), 0 0 0 1px rgba(0, 0, 0, .1); opacity: 1; transform: none; transition: none; animation: toastIn .5s cubic-bezier(.2, 1.4, .4, 1) both, toastOut .3s ease 2.5s forwards; }
+.toast.in { opacity: 1; transform: none; }
+.toast .t-ic { flex: none; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; color: #FFFFFF; background: #1877F2; box-shadow: 0 8px 16px -6px rgba(24, 119, 242, .9), inset 0 1px 0 rgba(255, 255, 255, .35); animation: toastPop .6s cubic-bezier(.2, 1.6, .4, 1) .15s both; }
+.toast .t-ic .ico { color: #FFFFFF; }
+.toast.ic-checkCircle .t-ic { background: #17A34A; box-shadow: 0 8px 16px -6px rgba(23, 163, 74, .9), inset 0 1px 0 rgba(255, 255, 255, .35); }
+.toast.ic-info .t-ic { background: #FFC83D; color: #002741; box-shadow: 0 8px 16px -6px rgba(255, 200, 61, .8), inset 0 1px 0 rgba(255, 255, 255, .5); }
+.toast.ic-info .t-ic .ico { color: #002741; }
+.toast.ic-heart .t-ic { background: #ED1B24; box-shadow: 0 8px 16px -6px rgba(237, 27, 36, .9), inset 0 1px 0 rgba(255, 255, 255, .35); }
+.toast.ic-bell .t-ic, .toast.ic-compare .t-ic { background: #1877F2; }
+.toast .t-msg { flex: 1; min-width: 0; }
+.toast a { color: #6FB0FF; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+.toast a:hover { color: #FFFFFF; }
+.toast .t-bar { position: absolute; left: 0; bottom: 0; height: 3px; width: 100%; background: linear-gradient(90deg, #1877F2, #ED1B24); transform-origin: left; animation: toastBar 2.8s linear forwards; }
+.toast.ic-checkCircle .t-bar { background: #22C55E; }
+.toast.ic-info .t-bar { background: #FFC83D; }
+@keyframes toastIn { 0% { opacity: 0; transform: translateY(40px) scale(.85); } 100% { opacity: 1; transform: none; } }
+@keyframes toastOut { to { opacity: 0; transform: translateY(14px) scale(.96); } }
+@keyframes toastPop { 0% { transform: scale(0) rotate(-40deg); } 100% { transform: none; } }
+@keyframes toastBar { to { transform: scaleX(0); } }
+@media (max-width: 900px) { .toasts { bottom: 92px; width: calc(100vw - 24px); } .toast { min-width: 0; width: 100%; max-width: none; } }
+@media (prefers-reduced-motion: reduce) { .toast, .toast .t-ic, .toast .t-bar { animation: none; } }
+
+.toasts { flex-direction: column; }
