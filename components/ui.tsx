@@ -50,11 +50,11 @@ export function StockTag({ p }: { p: Product }) {
 /* Buy Now / Add to Cart / Pre Order / Notify Me — depends on inventory state.
    Both Buy Now and Add to Cart open the right-side cart drawer (no page change); Buy Now highlights Checkout. */
 /** Product card -> header cart: a copy of the card's picture shrinks and flies to the cart button, which then bounces. */
-export function flyToCart(from: HTMLElement) {
+export function flyToCart(from: HTMLElement, targets: string[] = ['.hdr-main .cart-btn', '.fr-btn.cart']) {
   if (typeof document === 'undefined') return;
   const card = from.closest('.pcard') as HTMLElement | null;
   const img = card?.querySelector('.pc-img img, .pc-img svg') as HTMLElement | null;
-  const target = (document.querySelector('.hdr-main .cart-btn') as HTMLElement | null) ?? (document.querySelector('.fr-btn.cart') as HTMLElement | null);
+  const target = targets.map(s => document.querySelector(s) as HTMLElement | null).find(el => el && el.getBoundingClientRect().width > 0) ?? null;
   const bump = () => { if (!target) return; target.classList.remove('cart-bump'); void target.offsetWidth; target.classList.add('cart-bump'); setTimeout(() => target.classList.remove('cart-bump'), 700); };
   if (!img || !target || window.matchMedia('(prefers-reduced-motion: reduce)').matches) { bump(); return; }
   const a = img.getBoundingClientRect(), b = target.getBoundingClientRect();
@@ -116,8 +116,9 @@ export function CartButtons({ p, home = false }: { p: Product; home?: boolean })
 
 export function useCompareToggle() {
   const { toggleCompare, toast } = useStore();
-  return (id: string) => {
+  return (id: string, from?: HTMLElement | null) => {
     const r = toggleCompare(id);
+    if (r === true && from) flyToCart(from, ['.fr-btn[href="/compare"]', '.bnav a[href="/compare"]']);
     if (r !== null) toast(r ? <>Added to compare. <Link prefetch={false} href="/compare">Compare now</Link></> : 'Removed from compare', 'compare');
   };
 }
@@ -171,7 +172,7 @@ export function ProductCard({ p, detailed = false, qtyNote = false, home = false
         <StockTag p={p} />
         {qtyNote && p.stock === 'in' && <span className="qty-note">{p.qty} units available</span>}
         <CartButtons p={p} home={home} />
-        <button className={'pc-cmp' + (inCmp ? ' on' : '')} onClick={() => cmp(p.id)}><Icon name="compare" size={14} />{inCmp ? 'Added' : 'Compare'}</button>
+        <button className={'pc-cmp' + (inCmp ? ' on' : '')} onClick={e => cmp(p.id, e.currentTarget)}><Icon name="compare" size={14} />{inCmp ? 'Added' : 'Compare'}</button>
       </div>
     </article>
   );
