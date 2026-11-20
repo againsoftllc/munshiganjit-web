@@ -11,7 +11,6 @@ import { activeMenu, menuCategory, menuLink, menuSubs, type MenuItem } from '@/l
 import { money, catUrl, productUrl } from '@/lib/format';
 import { Icon, ProductImg } from './ui';
 import { useStore } from './store';
-import { LangSwitch } from './Header';
 import dynamic from 'next/dynamic';
 
 // the chat is loaded after the page is interactive (its own script chunk), not with the first paint
@@ -183,7 +182,6 @@ function NavDrawer() {
           <Link prefetch={false} href="/blog"><Icon name="invoice" size={16} />Blog</Link><Link prefetch={false} href="/contact"><Icon name="phone" size={16} />Contact</Link>
           <Link prefetch={false} href="/track-order"><Icon name="truck" size={16} />Track Your Order</Link><Link prefetch={false} href="/help-support"><Icon name="help" size={16} />Help &amp; Support</Link>
         </div>
-        <div style={{ padding: '4px 18px 18px' }}><LangSwitch /></div>
       </div>
     </aside>
   );

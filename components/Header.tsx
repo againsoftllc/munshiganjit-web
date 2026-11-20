@@ -235,7 +235,6 @@ export default function Header() {
         <div className="tb-right">
           <a href={'tel:' + site.hotline}><Icon name="phone" size={13} />{hd.hotlineLabel}: <b>{site.hotline}</b></a>
           {hd.links.filter(l => !l.hidden).map(l => <Link prefetch={false} key={l.href + l.label} href={l.href}><Icon name={l.icon || 'right'} size={13} />{l.label}</Link>)}
-          <LangSwitch />
         </div>
       </div></div></LiveEditChrome>
 
