@@ -38,6 +38,8 @@ interface Store {
   addToCart: (id: string, qty?: number, color?: string | null, warranty?: boolean, vid?: string) => void;
   /** add, then slide the cart drawer in from the right with an "Added to cart" panel (mode 'buy' highlights Checkout) */
   addAndOpen: (id: string, mode: 'add' | 'buy', qty?: number, color?: string | null, warranty?: boolean, vid?: string) => void;
+  /** add to the cart and keep the page as it is (the card flies to the header cart instead); false = the product needs an option first, the shopper was sent to its page */
+  addQuiet: (id: string, qty?: number, color?: string | null, warranty?: boolean, vid?: string) => boolean;
   lastAdded: LastAdded | null;
   setQty: (index: number, qty: number) => void;
   removeLine: (index: number) => void;
@@ -174,6 +176,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       if (!vid && !partnerOwn(id) && variantsOf(id).combos.length) { toast('Please choose an option', 'info'); router.push(productUrl(id)); return; }
       const col = add(id, qty, color, warranty, vid); if (col === undefined) return;
       setLastAdded(x => ({ id, color: col, mode, n: (x?.n ?? 0) + 1 })); setDrawer('cart');
+    },
+    addQuiet: (id, qty = 1, color = null, warranty = true, vid) => {
+      if (!vid && !partnerOwn(id) && variantsOf(id).combos.length) { toast('Please choose an option', 'info'); router.push(productUrl(id)); return false; }
+      return add(id, qty, color, warranty, vid) !== undefined;
     },
     lastAdded,
     setQty: (index, qty) => setItems(l => l.map((i, k) => {

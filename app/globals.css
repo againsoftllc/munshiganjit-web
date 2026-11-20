@@ -4575,3 +4575,10 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .pcard .flag.pre { background: #002741; color: #FFFFFF; border-radius: 6px; padding: 4px 9px; }
 .pcard .flag.up { background: #E8F1FE; color: #1778F2; border-radius: 6px; padding: 4px 9px; }
 .pcard .flag.out { background: #ed1b2424; color: #ed1b24; border-radius: 6px; padding: 4px 9px; }
+/* Add to Cart: the product flies to the header cart, which bounces and pops its count */
+.cart-bump { animation: cartBump .65s cubic-bezier(.3, 1.6, .5, 1); }
+.cart-bump .badge { animation: badgePop .65s cubic-bezier(.3, 1.8, .5, 1); }
+@keyframes cartBump { 0% { transform: scale(1); } 30% { transform: scale(1.14) rotate(-3deg); box-shadow: 0 0 0 8px rgba(24, 119, 242, .28); } 60% { transform: scale(.96) rotate(2deg); } 100% { transform: scale(1); } }
+@keyframes badgePop { 0% { transform: scale(1); } 40% { transform: scale(1.7); } 100% { transform: scale(1); } }
+.fly-ghost { will-change: transform, opacity; }
+@media (prefers-reduced-motion: reduce) { .cart-bump, .cart-bump .badge { animation: none; } }

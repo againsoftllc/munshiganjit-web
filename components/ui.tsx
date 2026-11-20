@@ -49,8 +49,32 @@ export function StockTag({ p }: { p: Product }) {
 
 /* Buy Now / Add to Cart / Pre Order / Notify Me — depends on inventory state.
    Both Buy Now and Add to Cart open the right-side cart drawer (no page change); Buy Now highlights Checkout. */
-export function BuyButton({ p, className = '', qty = 1, color = null, mode = 'buy' }: { p: Product; className?: string; qty?: number; color?: string | null; mode?: 'buy' | 'add' }) {
-  const { addAndOpen, toast } = useStore();
+/** Product card -> header cart: a copy of the card's picture shrinks and flies to the cart button, which then bounces. */
+export function flyToCart(from: HTMLElement) {
+  if (typeof document === 'undefined') return;
+  const card = from.closest('.pcard') as HTMLElement | null;
+  const img = card?.querySelector('.pc-img img, .pc-img svg') as HTMLElement | null;
+  const target = (document.querySelector('.hdr-main .cart-btn') as HTMLElement | null) ?? (document.querySelector('.fr-btn.cart') as HTMLElement | null);
+  const bump = () => { if (!target) return; target.classList.remove('cart-bump'); void target.offsetWidth; target.classList.add('cart-bump'); setTimeout(() => target.classList.remove('cart-bump'), 700); };
+  if (!img || !target || window.matchMedia('(prefers-reduced-motion: reduce)').matches) { bump(); return; }
+  const a = img.getBoundingClientRect(), b = target.getBoundingClientRect();
+  // on phones the header cart is always on screen; on desktop the header is sticky too
+  const size = Math.min(a.width, a.height, 150);
+  const ghost = (img.tagName.toLowerCase() === 'img' ? (img.cloneNode(true) as HTMLElement) : document.createElement('div'));
+  ghost.className = 'fly-ghost';
+  ghost.style.cssText = 'position:fixed;z-index:9999;pointer-events:none;left:' + (a.left + a.width / 2 - size / 2) + 'px;top:' + (a.top + a.height / 2 - size / 2) + 'px;width:' + size + 'px;height:' + size + 'px;object-fit:contain;border-radius:14px;background:#fff;box-shadow:0 18px 36px -10px rgba(0,39,65,.55);padding:6px;box-sizing:border-box;transform-origin:center;';
+  document.body.appendChild(ghost);
+  const dx = b.left + b.width / 2 - (a.left + a.width / 2), dy = b.top + b.height / 2 - (a.top + a.height / 2);
+  const anim = ghost.animate([
+    { transform: 'translate(0,0) scale(1) rotate(0deg)', opacity: 1, offset: 0 },
+    { transform: 'translate(' + dx * 0.35 + 'px,' + (dy * 0.35 - 70) + 'px) scale(.72) rotate(-8deg)', opacity: 1, offset: 0.45 },
+    { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(.12) rotate(8deg)', opacity: .35, offset: 1 },
+  ], { duration: 780, easing: 'cubic-bezier(.5,0,.75,.4)' });
+  anim.onfinish = () => { ghost.remove(); bump(); };
+}
+
+export function BuyButton({ p, className = '', qty = 1, color = null, mode = 'buy', fly = false }: { p: Product; className?: string; qty?: number; color?: string | null; mode?: 'buy' | 'add'; fly?: boolean }) {
+  const { addAndOpen, addQuiet, toast } = useStore();
   // price 0 = "Call for Price": no cart, a call button instead
   if (!(p.price > 0)) {
     return <a className={'btn-buy call ' + className} href="tel:01979490143"><Icon name="phone" size={16} />Call for Price</a>;
@@ -58,7 +82,7 @@ export function BuyButton({ p, className = '', qty = 1, color = null, mode = 'bu
   if (p.stock === 'in') {
     const add = mode === 'add';
     return (
-      <button className={'btn-buy ' + (add ? 'add ' : 'solid ') + className} onClick={() => addAndOpen(p.id, mode, qty, color)}>
+      <button className={'btn-buy ' + (add ? 'add ' : 'solid ') + className} onClick={e => { if (add && fly) { if (addQuiet(p.id, qty, color)) flyToCart(e.currentTarget); } else addAndOpen(p.id, mode, qty, color); }}>
         <Icon name={add ? 'cart' : 'bolt'} size={16} />{add ? 'Add to Cart' : 'Buy Now'}
       </button>
     );
@@ -86,8 +110,8 @@ export function BuyButton({ p, className = '', qty = 1, color = null, mode = 'bu
 
 /* card buttons (Q1): home page → Add to Cart only; everywhere else → Buy Now with Add to Cart under it */
 export function CartButtons({ p, home = false }: { p: Product; home?: boolean }) {
-  if (home || !(p.price > 0) || p.stock !== 'in') return <BuyButton p={p} mode={home ? 'add' : 'buy'} />;
-  return <div className="cart-btns"><BuyButton p={p} /><BuyButton p={p} mode="add" /></div>;
+  if (home || !(p.price > 0) || p.stock !== 'in') return <BuyButton p={p} mode={home ? 'add' : 'buy'} fly={home} />;
+  return <div className="cart-btns"><BuyButton p={p} /><BuyButton p={p} mode="add" fly /></div>;
 }
 
 export function useCompareToggle() {
