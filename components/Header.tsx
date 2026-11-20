@@ -5,7 +5,7 @@ import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { categories, visibleProducts as products, site, headerLogoAnim, byId } from '@/lib/data';
 import { activeMenu, menuCategory, menuLink, menuSubs, type MenuItem } from '@/lib/menu';
-import { money, catUrl, productUrl } from '@/lib/format';
+import { money, catUrl, productUrl, STOCK } from '@/lib/format';
 import { Icon, ProductImg } from './ui';
 import { useStore } from './store';
 import { setSiteLang, siteLangIsBn } from './Translate';
@@ -48,18 +48,27 @@ function SearchBox({ placeholder, onDone }: { placeholder: string; onDone?: () =
   useEffect(() => { const c = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false); }; document.addEventListener('click', c); return () => document.removeEventListener('click', c); }, []);
   const t = q.trim().toLowerCase();
   const cats = t.length < 2 ? [] : categories.filter(c => c.name.toLowerCase().includes(t) || c.subs.some(s => s[0].toLowerCase().includes(t))).slice(0, 3);
-  const prods = t.length < 2 ? [] : products.filter(p => (p.name + ' ' + p.brand + ' ' + p.sub).toLowerCase().includes(t)).slice(0, 6);
+  const words = t.split(/\s+/).filter(Boolean);
+  const hits = t.length < 2 ? [] : products.filter(p => { const h = (p.name + ' ' + p.brand + ' ' + p.sub).toLowerCase(); return words.every(w => h.includes(w)); });
+  const prods = hits.slice(0, 10);
   return (
     <form ref={ref} className="hsearch" role="search" autoComplete="off" onSubmit={e => { e.preventDefault(); setOpen(false); (document.activeElement as HTMLElement | null)?.blur(); router.push('/search?q=' + encodeURIComponent(q)); onDone?.(); }}>
       <input type="search" value={q} placeholder={placeholder} aria-label="Search" onChange={e => { setQ(e.target.value); setOpen(true); }} onFocus={() => setOpen(true)} />
       <button type="submit" aria-label="Search"><Icon name="search" size={19} /></button>
       <div className={'suggest' + (open && t.length >= 2 ? ' open' : '')} onClick={() => { setOpen(false); onDone?.(); }}>
-        {!cats.length && !prods.length && <div className="sg-row">No matches. Press Enter to search all products.</div>}
-        {cats.length > 0 && <div className="sg-h">Categories</div>}
-        {cats.map(c => <Link prefetch={false} key={c.slug} className="sg-row" href={catUrl(c.slug)}><Icon name={c.icon} size={16} />{c.name}<em>{c.count} products</em></Link>)}
-        {prods.length > 0 && <div className="sg-h">Products</div>}
-        {prods.map(p => <Link prefetch={false} key={p.id} className="sg-row" href={productUrl(p.id)}><span className="sg-img"><ProductImg p={p} size={36} /></span><span>{p.name}</span><b>{money(p.price)}</b></Link>)}
-        <Link prefetch={false} className="sg-all" href={'/search?q=' + encodeURIComponent(q)}>See all results for “{q}”</Link>
+        {prods.length === 0 && <div className="sg-empty">No products found for &ldquo;{q}&rdquo;. Press Enter to search everything.</div>}
+        {prods.length > 0 && <div className="sg-top"><span>Showing {prods.length} out of {hits.length} products</span><Link prefetch={false} href={'/search?q=' + encodeURIComponent(q)}>View All</Link></div>}
+        {prods.length > 0 && <div className="sg-list">{prods.map(p => {
+          const st = p.price > 0 ? p.stock : 'call';
+          const label = st === 'call' ? 'Call for Price' : STOCK[p.stock][0];
+          return (
+            <Link prefetch={false} key={p.id} className="sg-item" href={productUrl(p.id)}>
+              <span className="sg-img"><ProductImg p={p} size={56} /></span>
+              <span className="sg-txt"><strong>{p.name}</strong><span className="sg-pr">{p.price > 0 ? <><b>{money(p.price)}</b>{p.old && p.old > p.price && <s>{money(p.old)}</s>}</> : <b>Call for Price</b>}</span></span>
+              <em className={'sg-tag ' + st}>{label}</em>
+            </Link>
+          );
+        })}</div>}
       </div>
     </form>
   );
