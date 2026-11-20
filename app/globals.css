@@ -4276,3 +4276,24 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 @media (max-width: 1200px) { .listing .grid.g4:not(.list-view) { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 1024px) { .listing { grid-template-columns: 1fr; } }
 @media (max-width: 640px) { .listing .grid.g4:not(.list-view) { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } }
+/* ---------- Listing card tuned to Techland's measurements: padding ~19px, button ~36–38px, price ~1.5× base, spec ~13px ---------- */
+.listing .pcard.detailed { padding: 14px 18px 0; border-radius: 16px; }
+.listing .pcard.detailed .pc-img { height: clamp(170px, 11vw, 200px); padding: 14px 8px 8px; }
+.listing .pcard.detailed .pc-flags { top: 2px; left: 0; }
+.pc-pct { top: 2px; right: 0; }
+.pc-ribbon { height: 28px; margin: 4px 0 10px; border-radius: 7px; font-size: calc(var(--ui-fs) * .88); }
+.listing .pcard.detailed .pc-body { flex: 1 1 auto; display: flex; flex-direction: column; }
+.listing .pcard.detailed .pc-name { font-size: calc(var(--ui-fs) * 1.04); line-height: 1.4; min-height: 2.8em; }
+.listing .pcard.detailed .pc-specs { min-height: 0; margin: 10px 0 0; }
+.listing .pcard.detailed .pc-specs li { font-size: calc(var(--ui-fs) * .84); line-height: 1.55; padding-left: 18px; }
+.listing .pcard.detailed .pc-foot { margin-top: auto; padding: 10px 0 18px; gap: 10px; grid-template-columns: 1fr 1fr; }
+.listing .pcard.detailed .pc-foot .pc-price { margin: 4px 0 6px; gap: 10px; }
+.listing .pcard.detailed .pc-foot .pc-price b { font-size: calc(var(--ui-fs) * 1.5); font-weight: 800; letter-spacing: -.01em; }
+.listing .pcard.detailed .pc-foot .pc-price s { font-size: calc(var(--ui-fs) * 1); font-weight: 500; }
+.listing .pcard.detailed .pc-foot .btn-buy, .listing .pcard.detailed .pc-cmp { height: max(36px, calc(var(--ui-fs) * 2.35)); padding: 0 10px; border-radius: 8px; font-size: var(--t-btn); font-weight: 700; }
+.listing .pcard.detailed .pc-cmp { font-weight: 600; }
+@media (max-width: 640px) {
+  .listing .pcard.detailed { padding: 8px 10px 0; }
+  .listing .pcard.detailed .pc-foot { grid-template-columns: 1fr; padding-bottom: 12px; }
+  .listing .pcard.detailed .pc-foot .pc-price b { font-size: calc(var(--ui-fs) * 1.35); }
+}
