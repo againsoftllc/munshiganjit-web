@@ -4423,3 +4423,10 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .lst-head .subcats.fold { overflow: hidden; transition: max-height .42s cubic-bezier(.4, 0, .2, 1); }
 .lst-head .subcats.one-line { max-height: none; }
 @media (prefers-reduced-motion: reduce) { .lst-head .subcats.fold { transition: none; } }
+/* filter groups open / close smoothly (grid-rows trick: 1fr <-> 0fr) */
+.listing .filters .fbox .fbody, .listing .filters .fbox.closed .fbody { display: grid; grid-template-rows: 1fr; padding: 0; transition: grid-template-rows .32s cubic-bezier(.4, 0, .2, 1), opacity .25s ease; opacity: 1; }
+.listing .filters .fbox.closed .fbody { grid-template-rows: 0fr; opacity: 0; }
+.listing .filters .fbox .fbody-in { min-height: 0; overflow: hidden; padding-bottom: 8px; transition: padding-bottom .32s cubic-bezier(.4, 0, .2, 1); }
+.listing .filters .fbox.closed .fbody-in { padding-bottom: 0; }
+.listing .filters .fbox > h4 .ico { transition: transform .28s cubic-bezier(.4, 0, .2, 1); }
+@media (prefers-reduced-motion: reduce) { .listing .filters .fbox .fbody, .listing .filters .fbox .fbody-in, .listing .filters .fbox > h4 .ico { transition: none; } }

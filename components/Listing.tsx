@@ -140,7 +140,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
   const box = (k: string, t: string, body: ReactNode) => (
     <div key={k} className={'fbox' + (ALWAYS.includes(k) ? ' fixed' : openKey === k ? '' : ' closed')} data-f={k}>
       <h4 onClick={ALWAYS.includes(k) ? undefined : () => setOpenKey(o => (o === k ? '' : k))}>{t}{!ALWAYS.includes(k) && <Icon name="right" size={16} />}</h4>
-      <div className="fbody">{body}</div>
+      <div className="fbody"><div className="fbody-in">{body}</div></div>
     </div>
   );
   const ck = (g: SetKey, v: string, l: ReactNode, n: number) => (
