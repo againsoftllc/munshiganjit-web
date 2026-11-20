@@ -219,8 +219,8 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
               <input type="range" min={0} max={PMAX} step={500} value={f.max} aria-label="Max price" onChange={e => onRange('max', +e.target.value)} />
             </div>
             <div className="price-in">
-              <input className="input" value={minTxt} inputMode="numeric" aria-label="Min" onChange={e => setMinTxt(e.target.value)} onBlur={commitPrice} onKeyDown={e => { if (e.key === 'Enter') commitPrice(); }} />
-              <input className="input" value={maxTxt} inputMode="numeric" aria-label="Max" onChange={e => setMaxTxt(e.target.value)} onBlur={commitPrice} onKeyDown={e => { if (e.key === 'Enter') commitPrice(); }} />
+              <label className="pin"><span aria-hidden="true">৳</span><input className="input" value={minTxt} inputMode="numeric" aria-label="Min" onChange={e => setMinTxt(e.target.value)} onBlur={commitPrice} onKeyDown={e => { if (e.key === 'Enter') commitPrice(); }} /></label>
+              <label className="pin"><span aria-hidden="true">৳</span><input className="input" value={maxTxt} inputMode="numeric" aria-label="Max" onChange={e => setMaxTxt(e.target.value)} onBlur={commitPrice} onKeyDown={e => { if (e.key === 'Enter') commitPrice(); }} /></label>
             </div>
           </>)}
           {(isSearch || isBrand) && cats.length > 1 && box('cats', 'Category', cats.map(c => ck('cats', c, catName(c), cnt(p => p.cat === c, 'cats'))))}
