@@ -1,5 +1,6 @@
 /* Featured Categories — 8 × 2 grid of line-icon tiles under a centered heading (Techland-style layout, own icons). */
 import Link from 'next/link';
+import { catUrl } from '@/lib/format';
 import type { ReactNode } from 'react';
 
 const S = { fill: 'none', stroke: 'currentColor', strokeWidth: 2.4, strokeLinecap: 'round', strokeLinejoin: 'round' } as const;
@@ -24,23 +25,24 @@ const ICONS: Record<string, ReactNode> = {
   camera: svg(<><path d="M22 18q10-9 20 0M26 23q6-5 12 0" /><rect x="12" y="29" width="40" height="9" rx="4" /><circle cx="32" cy="48" r="9" /><circle cx="32" cy="48" r="3.5" /></>),
 };
 
-const TILES: { label: string; icon: keyof typeof ICONS; q: string }[] = [
-  { label: 'Laptop', icon: 'laptop', q: 'Laptop' },
-  { label: 'Air Conditioner', icon: 'ac', q: 'Air Conditioner' },
-  { label: 'Desktop', icon: 'desktop', q: 'Desktop' },
-  { label: 'Processor', icon: 'cpu', q: 'Processor' },
-  { label: 'Motherboard', icon: 'board', q: 'Motherboard' },
-  { label: 'SSD', icon: 'ssd', q: 'SSD' },
-  { label: 'Graphics Card', icon: 'gpu', q: 'Graphics Card' },
-  { label: 'RAM', icon: 'ram', q: 'RAM' },
-  { label: 'Television', icon: 'tv', q: 'Television' },
-  { label: 'Router', icon: 'router', q: 'Router' },
-  { label: 'Monitor', icon: 'monitor', q: 'Monitor' },
-  { label: 'Printer', icon: 'printer', q: 'Printer' },
-  { label: 'Air Fryer', icon: 'fryer', q: 'Air Fryer' },
-  { label: 'Washing Machine', icon: 'washer', q: 'Washing Machine' },
-  { label: 'Smart Watch', icon: 'watch', q: 'Smart Watch' },
-  { label: 'WiFi Camera', icon: 'camera', q: 'WiFi Camera' },
+/* every tile opens the shop's own category / sub-category page */
+const TILES: { label: string; icon: keyof typeof ICONS; cat: string; sub?: string }[] = [
+  { label: 'Laptop', icon: 'laptop', cat: 'laptop-and-notebooks' },
+  { label: 'Air Conditioner', icon: 'ac', cat: 'home-appilance', sub: 'Air Conditioner' },
+  { label: 'Desktop', icon: 'desktop', cat: 'desktop-pc' },
+  { label: 'Processor', icon: 'cpu', cat: 'pc-component', sub: 'Processor' },
+  { label: 'Motherboard', icon: 'board', cat: 'pc-component', sub: 'Motherboard' },
+  { label: 'SSD', icon: 'ssd', cat: 'pc-component', sub: 'SSD' },
+  { label: 'Graphics Card', icon: 'gpu', cat: 'pc-component', sub: 'Graphics Card' },
+  { label: 'RAM', icon: 'ram', cat: 'pc-component', sub: 'RAM (Desktop)' },
+  { label: 'Television', icon: 'tv', cat: 'tv' },
+  { label: 'Router', icon: 'router', cat: 'networking-product', sub: 'Router' },
+  { label: 'Monitor', icon: 'monitor', cat: 'monitor' },
+  { label: 'Printer', icon: 'printer', cat: 'office-equipment', sub: 'Printer' },
+  { label: 'Air Fryer', icon: 'fryer', cat: 'home-appilance', sub: 'Air Fryer' },
+  { label: 'Washing Machine', icon: 'washer', cat: 'home-appilance', sub: 'Washing Machine' },
+  { label: 'Smart Watch', icon: 'watch', cat: 'gadget', sub: 'Smart Watch' },
+  { label: 'WiFi Camera', icon: 'camera', cat: 'security-product', sub: 'Portable WiFi Camera' },
 ];
 
 export default function FeaturedCats() {
@@ -52,7 +54,7 @@ export default function FeaturedCats() {
       </div>
       <div className="fcx-grid">
         {TILES.map(t => (
-          <Link prefetch={false} key={t.label} className="fcx-tile" href={'/search?q=' + encodeURIComponent(t.q)}>
+          <Link prefetch={false} key={t.label} className="fcx-tile" href={catUrl(t.cat, t.sub ? { sub: t.sub } : undefined)}>
             <span className="fcx-ic">{ICONS[t.icon]}</span>
             <span className="fcx-name">{t.label}</span>
           </Link>
