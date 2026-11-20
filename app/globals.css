@@ -4312,3 +4312,15 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .listing .pcard.detailed .pc-cmp .ico { color: #5B6B80; }
 .listing .pcard.detailed .pc-cmp:hover .ico, .listing .pcard.detailed .pc-cmp.on .ico { color: #1877F2; }
 @media (max-width: 1400px) { .listing .pcard.detailed .pc-cmp .ico { display: inline-block; } }
+/* ---------- Pagination: one rounded segmented bar, navy active page, soft prev/next, "…" gap ---------- */
+.lst-foot .pagination { display: inline-flex; align-items: stretch; gap: 0; margin: 0; padding: 0; border: 1px solid #D6DFEA; border-radius: 14px; background: #FFFFFF; overflow: hidden; box-shadow: 0 8px 20px -14px rgba(0, 39, 65, .4); }
+.lst-foot .pagination button, .lst-foot .pagination .pg-gap { min-width: 48px; height: 46px; padding: 0 12px; border: 0; border-radius: 0; background: #FFFFFF; color: #2A3D52; font-size: var(--t-body); font-weight: 600; display: inline-flex; align-items: center; justify-content: center; border-left: 1px solid #E8EDF4; }
+.lst-foot .pagination > :first-child { border-left: 0; }
+.lst-foot .pagination .pg-gap { color: #9AA8BB; font-weight: 700; letter-spacing: .1em; min-width: 44px; }
+.lst-foot .pagination button:hover:not(:disabled):not(.on) { background: #EEF4FF; color: #1877F2; border-color: #E8EDF4; }
+.lst-foot .pagination button.on { background: #1B3A8C; color: #FFFFFF; font-weight: 800; border-color: #1B3A8C; box-shadow: inset 0 -3px 0 rgba(255, 255, 255, .22); }
+.lst-foot .pagination button[aria-label="Previous"], .lst-foot .pagination button[aria-label="Next"] { color: #1B3A8C; background: #F6F8FC; min-width: 50px; }
+.lst-foot .pagination button:disabled { color: #B9C4D4; background: #F6F8FC; cursor: default; opacity: 1; }
+.lst-foot .pagination button[aria-label="Previous"]:hover:not(:disabled), .lst-foot .pagination button[aria-label="Next"]:hover:not(:disabled) { background: #1B3A8C; color: #FFFFFF; }
+@media (max-width: 640px) { .lst-foot .pagination button, .lst-foot .pagination .pg-gap { min-width: 38px; height: 40px; padding: 0 8px; } .lst-foot .pagination .pg-gap { min-width: 30px; } }
+.lst-foot .pagination button .ico { width: 17px; height: 17px; stroke-width: 2.4; }

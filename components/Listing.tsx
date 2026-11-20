@@ -20,6 +20,14 @@ interface Filters { stock: string[]; brands: string[]; subs: string[]; cats: str
 const SORTS: [string, string][] = [['default', 'Default'], ['price-asc', 'Price (Low > High)'], ['price-desc', 'Price (High > Low)'], ['sold', 'Best Selling'], ['rating', 'Top Rated'], ['discount', 'Biggest Saving']];
 const STOCKS: [Stock, string][] = [['in', 'In Stock'], ['preorder', 'Pre Order'], ['upcoming', 'Up Coming'], ['out', 'Out of Stock']];
 const uniq = <T,>(a: T[]) => Array.from(new Set(a));
+/** page numbers to show: the first, the last and a window around the current page; 0 stands for "…" */
+const pageList = (cur: number, total: number): number[] => {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+  const s = new Set([1, 2, total - 1, total, cur - 1, cur, cur + 1]);
+  const out: number[] = [];
+  for (let n = 1; n <= total; n++) { if (s.has(n)) { if (out.length && n - out[out.length - 1] > 1) out.push(0); out.push(n); } }
+  return out;
+};
 const catName = (slug: string) => catBySlug(slug)?.name ?? slug;
 
 export default function Listing({ mode, catSlug, initial, hideCrumb = false, about }: ListingProps) {
@@ -273,7 +281,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
             <nav className="pagination" aria-label="Pagination">
               {pageCount > 1 && <>
                 <button className={page === 1 ? 'faint' : ''} disabled={page === 1} onClick={() => goPage(page - 1)} aria-label="Previous"><Icon name="left" size={14} /></button>
-                {Array.from({ length: pageCount }, (_, i) => i + 1).map(n => <button key={n} className={n === page ? 'on' : ''} onClick={() => goPage(n)}>{n}</button>)}
+                {pageList(page, pageCount).map((n, i) => n === 0 ? <span key={'e' + i} className="pg-gap" aria-hidden="true">&hellip;</span> : <button key={n} className={n === page ? 'on' : ''} aria-current={n === page ? 'page' : undefined} onClick={() => goPage(n)}>{n}</button>)}
                 <button className={page === pageCount ? 'faint' : ''} disabled={page === pageCount} onClick={() => goPage(page + 1)} aria-label="Next"><Icon name="right" size={14} /></button>
               </>}
             </nav>
