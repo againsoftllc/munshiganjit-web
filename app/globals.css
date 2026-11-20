@@ -4324,3 +4324,18 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .lst-foot .pagination button[aria-label="Previous"]:hover:not(:disabled), .lst-foot .pagination button[aria-label="Next"]:hover:not(:disabled) { background: #1B3A8C; color: #FFFFFF; }
 @media (max-width: 640px) { .lst-foot .pagination button, .lst-foot .pagination .pg-gap { min-width: 38px; height: 40px; padding: 0 8px; } .lst-foot .pagination .pg-gap { min-width: 30px; } }
 .lst-foot .pagination button .ico { width: 17px; height: 17px; stroke-width: 2.4; }
+
+/* ---------- Footer bar v2: compact, light — small round page buttons, soft per-page select ---------- */
+.lst-foot { margin-top: 26px; padding-top: 14px; gap: 12px; }
+.lst-per { gap: 10px; font-size: calc(var(--ui-fs) * .88); color: #6B7A8F; }
+.lst-per .select { width: 64px; height: 34px; padding: 0 8px; border-radius: 9px; font-size: calc(var(--ui-fs) * .9); font-weight: 600; background-color: #FFFFFF; }
+.lst-foot .pagination { display: inline-flex; align-items: center; gap: 6px; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; overflow: visible; }
+.lst-foot .pagination button, .lst-foot .pagination .pg-gap { min-width: 36px; width: auto; height: 36px; padding: 0 10px; border: 1px solid #DDE5EF; border-left: 1px solid #DDE5EF; border-radius: 10px; background: #FFFFFF; color: #2A3D52; font-size: calc(var(--ui-fs) * .92); font-weight: 600; box-shadow: none; }
+.lst-foot .pagination .pg-gap { min-width: 24px; padding: 0; border: 0; background: none; color: #9AA8BB; letter-spacing: .06em; }
+.lst-foot .pagination button:hover:not(:disabled):not(.on) { background: #EEF4FF; border-color: #1877F2; color: #1877F2; }
+.lst-foot .pagination button.on { background: #1B3A8C; border-color: #1B3A8C; color: #FFFFFF; font-weight: 700; box-shadow: 0 8px 14px -8px rgba(27, 58, 140, .8); }
+.lst-foot .pagination button[aria-label="Previous"], .lst-foot .pagination button[aria-label="Next"] { min-width: 36px; padding: 0; background: #FFFFFF; color: #1B3A8C; }
+.lst-foot .pagination button:disabled { color: #C2CCDA; background: #F6F8FB; border-color: #E8EDF4; }
+.lst-foot .pagination button[aria-label="Previous"]:hover:not(:disabled), .lst-foot .pagination button[aria-label="Next"]:hover:not(:disabled) { background: #1B3A8C; border-color: #1B3A8C; color: #FFFFFF; }
+.lst-foot .pagination button .ico { width: 15px; height: 15px; stroke-width: 2.4; }
+@media (max-width: 640px) { .lst-foot .pagination button { min-width: 34px; height: 34px; } }
