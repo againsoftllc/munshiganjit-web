@@ -4127,3 +4127,43 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
   .listing .filters { position: fixed; top: 0; left: 0; bottom: 0; width: min(86vw, 360px); max-height: none; border-radius: 0; z-index: 90; transform: translateX(-102%); transition: transform .25s; }
   .listing .filters.open { transform: none; }
 }
+/* ---------- Listing product card v2: green Save badge, red % pill, offer ribbon, centered price, [Add to Cart][Compare] ---------- */
+.listing .pcard.detailed { border: 1px solid #E5EAF1; border-radius: 18px; background: #FFFFFF; box-shadow: 0 2px 6px rgba(0, 39, 65, .04); padding: 12px 12px 0; overflow: hidden; }
+.listing .pcard.detailed:hover { border-color: #C9D6E8; box-shadow: 0 22px 36px -22px rgba(0, 39, 65, .5); transform: translateY(-3px); }
+.listing .pcard.detailed .pc-img { height: 200px; padding: 20px 14px 10px; border: 0; }
+.listing .pcard.detailed .pc-flags { top: 4px; left: 4px; }
+.listing .pcard.detailed .flag.save { background: #00704A; color: #FFFFFF; border-radius: 7px; padding: 5px 10px; font-size: 13px; font-weight: 800; letter-spacing: .01em; }
+.pc-pct { position: absolute; top: 4px; right: 4px; z-index: 1; padding: 5px 12px; border-radius: 999px; background: linear-gradient(145deg, #FF4A52, #ED1B24); color: #FFFFFF; font-size: 13px; font-weight: 800; box-shadow: 0 8px 16px -6px rgba(237, 27, 36, .7); }
+.listing .pcard.detailed .pc-body { padding: 0; }
+.pc-ribbon { display: flex; align-items: center; justify-content: center; gap: 7px; height: 36px; margin: 2px 0 12px; border-radius: 9px; background: linear-gradient(90deg, #ED1B24 0%, #F4602A 55%, #FF8A1F 100%); color: #FFFFFF; font-size: 14px; font-weight: 800; letter-spacing: .01em; }
+.listing .pcard.detailed .pc-name { font-size: clamp(15px, 13.6px + .3vw, 17px); font-weight: 600; line-height: 1.4; color: #1B2538; min-height: 2.8em; margin-top: 2px; }
+.listing .pcard.detailed .pc-specs { padding: 0 0 0 20px; margin: 12px 0 0; min-height: 6.4em; }
+.listing .pcard.detailed .pc-specs li { font-size: 14px; line-height: 1.5; color: #6B7686; }
+.listing .pcard.detailed .pc-specs li::marker { color: #98A3B3; }
+.listing .pcard.detailed .pc-foot { grid-template-columns: 1fr 1fr; gap: 10px; margin: 8px 0 0; padding: 4px 0 16px; border-top: 0; }
+.listing .pcard.detailed .pc-foot .pc-price { justify-content: center; gap: 12px; margin: 6px 0 4px; }
+.listing .pcard.detailed .pc-foot .pc-price b { font-size: clamp(22px, 17px + 1vw, 28px); font-weight: 800; color: #E3232D; }
+.listing .pcard.detailed .pc-foot .pc-price s { font-size: clamp(15px, 13px + .4vw, 18px); color: #8A94A3; font-weight: 500; }
+.listing .pcard.detailed .pc-foot .cart-btns { display: contents; }
+.listing .pcard.detailed .pc-foot .btn-buy { height: 46px; border-radius: 10px; background: #1B3A8C; font-size: 15px; font-weight: 700; }
+.listing .pcard.detailed .pc-foot .btn-buy:hover { background: #ED1B24; }
+.listing .pcard.detailed .pc-cmp { height: 46px; border: 1px solid #E1E7EF; border-radius: 10px; background: #F5F7FA; color: #3B4658; font-size: 15px; font-weight: 600; justify-content: center; gap: 8px; }
+.listing .pcard.detailed .pc-cmp:hover, .listing .pcard.detailed .pc-cmp.on { background: #E8F1FE; border-color: #1877F2; color: #1877F2; }
+@media (max-width: 640px) {
+  .listing .pcard.detailed { padding: 8px 8px 0; border-radius: 14px; }
+  .listing .pcard.detailed .pc-img { height: 150px; padding: 14px 6px 6px; }
+  .pc-ribbon { height: 30px; font-size: 12px; margin-bottom: 8px; }
+  .pc-pct { font-size: 11.5px; padding: 3px 9px; }
+  .listing .pcard.detailed .flag.save { font-size: 11px; padding: 4px 8px; }
+  .listing .pcard.detailed .pc-foot { grid-template-columns: 1fr; padding: 2px 0 10px; }
+  .listing .pcard.detailed .pc-cmp { display: none; }
+  .listing .pcard.detailed .pc-foot .btn-buy { height: 40px; font-size: 13.5px; }
+}
+.listing .pcard.detailed .pc-specs { list-style: disc; }
+.listing .pcard.detailed .pc-specs li { list-style: disc; }
+
+/* spec bullets: drawn dots (the clamped list items swallow native markers) */
+.listing .pcard.detailed .pc-specs { list-style: none; padding-left: 0; }
+.listing .pcard.detailed .pc-specs:empty { display: none; }
+.listing .pcard.detailed .pc-specs li { position: relative; display: block; padding-left: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: unset; }
+.listing .pcard.detailed .pc-specs li::before { content: ""; position: absolute; left: 6px; top: .62em; width: 5px; height: 5px; border-radius: 50%; background: #98A3B3; }

@@ -109,6 +109,7 @@ export function ProductCard({ p, detailed = false, qtyNote = false, home = false
           {p.stock === 'upcoming' && <span className="flag up">Up Coming</span>}
           {p.stock === 'out' && <span className="flag out">Out of Stock</span>}
         </span>
+        {detailed && p.old && p.old > p.price && <span className="pc-pct">-{Math.round((1 - p.price / p.old) * 100)}%</span>}
         <ProductImg p={p} size={150} />
         {warrantyBadge(p.id) && <span className="pc-warranty"><Icon name="shield" size={11} />{warrantyBadge(p.id)}</span>}
       </Link>
@@ -117,6 +118,7 @@ export function ProductCard({ p, detailed = false, qtyNote = false, home = false
           onClick={() => toast(toggleWish(p.id) ? 'Saved to wishlist' : 'Removed from wishlist', 'heart')}><Icon name="heart" size={15} /></button>
       </div>
       <div className="pc-body">
+        {detailed && p.old && p.old > p.price && <span className="pc-ribbon"><Icon name="bolt" size={14} />Special Offer Price</span>}
         <span className="pc-brand">{p.brand}</span>
         <Link prefetch={false} className="pc-name notranslate" translate="no" href={url}>{p.name}</Link>
         <ul className="pc-specs">{p.specs.slice(0, 4).map(s => <li key={s}>{s}</li>)}</ul>
@@ -128,7 +130,7 @@ export function ProductCard({ p, detailed = false, qtyNote = false, home = false
         <StockTag p={p} />
         {qtyNote && p.stock === 'in' && <span className="qty-note">{p.qty} units available</span>}
         <CartButtons p={p} home={home} />
-        <button className={'pc-cmp' + (inCmp ? ' on' : '')} onClick={() => cmp(p.id)}><Icon name="compare" size={14} />{inCmp ? 'Added to Compare' : 'Add to Compare'}</button>
+        <button className={'pc-cmp' + (inCmp ? ' on' : '')} onClick={() => cmp(p.id)}><Icon name="compare" size={14} />{inCmp ? 'Added' : 'Compare'}</button>
       </div>
     </article>
   );
