@@ -50,7 +50,7 @@ export function StockTag({ p }: { p: Product }) {
 /* Buy Now / Add to Cart / Pre Order / Notify Me — depends on inventory state.
    Both Buy Now and Add to Cart open the right-side cart drawer (no page change); Buy Now highlights Checkout. */
 /** Product card -> header cart: a copy of the card's picture shrinks and flies to the cart button, which then bounces. */
-export function flyToCart(from: HTMLElement, targets: string[] = ['.hdr-main .cart-btn', '.fr-btn.cart']) {
+export function flyToCart(from: HTMLElement, targets: string[] = ['.fr-btn.cart .fr-ic', '.hdr-main .cart-btn']) {
   if (typeof document === 'undefined') return;
   const card = from.closest('.pcard') as HTMLElement | null;
   const img = card?.querySelector('.pc-img img, .pc-img svg') as HTMLElement | null;
@@ -118,7 +118,7 @@ export function useCompareToggle() {
   const { toggleCompare, toast } = useStore();
   return (id: string, from?: HTMLElement | null) => {
     const r = toggleCompare(id);
-    if (r === true && from) flyToCart(from, ['.fr-btn[href="/compare"]', '.bnav a[href="/compare"]']);
+    if (r === true && from) flyToCart(from, ['.fr-btn[href="/compare"] .fr-ic', '.bnav a[href="/compare"]']);
     if (r !== null) toast(r ? <>Added to compare. <Link prefetch={false} href="/compare">Compare now</Link></> : 'Removed from compare', 'compare');
   };
 }
