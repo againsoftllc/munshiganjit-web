@@ -59,6 +59,30 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
   }));
   const [sort, setSort] = useState(initial.sort || 'default');
   const [nameQ, setNameQ] = useState('');
+  /* filter card scrollbar: the thumb keeps one small fixed size (native thumbs shrink as groups open) */
+  const fBody = useRef<HTMLDivElement>(null);
+  const fThumb = useRef<HTMLSpanElement>(null);
+  const fTrack = useRef<HTMLDivElement>(null);
+  const THUMB = 44;
+  const fSync = () => {
+    const b = fBody.current, th = fThumb.current, tr = fTrack.current;
+    if (!b || !th || !tr) return;
+    const max = b.scrollHeight - b.clientHeight;
+    tr.style.visibility = max > 2 ? 'visible' : 'hidden';
+    th.style.height = THUMB + 'px';
+    th.style.transform = 'translateY(' + (max > 0 ? (b.clientHeight - THUMB) * (b.scrollTop / max) : 0) + 'px)';
+  };
+  const fBurst = () => { const t0 = performance.now(); const tick = () => { fSync(); if (performance.now() - t0 < 520) requestAnimationFrame(tick); }; requestAnimationFrame(tick); };
+  useEffect(() => { fSync(); addEventListener('resize', fSync); return () => removeEventListener('resize', fSync); });
+  const fDrag = (e: React.PointerEvent<HTMLSpanElement>) => {
+    const b = fBody.current; if (!b) return;
+    e.preventDefault();
+    const startY = e.clientY, startTop = b.scrollTop;
+    const ratio = (b.scrollHeight - b.clientHeight) / Math.max(1, b.clientHeight - THUMB);
+    const move = (ev: PointerEvent) => { b.scrollTop = startTop + (ev.clientY - startY) * ratio; };
+    const up = () => { removeEventListener('pointermove', move); removeEventListener('pointerup', up); };
+    addEventListener('pointermove', move); addEventListener('pointerup', up);
+  };
   const [subOpen, setSubOpen] = useState(false);   // sub-category links: one line, or all lines
   const [subMore, setSubMore] = useState(false);   // true when the links need more than one line
   const [subH, setSubH] = useState<[number, number]>([0, 0]); // [one row, all rows] heights in px, for the smooth open / close
@@ -228,7 +252,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
         <aside className={'filters' + (drawer === 'filters' ? ' open' : '')} aria-label="Filters">
           <div className="row-between f-close" style={{ display: 'none', marginBottom: 6 }}><b>Filters</b><button onClick={closeDrawer} aria-label="Close"><Icon name="close" size={20} /></button></div>
           <div className="f-top"><h3>Filters</h3><button type="button" onClick={clearAll}>Clear All</button></div>
-          <div className="f-body">
+          <div className="f-wrap"><div className="f-body" ref={fBody} onScroll={fSync} onClick={fBurst}>
           {box('stock', 'Availability', STOCKS.map(s => ck('stock', s[0], s[1], cnt(p => p.stock === s[0], 'stock'))))}
           {box('price', 'Price Range', <>
             <div className="range">
@@ -264,6 +288,8 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
             <label className="check"><input type="checkbox" data-g="sale" value="1" checked={f.sale} onChange={e => setF(s => ({ ...s, sale: e.target.checked }))} /><span>Discounted</span><em>({cnt(p => p.old)})</em></label>
             <label className="check"><input type="checkbox" data-g="emi" value="1" checked={f.emi} onChange={e => setF(s => ({ ...s, emi: e.target.checked }))} /><span>EMI Available</span><em>({cnt(p => p.emi)})</em></label>
           </>)}
+          </div>
+          <div className="f-track" ref={fTrack} aria-hidden="true"><span ref={fThumb} onPointerDown={fDrag} /></div>
           </div>
           <div className="f-foot"><button type="button" className="f-clear" onClick={clearAll}>Clear All</button></div>
         </aside>

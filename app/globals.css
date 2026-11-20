@@ -4430,3 +4430,11 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .listing .filters .fbox.closed .fbody-in { padding-bottom: 0; }
 .listing .filters .fbox > h4 .ico { transition: transform .28s cubic-bezier(.4, 0, .2, 1); }
 @media (prefers-reduced-motion: reduce) { .listing .filters .fbox .fbody, .listing .filters .fbox .fbody-in, .listing .filters .fbox > h4 .ico { transition: none; } }
+/* filter card: custom slim scrollbar with a fixed-size thumb */
+.f-wrap { position: relative; flex: 1 1 auto; min-height: 0; display: flex; }
+.f-wrap .f-body { flex: 1 1 auto; scrollbar-width: none; }
+.f-wrap .f-body::-webkit-scrollbar { display: none; width: 0; }
+.f-track { position: absolute; top: 4px; bottom: 4px; right: 3px; width: 6px; border-radius: 6px; background: rgba(0, 39, 65, .05); }
+.f-track span { position: absolute; left: 0; right: 0; top: 0; border-radius: 6px; background: #B7C3D4; cursor: grab; touch-action: none; transition: background .15s; }
+.f-track span:hover, .f-track span:active { background: #1B3A8C; cursor: grabbing; }
+@media (max-width: 1024px) { .f-track { right: 4px; } }
