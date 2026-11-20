@@ -4552,3 +4552,7 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .listing .pcard.detailed .pc-foot .btn-buy.notify { background: #ED1B24; color: #FFFFFF; }
 .listing .pcard.detailed .pc-foot .btn-buy.notify:hover { background: #C4121A; color: #FFFFFF; }
 .listing .pcard.detailed .pc-foot .btn-buy.add, .listing .pcard.detailed .pc-foot .btn-buy.solid, .listing .pcard.detailed .pc-foot .btn-buy.pre { background: #1778F2; color: #FFFFFF; }
+/* Out of Stock: soft red (background #ed1b2424, text #ed1b24) */
+.listing .pcard.detailed .pc-foot .btn-buy.notify { background: #ed1b2424; color: #ed1b24; }
+.listing .pcard.detailed .pc-foot .btn-buy.notify:hover { background: #ed1b2440; color: #ed1b24; }
+.listing .pcard.detailed .pc-foot .btn-buy.notify .ico { color: #ed1b24; }
