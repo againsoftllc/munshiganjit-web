@@ -4169,3 +4169,52 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .listing .pcard.detailed .pc-specs li::before { content: ""; position: absolute; left: 6px; top: .62em; width: 5px; height: 5px; border-radius: 50%; background: #98A3B3; }
 /* one scrollbar only: the filter card scrolls, inner lists do not */
 .listing .filters .f-scroll { max-height: none; overflow: visible; }
+
+/* ---------- Laptop-friendly type scale (retuned): smaller at 1280–1536px, same upper limits on big monitors ---------- */
+:root {
+  --t-h2: clamp(20px, 15px + .95vw, 30px);
+  --t-sub: clamp(13px, 11.8px + .24vw, 16px);
+  --t-lead: clamp(14.5px, 13px + .3vw, 17px);
+  --t-body: clamp(13.5px, 12.6px + .2vw, 15.5px);
+  --t-small: clamp(12px, 11.2px + .18vw, 14px);
+  --t-btn: clamp(13px, 12px + .2vw, 15px);
+  --t-card: clamp(13px, 12px + .22vw, 15px);
+  --t-price: clamp(15px, 13.4px + .32vw, 18px);
+  --t-num: clamp(14px, 13px + .24vw, 17px);
+  --t-hero: clamp(30px, 18px + 2.6vw, 52px);
+}
+@media (min-width: 2200px) { :root { --t-h2: 36px; --t-sub: 18px; --t-lead: 19px; --t-body: 16.5px; --t-small: 14.5px; --t-btn: 16px; --t-card: 16px; --t-price: 20px; --t-num: 19px; --t-hero: 62px; } }
+/* category header */
+.cat-seo h1 { font-size: clamp(22px, 15px + .8vw, 30px); }
+.cat-seo p, .lst-head .subcats .pill { font-size: clamp(14px, 12.6px + .2vw, 16.5px); }
+.lst-head .subcats .pill::after { margin: 0 14px; }
+/* filters */
+.f-top h3 { font-size: clamp(18px, 15px + .5vw, 21px); }
+.listing .filters .fbox > h4 { font-size: clamp(15.5px, 13.6px + .32vw, 18px); padding: 14px 0; }
+.listing .filters .check { font-size: clamp(14px, 12.8px + .2vw, 15.5px); padding: 6px 0; }
+.listing .filters .check input { width: 18px; height: 18px; }
+.listing .filters .check em { font-size: 12.5px; }
+.f-top button { font-size: 14px; }
+.f-clear { font-size: 15px; height: 44px; }
+/* product card */
+.listing .pcard.detailed .pc-name { font-size: clamp(14px, 12.8px + .25vw, 16px); }
+.listing .pcard.detailed .pc-specs li { font-size: clamp(12.5px, 11.6px + .18vw, 14px); }
+.listing .pcard.detailed .pc-foot .pc-price b { font-size: clamp(19px, 15px + .7vw, 25px); }
+.listing .pcard.detailed .pc-foot .pc-price s { font-size: clamp(13px, 12px + .2vw, 15.5px); }
+.listing .pcard.detailed .pc-foot .btn-buy, .listing .pcard.detailed .pc-cmp { font-size: clamp(13px, 12px + .2vw, 15px); height: 44px; }
+.listing .pcard.detailed .flag.save, .pc-pct { font-size: clamp(11.5px, 10.8px + .15vw, 13px); }
+.pc-ribbon { font-size: clamp(12.5px, 11.8px + .15vw, 14px); height: 34px; }
+.lst-search input, .lst-bar2 .lst-sort { font-size: var(--t-small); }
+/* section headings on the home page */
+.fcx-head h2, .fsx-head h2 { font-size: var(--t-h2); }
+.fcx-name { font-size: clamp(13px, 12px + .2vw, 15px); }
+.fsx-name { font-size: var(--t-card); }
+.seo-pro h2 { font-size: clamp(20px, 15px + 1vw, 30px); }
+/* guide on category page */
+.cat-guide h2 { font-size: clamp(19px, 15px + .8vw, 26px); }
+.cat-guide h3 { font-size: clamp(16px, 13.6px + .45vw, 19px); }
+/* card buttons never wrap: Add to Cart gets the wider column */
+.listing .pcard.detailed .pc-foot { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 8px; }
+.listing .pcard.detailed .pc-foot .btn-buy, .listing .pcard.detailed .pc-cmp { white-space: nowrap; padding: 0 8px; gap: 6px; }
+.listing .pcard.detailed .pc-foot .btn-buy .ico, .listing .pcard.detailed .pc-cmp .ico { flex: none; width: 15px; height: 15px; }
+@media (max-width: 1400px) { .listing .pcard.detailed .pc-cmp .ico { display: none; } }
