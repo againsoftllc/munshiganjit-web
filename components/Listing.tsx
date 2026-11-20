@@ -20,7 +20,8 @@ interface Filters { stock: string[]; brands: string[]; subs: string[]; cats: str
 const SORTS: [string, string][] = [['default', 'Default'], ['price-asc', 'Price (Low > High)'], ['price-desc', 'Price (High > Low)'], ['sold', 'Best Selling'], ['rating', 'Top Rated'], ['discount', 'Biggest Saving']];
 const STOCKS: [Stock, string][] = [['in', 'In Stock'], ['preorder', 'Pre Order'], ['upcoming', 'Up Coming'], ['out', 'Out of Stock']];
 const uniq = <T,>(a: T[]) => Array.from(new Set(a));
-const ALWAYS = ['stock', 'price']; // filter groups that are always open (no arrow)
+const ALWAYS = ['stock', 'price'];
+const fmtNum = (s: string) => (s === '' ? '' : Number(s).toLocaleString('en-US')); // 185000 -> 185,000 // filter groups that are always open (no arrow)
 /** page numbers to show: the first, the last and a window around the current page; 0 stands for "…" */
 const pageList = (cur: number, total: number): number[] => {
   if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
@@ -219,8 +220,8 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
               <input type="range" min={0} max={PMAX} step={500} value={f.max} aria-label="Max price" onChange={e => onRange('max', +e.target.value)} />
             </div>
             <div className="price-in">
-              <label className="pin"><span aria-hidden="true">৳</span><input className="input" value={minTxt} inputMode="numeric" aria-label="Min" onChange={e => setMinTxt(e.target.value)} onBlur={commitPrice} onKeyDown={e => { if (e.key === 'Enter') commitPrice(); }} /></label>
-              <label className="pin"><span aria-hidden="true">৳</span><input className="input" value={maxTxt} inputMode="numeric" aria-label="Max" onChange={e => setMaxTxt(e.target.value)} onBlur={commitPrice} onKeyDown={e => { if (e.key === 'Enter') commitPrice(); }} /></label>
+              <label className="pin"><span aria-hidden="true">৳</span><input className="input" value={fmtNum(minTxt)} inputMode="numeric" aria-label="Min" onChange={e => setMinTxt(e.target.value.replace(/\D/g, ''))} onBlur={commitPrice} onKeyDown={e => { if (e.key === 'Enter') commitPrice(); }} /></label>
+              <label className="pin"><span aria-hidden="true">৳</span><input className="input" value={fmtNum(maxTxt)} inputMode="numeric" aria-label="Max" onChange={e => setMaxTxt(e.target.value.replace(/\D/g, ''))} onBlur={commitPrice} onKeyDown={e => { if (e.key === 'Enter') commitPrice(); }} /></label>
             </div>
           </>)}
           {(isSearch || isBrand) && cats.length > 1 && box('cats', 'Category', cats.map(c => ck('cats', c, catName(c), cnt(p => p.cat === c, 'cats'))))}

@@ -4370,3 +4370,14 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .listing .filters .price-in .pin .input { width: 100%; padding-left: 28px; }
 .listing .filters .price-in .pin > span { font-size: calc(var(--ui-fs) * 1.15); color: #1B3A8C; font-weight: 800; left: 11px; }
 .listing .filters .price-in .pin .input { padding-left: 30px; }
+
+/* price boxes like the reference: "৳ 185,000", thin navy border on focus (no glow) */
+.listing .filters .price-in .pin .input { height: 42px; padding-left: 34px; padding-right: 10px; border: 1px solid #D6DFEA; border-radius: 8px; background: #FFFFFF; font-size: calc(var(--ui-fs) * 1.02); font-weight: 600; color: #3B4A5E; box-shadow: none; outline: none; transition: border-color .12s; }
+.listing .filters .price-in .pin .input:focus, .listing .filters .price-in .pin .input:focus-visible { border-color: #1B3A8C; border-width: 2px; padding-left: 33px; padding-right: 9px; box-shadow: none; outline: none; }
+.listing .filters .price-in .pin > span { left: 12px; font-size: calc(var(--ui-fs) * 1.1); font-weight: 700; color: #3B4A5E; }
+.listing .filters .price-in .pin:focus-within > span { color: #1B3A8C; left: 11px; }
+.listing .filters .price-in { gap: 8px; }
+.listing .filters .price-in .pin .input { text-align: left; padding-left: 26px; padding-right: 6px; font-size: calc(var(--ui-fs) * .95); letter-spacing: 0; }
+.listing .filters .price-in .pin .input:focus, .listing .filters .price-in .pin .input:focus-visible { padding-left: 25px; padding-right: 5px; }
+.listing .filters .price-in .pin > span { left: 10px; font-size: calc(var(--ui-fs) * 1.15); font-weight: 600; }
+.listing .filters .price-in .pin:focus-within > span { left: 9px; }
