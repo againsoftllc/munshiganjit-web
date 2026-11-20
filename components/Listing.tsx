@@ -104,7 +104,9 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
   const [per, setPer] = useState('20');
   const [page, setPage] = useState(1);
   const [view, setView] = useState<'grid' | 'list'>('grid');
-  const [openKey, setOpenKey] = useState<string>(''); // accordion for the other groups; Availability and Price Range are always open
+  const [openKeys, setOpenKeys] = useState<string[]>([]); // open filter groups; Availability and Price Range are always open
+  const [allOpen, setAllOpen] = useState(false);          // 'show all' mode: groups open and close one by one; otherwise opening one closes the others
+  const groupKeys: string[] = [];                          // filled while the groups render, used by the expand-all button
   const [minTxt, setMinTxt] = useState(String(f.min));
   const [maxTxt, setMaxTxt] = useState(String(f.max));
 
@@ -161,12 +163,12 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
   const commitPrice = () => setF(s => ({ ...s, min: Math.max(0, +minTxt || 0), max: Math.min(PMAX, +maxTxt || PMAX) }));
 
   /* sidebar pieces */
-  const box = (k: string, t: string, body: ReactNode) => (
-    <div key={k} className={'fbox' + (ALWAYS.includes(k) ? ' fixed' : openKey === k ? '' : ' closed')} data-f={k}>
-      <h4 onClick={ALWAYS.includes(k) ? undefined : () => setOpenKey(o => (o === k ? '' : k))}>{t}{!ALWAYS.includes(k) && <Icon name="right" size={16} />}</h4>
+  const box = (k: string, t: string, body: ReactNode) => { if (!ALWAYS.includes(k)) groupKeys.push(k); return (
+    <div key={k} className={'fbox' + (ALWAYS.includes(k) ? ' fixed' : openKeys.includes(k) ? '' : ' closed')} data-f={k}>
+      <h4 onClick={ALWAYS.includes(k) ? undefined : () => setOpenKeys(o => (o.includes(k) ? o.filter(x => x !== k) : allOpen ? [...o, k] : [k]))}>{t}{!ALWAYS.includes(k) && <Icon name="right" size={16} />}</h4>
       <div className="fbody"><div className="fbody-in">{body}</div></div>
     </div>
-  );
+  ); };
   const ck = (g: SetKey, v: string, l: ReactNode, n: number) => (
     <label className="check" key={g + v}>
       <input type="checkbox" data-g={g} value={v} checked={f[g].includes(v)} onChange={e => toggle(g, v, e.target.checked)} />
@@ -291,7 +293,9 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
           </div>
           <div className="f-track" ref={fTrack} aria-hidden="true"><span ref={fThumb} onPointerDown={fDrag} /></div>
           </div>
-          <div className="f-foot"><button type="button" className="f-clear" onClick={clearAll}>Clear All</button></div>
+          <div className="f-foot"><button type="button" className={'f-expand' + (allOpen ? ' on' : '')} aria-pressed={allOpen} aria-label={allOpen ? 'Collapse all filters' : 'Show all filters'} title={allOpen ? 'Collapse all filters' : 'Show all filters'} onClick={() => { if (allOpen) { setAllOpen(false); setOpenKeys([]); } else { setAllOpen(true); setOpenKeys([...groupKeys]); } }}>
+            <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">{allOpen ? <><path d="M5.5 3.5L10 7.5l4.5-4" /><path d="M5.5 16.5L10 12.5l4.5 4" /></> : <><path d="M5.5 7.5L10 3.5l4.5 4" /><path d="M5.5 12.5L10 16.5l4.5-4" /></>}</svg>
+          </button></div>
         </aside>
 
         <section aria-label="Products">

@@ -4438,3 +4438,12 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .f-track span { position: absolute; left: 0; right: 0; top: 0; border-radius: 6px; background: #B7C3D4; cursor: grab; touch-action: none; transition: background .15s; }
 .f-track span:hover, .f-track span:active { background: #1B3A8C; cursor: grabbing; }
 @media (max-width: 1024px) { .f-track { right: 4px; } }
+/* bottom of the filter card: one small icon button that opens / closes all groups */
+.f-foot { display: flex; justify-content: center; padding: 8px 16px 10px; }
+.f-expand { width: 44px; height: 34px; border-radius: 10px; border: 1px solid #D6DFEA; background: #FFFFFF; color: #1B3A8C; display: grid; place-items: center; cursor: pointer; transition: background .15s, color .15s, border-color .15s, transform .15s; }
+.f-expand:hover { background: #1B3A8C; border-color: #1B3A8C; color: #FFFFFF; }
+.f-expand:active { transform: scale(.94); }
+.f-expand.on { background: #E8F1FE; border-color: #1B3A8C; }
+.f-expand.on:hover { background: #1B3A8C; color: #FFFFFF; }
+/* no forced min height: the card fits its groups, the icon button sits right under them */
+.listing .filters { min-height: 0; }
