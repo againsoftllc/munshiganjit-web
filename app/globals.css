@@ -4405,3 +4405,16 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .lst-head .wrap:has(.subcat-toggle) { padding-bottom: 22px; }
 .lst-head .wrap:has(.subcat-toggle) .subcats { padding-bottom: 0; }
 .lst-head .subcats.one-line { max-height: calc(14px + var(--ui-fs) * 1.4 + 10px + 1px); }
+/* search + sort bar: same height, thin navy focus (no glow), sort select with its own arrow */
+.lst-bar2 { gap: 10px; align-items: stretch; }
+.lst-search, .lst-bar2 .lst-sort { height: 42px; border: 1px solid #D6DFEA; border-radius: 10px; background-color: #FFFFFF; box-shadow: none; }
+.lst-search { padding: 0 14px; gap: 9px; }
+.lst-search:focus-within { border-color: #1B3A8C; box-shadow: none; outline: none; }
+.lst-search input, .lst-search input:focus, .lst-search input:focus-visible { outline: none; box-shadow: none; border: 0; font-size: calc(var(--ui-fs) * .95); }
+.lst-search .ico { width: 16px; height: 16px; color: #7A8AA0; flex: none; }
+.lst-bar2 .lst-sort { appearance: none; -webkit-appearance: none; width: 190px; padding: 0 36px 0 14px; font-size: calc(var(--ui-fs) * .95); font-weight: 600; color: #2A3D52; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%231B3A8C' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 8l4.5 4.5L14.5 8'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 15px; }
+.lst-bar2 .lst-sort:hover { border-color: #B7C5D9; }
+.lst-bar2 .lst-sort:focus, .lst-bar2 .lst-sort:focus-visible { border-color: #1B3A8C; outline: none; box-shadow: none; }
+.lst-per .select { appearance: none; -webkit-appearance: none; padding-right: 26px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%231B3A8C' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 8l4.5 4.5L14.5 8'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; background-size: 13px; }
+@media (max-width: 640px) { .lst-bar2 .lst-sort { width: auto; flex: 1; } }
