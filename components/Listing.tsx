@@ -180,6 +180,19 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
   }, [base, f, sort, nameQ]);
 
   useEffect(() => { setPage(1); }, [f, sort, per, nameQ]);
+  /* when a filter / sort / page size changes, bring the search + sort bar to the top of the screen (just under the sticky header) */
+  const barRef = useRef<HTMLDivElement>(null);
+  const firstRun = useRef(true);
+  useEffect(() => {
+    if (firstRun.current) { firstRun.current = false; return; }
+    const id = setTimeout(() => {
+      const el = barRef.current; if (!el) return;
+      const hdr = window.innerWidth <= 900 ? 72 : 146;
+      const top = el.getBoundingClientRect().top + window.scrollY - hdr;
+      if (Math.abs(window.scrollY - top) > 8) window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }, 350);
+    return () => clearTimeout(id);
+  }, [f, sort, per]);
   const perN = +per || 20;
   const pageCount = Math.max(1, Math.ceil(results.length / perN));
   const shown = results.slice((page - 1) * perN, page * perN);
@@ -332,7 +345,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
         </aside>
 
         <section aria-label="Products">
-          <div className="lst-bar lst-bar2">
+          <div ref={barRef} className="lst-bar lst-bar2">
             <button className="btn btn-line btn-sm fbtn" onClick={() => openDrawer('filters')}><Icon name="filter" size={15} />Filter</button>
             {!seoIntro && <h1>{isSearch ? (q ? <>Search: &ldquo;{q}&rdquo;</> : 'All Products') : title}</h1>}
             <label className="lst-search"><Icon name="search" size={17} /><input type="search" value={nameQ} onChange={e => setNameQ(e.target.value)} placeholder="Search by product name..." aria-label="Search by product name" /></label>
