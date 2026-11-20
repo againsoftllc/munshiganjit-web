@@ -271,6 +271,24 @@ export default function Header() {
               <Link prefetch={false} href="/search?q=CCTV%20Camera"><Icon name="chip" size={16} />CC Builder</Link>
             </div>
           </div>
+          <Link prefetch={false} href="/track-order" className="trk-btn" aria-label="Track your order">
+            <span className="trk-text"><svg className="trk-pin" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z" /><circle cx="12" cy="10" r="2.4" /></svg>Track Order</span>
+            <span className="trk-van" aria-hidden="true">
+              <svg viewBox="0 0 72 40" width="62" height="34" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                <g className="trk-body">
+                  <rect x="3" y="7" width="38" height="22" rx="3" fill="#FFFFFF" />
+                  <rect x="11" y="11" width="16" height="14" rx="2" fill="#FFC83D" stroke="#B8530A" strokeWidth="1.4" />
+                  <path d="M19 11v14M11 17h16" stroke="#B8530A" strokeWidth="1.4" />
+                  <path d="M41 13h12l8 9v7H41z" fill="#FFFFFF" />
+                  <path d="M47 16h5l4 5h-9z" fill="#1877F2" />
+                  <rect x="3" y="27" width="58" height="3" rx="1.5" fill="#ED1B24" />
+                </g>
+                <g className="trk-w"><circle cx="16" cy="31" r="5.2" fill="#002741" /><circle cx="16" cy="31" r="1.8" fill="#FFFFFF" /><path d="M16 26.5v9M11.5 31h9" stroke="#FFFFFF" strokeWidth="1" /></g>
+                <g className="trk-w"><circle cx="49" cy="31" r="5.2" fill="#002741" /><circle cx="49" cy="31" r="1.8" fill="#FFFFFF" /><path d="M49 26.5v9M44.5 31h9" stroke="#FFFFFF" strokeWidth="1" /></g>
+              </svg>
+              <i className="trk-speed" />
+            </span>
+          </Link>
           <button className="cart-btn" aria-label="Cart" onClick={() => openDrawer('cart')}>
             <Icon name="cart" size={19} /><span className="ct">My Cart</span><span className="sep" /><span className="ct">{money(ready ? cartTotal : 0)}</span>
             {ready && cartCount > 0 && <span className="badge">{cartCount}</span>}
