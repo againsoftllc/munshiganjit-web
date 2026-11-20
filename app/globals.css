@@ -4651,3 +4651,5 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 @keyframes trkRoad { 0%, 33% { opacity: 0; background-position: 0 0; } 40%, 86% { opacity: 1; } 93%, 100% { opacity: 0; background-position: -150px 0; } }
 .trk-van { opacity: 1; }
 .trk-btn:hover .trk-van, .trk-btn:hover::after { animation-play-state: paused; }
+/* Track Order: red location icon (on a small white chip so red stays clear on the blue button) */
+.trk-pin { width: 26px; height: 26px; padding: 4px; box-sizing: border-box; border-radius: 50%; background: #FFFFFF; color: #ED1B24; stroke-width: 2.4; box-shadow: 0 4px 10px -4px rgba(0, 20, 60, .5); }
