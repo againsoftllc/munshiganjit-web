@@ -21,6 +21,7 @@ const SORTS: [string, string][] = [['default', 'Default'], ['price-asc', 'Price 
 const STOCKS: [string, string][] = [['in', 'In Stock'], ['preorder', 'Pre Order'], ['upcoming', 'Up Coming'], ['out', 'Out of Stock'], ['call', 'Call for Price']];
 /** the availability group of a product: a product with no price is "Call for Price", whatever its stock */
 const skey = (p: Product): string => (p.price > 0 ? p.stock : 'call');
+const AVAIL_ORDER: Record<string, number> = { in: 0, preorder: 1, call: 2, upcoming: 3, out: 4 };
 const uniq = <T,>(a: T[]) => Array.from(new Set(a));
 const ALWAYS = ['stock', 'price'];
 const fmtNum = (s: string) => (s === '' ? '' : Number(s).toLocaleString('en-US')); // 185000 -> 185,000 // filter groups that are always open (no arrow)
@@ -175,7 +176,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
       'price-asc': (a, b) => a.price - b.price, 'price-desc': (a, b) => b.price - a.price, sold: (a, b) => b.sold - a.sold, rating: (a, b) => b.rating - a.rating,
       discount: (a, b) => (b.old ? b.old - b.price : 0) - (a.old ? a.old - a.price : 0),
     };
-    return r.sort(S[sort] || ((a, b) => Number(a.stock === 'out') - Number(b.stock === 'out')));
+    return r.sort(S[sort] || ((a, b) => AVAIL_ORDER[skey(a)] - AVAIL_ORDER[skey(b)])); // default: In Stock, Pre Order, Call for Price, Up Coming, Out of Stock (the catalog order is kept inside each group)
   }, [base, f, sort, nameQ]);
 
   useEffect(() => { setPage(1); }, [f, sort, per, nameQ]);
