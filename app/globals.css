@@ -4653,3 +4653,5 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .trk-btn:hover .trk-van, .trk-btn:hover::after { animation-play-state: paused; }
 /* Track Order: red location icon (on a small white chip so red stays clear on the blue button) */
 .trk-pin { width: 26px; height: 26px; padding: 4px; box-sizing: border-box; border-radius: 50%; background: #FFFFFF; color: #ED1B24; stroke-width: 2.4; box-shadow: 0 4px 10px -4px rgba(0, 20, 60, .5); }
+/* red location icon, no white circle (a thin white edge keeps the red readable on the blue) */
+.trk-pin { width: 22px; height: 22px; padding: 0; border-radius: 0; background: none; box-shadow: none; color: #ED1B24; stroke-width: 2.6; filter: drop-shadow(0 0 1px #FFFFFF) drop-shadow(0 0 1px #FFFFFF) drop-shadow(0 0 .5px #FFFFFF); }
