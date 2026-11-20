@@ -249,7 +249,7 @@ function RecentlyBought() {
 
 export default function Floating() {
   const [bld, setBld] = useState(false); // mobile bottom bar: Builder sheet
-  const { compare, cartCount, openDrawer, closeDrawer, drawer, toasts, bump, ready } = useStore();
+  const { compare, cartCount, cartTotal, openDrawer, closeDrawer, drawer, toasts, bump, ready } = useStore();
   const path = usePathname();
   const [top, setTop] = useState(false);
   const [bumping, setBumping] = useState(false);
@@ -260,8 +260,8 @@ export default function Floating() {
   return (
     <>
       <div className="float-rail">
-        <Link prefetch={false} className="fr-btn" href="/compare"><Icon name="compare" size={20} />COMPARE{ready && compare.length > 0 && <span className="badge">{compare.length}</span>}</Link>
-        <button className={'fr-btn cart' + (bumping ? ' bump' : '')} onClick={() => openDrawer('cart')}><Icon name="cart" size={21} />CART{ready && cartCount > 0 && <span className="badge">{cartCount}</span>}</button>
+        <Link prefetch={false} className="fr-btn" href="/compare" aria-label="Compare"><span className="fr-lbl"><b>Compare</b><small>{ready && compare.length > 0 ? compare.length + (compare.length === 1 ? ' product' : ' products') : 'Side by side'}</small></span><span className="fr-ic"><Icon name="compare" size={20} />{ready && compare.length > 0 && <span className="badge">{compare.length}</span>}</span></Link>
+        <button className={'fr-btn cart' + (bumping ? ' bump' : '')} onClick={() => openDrawer('cart')} aria-label="Cart"><span className="fr-lbl"><b>My Cart</b><small>{ready && cartCount > 0 ? money(cartTotal) : 'Empty'}</small></span><span className="fr-ic"><Icon name="cart" size={21} />{ready && cartCount > 0 && <span className="badge">{cartCount}</span>}</span></button>
       </div>
       <div className="overlay" onClick={closeDrawer} style={drawer === 'filters' ? { zIndex: 89 } : undefined} />
       <CartDrawer />
