@@ -4305,3 +4305,10 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .listing .pcard.detailed .pc-specs li { height: 1.55em; line-height: 1.55; font-size: 1em; }
 .listing .pcard.detailed .pc-foot { margin-top: auto; }
 @media (max-width: 640px) { .listing .pcard.detailed .pc-specs { display: none; } .pc-ribbon.none { display: none; } }
+/* card buttons: a little smaller text and height, icon shown on both buttons */
+.listing .pcard.detailed .pc-foot { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 8px; }
+.listing .pcard.detailed .pc-foot .btn-buy, .listing .pcard.detailed .pc-cmp { height: max(34px, calc(var(--ui-fs) * 2.15)); font-size: calc(var(--ui-fs) * .9); padding: 0 8px; gap: 6px; white-space: nowrap; }
+.listing .pcard.detailed .pc-foot .btn-buy .ico, .listing .pcard.detailed .pc-cmp .ico { display: inline-block; flex: none; width: 15px; height: 15px; }
+.listing .pcard.detailed .pc-cmp .ico { color: #5B6B80; }
+.listing .pcard.detailed .pc-cmp:hover .ico, .listing .pcard.detailed .pc-cmp.on .ico { color: #1877F2; }
+@media (max-width: 1400px) { .listing .pcard.detailed .pc-cmp .ico { display: inline-block; } }
