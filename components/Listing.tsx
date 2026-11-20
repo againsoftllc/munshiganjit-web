@@ -20,6 +20,7 @@ interface Filters { stock: string[]; brands: string[]; subs: string[]; cats: str
 const SORTS: [string, string][] = [['default', 'Default'], ['price-asc', 'Price (Low > High)'], ['price-desc', 'Price (High > Low)'], ['sold', 'Best Selling'], ['rating', 'Top Rated'], ['discount', 'Biggest Saving']];
 const STOCKS: [Stock, string][] = [['in', 'In Stock'], ['preorder', 'Pre Order'], ['upcoming', 'Up Coming'], ['out', 'Out of Stock']];
 const uniq = <T,>(a: T[]) => Array.from(new Set(a));
+const ALWAYS = ['stock', 'price']; // filter groups that are always open (no arrow)
 /** page numbers to show: the first, the last and a window around the current page; 0 stands for "…" */
 const pageList = (cur: number, total: number): number[] => {
   if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
@@ -60,7 +61,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
   const [per, setPer] = useState('20');
   const [page, setPage] = useState(1);
   const [view, setView] = useState<'grid' | 'list'>('grid');
-  const [openKey, setOpenKey] = useState<string>('stock'); // accordion: opening one filter group closes the previous one
+  const [openKey, setOpenKey] = useState<string>(''); // accordion for the other groups; Availability and Price Range are always open
   const [minTxt, setMinTxt] = useState(String(f.min));
   const [maxTxt, setMaxTxt] = useState(String(f.max));
 
@@ -118,8 +119,8 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
 
   /* sidebar pieces */
   const box = (k: string, t: string, body: ReactNode) => (
-    <div key={k} className={'fbox' + (openKey === k ? '' : ' closed')} data-f={k}>
-      <h4 onClick={() => setOpenKey(o => (o === k ? '' : k))}>{t}<Icon name="right" size={16} /></h4>
+    <div key={k} className={'fbox' + (ALWAYS.includes(k) ? ' fixed' : openKey === k ? '' : ' closed')} data-f={k}>
+      <h4 onClick={ALWAYS.includes(k) ? undefined : () => setOpenKey(o => (o === k ? '' : k))}>{t}{!ALWAYS.includes(k) && <Icon name="right" size={16} />}</h4>
       <div className="fbody">{body}</div>
     </div>
   );

@@ -4347,3 +4347,5 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .listing .filters .fbox > h4 { padding: 10px 0; }
 .listing .filters .range { margin: 4px 4px 10px; }
 .listing .filters .price-in .input { height: 38px; }
+.listing .filters .fbox.fixed > h4 { cursor: default; }
+.listing .filters .fbox.fixed .fbody { display: block; }
