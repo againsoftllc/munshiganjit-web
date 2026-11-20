@@ -4716,3 +4716,13 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
   .hsearch .sg-tag { padding: 5px 9px; }
   .hsearch .sg-top { padding: 12px 16px; }
 }
+/* ---------- Header search box: ONE consistent shape (wrapper, input and button share the same height and corner radius) ---------- */
+.hsearch { --sr: 999px; height: 48px; padding: 0; border: 0; border-radius: var(--sr); background: #FFFFFF; overflow: visible; box-shadow: 0 0 0 2px rgba(255, 255, 255, .16), 0 12px 26px -16px rgba(0, 0, 0, .9); }
+.hsearch input { height: 100%; padding: 0 16px 0 22px; border: 0; border-radius: var(--sr) 0 0 var(--sr); background: transparent; }
+.hsearch button { height: 100%; width: 58px; border: 0; border-radius: 0 var(--sr) var(--sr) 0; background: #ED1B24; }
+.hsearch button:hover { background: #1877F2; }
+@media (max-width: 900px) {
+  .hsearch, .hsearch-wrap .hsearch { --sr: 14px; height: 46px; width: 100%; max-width: none; border-radius: var(--sr); }
+  .hsearch input { height: 100%; border-radius: var(--sr) 0 0 var(--sr); }
+  .hsearch button { height: 100%; border-radius: 0 var(--sr) var(--sr) 0; }
+}
