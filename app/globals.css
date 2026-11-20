@@ -4462,3 +4462,6 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .f-top .f-ico svg { width: 19px; height: 19px; }
 .f-top button { font-size: inherit; }
 .listing .filters .f-wrap { padding-bottom: 6px; }
+.f-top .f-clear-ico { color: #4A5B70; }
+.f-top .f-clear-ico:hover svg { transform: rotate(180deg); }
+.f-top .f-clear-ico svg { transition: transform .35s ease; }
