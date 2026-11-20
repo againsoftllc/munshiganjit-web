@@ -4349,3 +4349,12 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .listing .filters .price-in .input { height: 38px; }
 .listing .filters .fbox.fixed > h4 { cursor: default; }
 .listing .filters .fbox.fixed .fbody { display: block; }
+
+/* price range slider: thin red line between two solid red round handles */
+.listing .filters .range { height: 26px; margin: 6px 6px 12px; }
+.listing .filters .range .track { top: 11px; height: 3px; border-radius: 3px; background: #E3E8EF; }
+.listing .filters .range .fill { top: 11px; height: 3px; border-radius: 3px; background: #E3232D; }
+.listing .filters .range input[type=range] { top: 0; height: 26px; }
+.listing .filters .range input[type=range]::-webkit-slider-thumb { width: 24px; height: 24px; border: 0; border-radius: 50%; background: #E3232D; box-shadow: 0 4px 10px -3px rgba(227, 35, 45, .7); transition: transform .12s; }
+.listing .filters .range input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border: 0; border-radius: 50%; background: #E3232D; box-shadow: 0 4px 10px -3px rgba(227, 35, 45, .7); }
+.listing .filters .range input[type=range]:active::-webkit-slider-thumb { transform: scale(1.12); }
