@@ -4218,3 +4218,12 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .listing .pcard.detailed .pc-foot .btn-buy, .listing .pcard.detailed .pc-cmp { white-space: nowrap; padding: 0 8px; gap: 6px; }
 .listing .pcard.detailed .pc-foot .btn-buy .ico, .listing .pcard.detailed .pc-cmp .ico { flex: none; width: 15px; height: 15px; }
 @media (max-width: 1400px) { .listing .pcard.detailed .pc-cmp .ico { display: none; } }
+/* narrower filter column, wider product cards (columns adapt to the available width) */
+.listing { grid-template-columns: clamp(205px, 16vw, 245px) minmax(0, 1fr); gap: 20px; }
+.listing .grid.g4:not(.list-view) { grid-template-columns: repeat(auto-fill, minmax(clamp(235px, 17vw, 290px), 1fr)); gap: 16px; }
+.f-top { padding: 14px 16px 12px; }
+.f-body { padding: 2px 16px 6px; }
+.f-foot { padding: 12px 16px 14px; }
+.listing .filters .fbox > h4 { padding: 12px 0; }
+@media (max-width: 1024px) { .listing { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .listing .grid.g4:not(.list-view) { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } }
