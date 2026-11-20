@@ -188,7 +188,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
           : cat
             ? <>
                 <Link prefetch={false} className={'pill' + (sub || initial.brand ? '' : ' on')} href={catUrl(cat.slug)}>All {cat.name} <em>({cat.count})</em></Link>
-                {cat.subs.filter(s => s[0] !== All \).map(s => <Link prefetch={false} key={s[0]} className={'pill' + (sub === s[0] && !initial.sub2 ? ' on' : '')} href={catUrl(cat.slug, { sub: s[0] })}>{s[0]} <em>({s[1]})</em></Link>)}
+                {cat.subs.filter(s => s[0] !== 'All ' + cat.name).map(s => <Link prefetch={false} key={s[0]} className={'pill' + (sub === s[0] && !initial.sub2 ? ' on' : '')} href={catUrl(cat.slug, { sub: s[0] })}>{s[0]} <em>({s[1]})</em></Link>)}
               </>
             : categories.map(c => <Link prefetch={false} key={c.slug} className="pill" href={catUrl(c.slug)}>{c.name} <em>({c.count})</em></Link>)}
       </div>}{kids.length > 0 && <div className="subcats sub2-row">
