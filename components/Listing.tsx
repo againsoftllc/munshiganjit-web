@@ -60,7 +60,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
   const [per, setPer] = useState('20');
   const [page, setPage] = useState(1);
   const [view, setView] = useState<'grid' | 'list'>('grid');
-  const [closed, setClosed] = useState<string[]>(['subs', 'brands', 'rating', 'offer']);
+  const [openKey, setOpenKey] = useState<string>('stock'); // accordion: opening one filter group closes the previous one
   const [minTxt, setMinTxt] = useState(String(f.min));
   const [maxTxt, setMaxTxt] = useState(String(f.max));
 
@@ -118,8 +118,8 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
 
   /* sidebar pieces */
   const box = (k: string, t: string, body: ReactNode) => (
-    <div key={k} className={'fbox' + (closed.includes(k) ? ' closed' : '')} data-f={k}>
-      <h4 onClick={() => setClosed(c => (c.includes(k) ? c.filter(x => x !== k) : [...c, k]))}>{t}<Icon name="right" size={16} /></h4>
+    <div key={k} className={'fbox' + (openKey === k ? '' : ' closed')} data-f={k}>
+      <h4 onClick={() => setOpenKey(o => (o === k ? '' : k))}>{t}<Icon name="right" size={16} /></h4>
       <div className="fbody">{body}</div>
     </div>
   );
