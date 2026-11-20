@@ -4269,3 +4269,10 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .f-foot { padding: 10px 16px 12px; }
 .f-clear { height: 42px; }
 @media (max-height: 800px) { .listing .filters { top: 110px; max-height: calc(100vh - 118px); } .listing .filters .check { padding: 4px 0; } }
+/* ---------- Techland proportions (measured from their 1920px page): wide container, filter ≈ 18% (≈330px), 4 cards across ---------- */
+:root { --wrap-max: 1800px; }
+.listing { grid-template-columns: clamp(235px, 18.3%, 330px) minmax(0, 1fr); gap: clamp(18px, 2vw, 34px); }
+.listing .grid.g4:not(.list-view) { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 1.2vw, 20px); }
+@media (max-width: 1200px) { .listing .grid.g4:not(.list-view) { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 1024px) { .listing { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .listing .grid.g4:not(.list-view) { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } }
