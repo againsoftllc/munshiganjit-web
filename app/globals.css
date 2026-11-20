@@ -4465,3 +4465,9 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .f-top .f-clear-ico { color: #4A5B70; }
 .f-top .f-clear-ico:hover svg { transform: rotate(180deg); }
 .f-top .f-clear-ico svg { transition: transform .35s ease; }
+
+/* sticky filter card stops under the sticky header instead of sliding behind it */
+:root { --hdr-h: 134px; }
+.listing .filters { top: calc(var(--hdr-h) + 12px); max-height: calc(100vh - var(--hdr-h) - 24px); z-index: 5; }
+@media (max-height: 800px) { .listing .filters { top: calc(var(--hdr-h) + 10px); max-height: calc(100vh - var(--hdr-h) - 20px); } }
+@media (max-width: 1024px) { .listing .filters { top: 0; max-height: none; z-index: 90; } }
