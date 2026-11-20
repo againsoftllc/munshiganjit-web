@@ -71,9 +71,14 @@ export function flyToCart(from: HTMLElement, targets: string[] = ['.fr-btn.cart 
   const amp = Math.min(160, Math.max(50, len * 0.32));
   const ease = (x: number) => x * x * (3 - 2 * x);
   const frames: Keyframe[] = [];
+  // the sticky menu: the flying copy slides along (partly tucked under) its lower edge instead of flying over it or off the top of the screen
+  const hdrB = (document.querySelector('.hdr') as HTMLElement | null)?.getBoundingClientRect().bottom ?? 0;
+  const cy0 = a.top + a.height / 2;
   for (let i = 0; i <= 24; i++) {
     const k = i / 24, m = ease(k), w = Math.sin(k * Math.PI) * amp;
-    frames.push({ transform: 'translate(' + (dx * m + nx * w) + 'px,' + (dy * m + ny * w) + 'px) scale(' + (1 - 0.88 * m) + ') rotate(' + k * 25 + 'deg)', opacity: k > 0.92 ? 1 - (k - 0.92) * 8 : 1, offset: k });
+    const sc = 1 - 0.88 * m;
+    const ty = Math.max(dy * m + ny * w, hdrB - size * sc * 0.4 - cy0);
+    frames.push({ transform: 'translate(' + (dx * m + nx * w) + 'px,' + ty + 'px) scale(' + sc + ') rotate(' + k * 25 + 'deg)', opacity: k > 0.92 ? 1 - (k - 0.92) * 8 : 1, offset: k });
   }
   const anim = ghost.animate(frames, { duration: 950, easing: 'linear' });
   anim.onfinish = () => { ghost.remove(); bump(); };
