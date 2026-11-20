@@ -1,5 +1,5 @@
 ﻿'use client';
-/* Footer â€” Munshiganj IT. Unique layout:
+/* Footer - Munshiganj IT. Unique layout:
    big promise + Join Now Â· hotline board Â· link groups beside a numbered office timeline Â· trust strip (Membership + We Accept) Â· outline watermark. */
 import Link from 'next/link';
 import { useState } from 'react';
@@ -60,7 +60,7 @@ function JoinForm() {
   return (
     <form className="mf-join" onSubmit={submit}>
       <input type="email" required placeholder="Your Email" value={email} onChange={e => { setEmail(e.target.value); if (state !== 'busy') setState('idle'); }} aria-label="Your email" />
-      <button type="submit" disabled={state === 'busy'}>{state === 'busy' ? 'Sendingâ€¦' : <>Subscribe <Icon name="arrow" size={16} /></>}</button>
+      <button type="submit" disabled={state === 'busy'}>{state === 'busy' ? 'Sending…' : <>Subscribe <Icon name="arrow" size={16} /></>}</button>
       {state === 'ok' && <span className="mf-join-msg ok">Thank you! You are subscribed.</span>}
       {state === 'err' && <span className="mf-join-msg err">Could not subscribe right now. Please try again.</span>}
     </form>
