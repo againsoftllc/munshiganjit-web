@@ -4080,3 +4080,19 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .listing .pcard.detailed .pc-foot .btn-buy.notify { background: #1877F2; }
 .cat-guide .cg-points { list-style: disc; }
 .cat-guide .cg-points li::marker { color: #ED1B24; }
+
+/* category header like the reference: white band, title + intro, sub-categories as plain text links separated by "|" */
+.cat-seo, .lst-head { background: #FFFFFF; }
+.cat-seo .wrap { padding-top: 26px; padding-bottom: 4px; }
+.cat-seo h1 { font-size: clamp(24px, 17px + 1.5vw, 36px); font-weight: 800; color: #0B1220; letter-spacing: -.01em; }
+.cat-seo p { max-width: none; font-size: clamp(14.5px, 13px + .4vw, 18px); line-height: 1.6; color: #3B4A5E; }
+.lst-head { border-bottom: 1px solid #E5EAF1; }
+.lst-head .subcats { display: flex; flex-wrap: wrap; gap: 4px 0; padding: 14px 0 18px; }
+.lst-head .subcats .pill { height: auto; padding: 5px 0; border: 0; border-radius: 0; background: none; color: #1B3A8C; font-size: clamp(14.5px, 13px + .4vw, 18px); font-weight: 400; }
+.lst-head .subcats .pill em { display: none; }
+.lst-head .subcats .pill::after { content: "|"; margin: 0 16px; color: #C4CDD9; font-weight: 300; }
+.lst-head .subcats .pill:last-child::after { content: ""; margin: 0; }
+.lst-head .subcats .pill:hover { color: #ED1B24; background: none; border: 0; text-decoration: underline; }
+.lst-head .subcats .pill.on { background: none; color: #002741; font-weight: 800; border: 0; }
+.lst-head .subcats .sub2-row { padding-top: 0; }
+@media (max-width: 640px) { .lst-head .subcats .pill::after { margin: 0 10px; } }

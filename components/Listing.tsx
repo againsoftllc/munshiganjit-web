@@ -179,7 +179,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
     <>
       {!hideCrumb && <Crumb items={crumb} />}
       {seoIntro && <section className="cat-seo" aria-label={seoName + ' price in Bangladesh'}><div className="wrap">
-        <h1>{isBrand ? `${seoName} Products Price in Bangladesh` : `Latest ${seoName} Price in Bangladesh ${new Date().getFullYear()}`}</h1>
+        <h1>{isBrand ? `${seoName} Products Price in Bangladesh` : `${seoName} Price in Bangladesh`}</h1>
         <p>{seoIntro}</p>
       </div></section>}
       {(showTop || kids.length > 0) && <div className="lst-head"><div className="wrap">{showTop && <div className="subcats">
@@ -187,7 +187,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
           ? cats.map(c => <button key={c} className={'pill' + (f.cats.includes(c) ? ' on' : '')} onClick={() => toggle('cats', c)}>{catName(c)} <em>({cnt(p => p.cat === c, 'cats')})</em></button>)
           : cat
             ? <>
-                <Link prefetch={false} className={'pill' + (sub || initial.brand ? '' : ' on')} href={catUrl(cat.slug)}>All {cat.name} <em>({cat.count})</em></Link>
+                {(sub || initial.brand) && <Link prefetch={false} className="pill" href={catUrl(cat.slug)}>All {cat.name}</Link>}
                 {cat.subs.filter(s => s[0] !== 'All ' + cat.name).map(s => <Link prefetch={false} key={s[0]} className={'pill' + (sub === s[0] && !initial.sub2 ? ' on' : '')} href={catUrl(cat.slug, { sub: s[0] })}>{s[0]} <em>({s[1]})</em></Link>)}
               </>
             : categories.map(c => <Link prefetch={false} key={c.slug} className="pill" href={catUrl(c.slug)}>{c.name} <em>({c.count})</em></Link>)}
