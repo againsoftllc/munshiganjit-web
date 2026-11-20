@@ -253,7 +253,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
       <div className="wrap listing">
         <aside className={'filters' + (drawer === 'filters' ? ' open' : '')} aria-label="Filters">
           <div className="row-between f-close" style={{ display: 'none', marginBottom: 6 }}><b>Filters</b><button onClick={closeDrawer} aria-label="Close"><Icon name="close" size={20} /></button></div>
-          <div className="f-top"><h3>Filters</h3><div className="f-actions"><button type="button" className="f-ico f-clear-ico" aria-label="Clear all filters" title="Clear all filters" onClick={clearAll}>
+          <div className="f-top"><h3>Filters</h3><div className="f-actions"><button type="button" className="f-ico f-x" aria-label="Close filters" onClick={closeDrawer}><Icon name="close" size={18} /></button><button type="button" className="f-ico f-clear-ico" aria-label="Clear all filters" title="Clear all filters" onClick={clearAll}>
               <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 0 0-15.4-6.3L3 8.2" /><path d="M3 3.5v4.7h4.7" /><path d="M3 12a9 9 0 0 0 15.4 6.3l2.6-2.5" /><path d="M21 20.5v-4.7h-4.7" /></svg>
             </button><button type="button" className={'f-ico f-expand' + (allOpen ? ' on' : '')} aria-pressed={allOpen} aria-label={allOpen ? 'Collapse all filters' : 'Show all filters'} title={allOpen ? 'Collapse all filters' : 'Show all filters'} onClick={() => { if (allOpen) { setAllOpen(false); setOpenKeys([]); } else { setAllOpen(true); setOpenKeys([...groupKeys]); } }}>
             <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">{allOpen ? <><path d="M5.5 9L10 4.5 14.5 9" /><path d="M5.5 15L10 10.5 14.5 15" /></> : <><path d="M5.5 5L10 9.5 14.5 5" /><path d="M5.5 11L10 15.5 14.5 11" /></>}</svg>
@@ -273,7 +273,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
             </div>
           </>)}
           {(isSearch || isBrand) && cats.length > 1 && box('cats', 'Category', cats.map(c => ck('cats', c, catName(c), cnt(p => p.cat === c, 'cats'))))}
-          {subs.length > 1 && box('subs', cat ? 'Type' : 'Sub Category', subs.map(s => ck('subs', s, s, cnt(p => p.sub === s, 'subs'))))}
+          {subs.length > 1 && box('subs', 'Sub Category', subs.map(s => ck('subs', s, s, cnt(p => p.sub === s, 'subs'))))}
           {!isBrand && brandList.length > 0 && box('brands', 'Brand', <div className="f-scroll">{brandList.map(b => ck('brands', b, b, cnt(p => p.brand === b, 'brands')))}</div>)}
           {cat?.filters?.map(([k, vs]) => box('attr:' + k, k, uniq([...vs, ...base.map(p => p.attrs?.[k]).filter((x): x is string => !!x)]).map(v => (
             <label className="check" key={k + v}>
