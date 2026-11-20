@@ -4418,3 +4418,8 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .lst-bar2 .lst-sort:focus, .lst-bar2 .lst-sort:focus-visible { border-color: #1B3A8C; outline: none; box-shadow: none; }
 .lst-per .select { appearance: none; -webkit-appearance: none; padding-right: 26px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%231B3A8C' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 8l4.5 4.5L14.5 8'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; background-size: 13px; }
 @media (max-width: 640px) { .lst-bar2 .lst-sort { width: auto; flex: 1; } }
+/* smooth fold: max-height animates between one row and all rows (heights measured in JS) */
+.lst-head .subcats { position: relative; }
+.lst-head .subcats.fold { overflow: hidden; transition: max-height .42s cubic-bezier(.4, 0, .2, 1); }
+.lst-head .subcats.one-line { max-height: none; }
+@media (prefers-reduced-motion: reduce) { .lst-head .subcats.fold { transition: none; } }

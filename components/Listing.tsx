@@ -61,6 +61,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
   const [nameQ, setNameQ] = useState('');
   const [subOpen, setSubOpen] = useState(false);   // sub-category links: one line, or all lines
   const [subMore, setSubMore] = useState(false);   // true when the links need more than one line
+  const [subH, setSubH] = useState<[number, number]>([0, 0]); // [one row, all rows] heights in px, for the smooth open / close
   const subRef = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
     const el = subRef.current;
@@ -68,7 +69,9 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
     const measure = () => {
       const kids = Array.from(el.children) as HTMLElement[];
       if (kids.length < 2) { setSubMore(false); return; }
-      setSubMore(kids[kids.length - 1].offsetTop > kids[0].offsetTop + 4);
+      const more = kids[kids.length - 1].offsetTop > kids[0].offsetTop + 4;
+      setSubMore(more);
+      if (more) setSubH([kids[0].offsetTop + kids[0].offsetHeight + 2, Math.max(...kids.map(k => k.offsetTop + k.offsetHeight)) + 2]);
     };
     measure();
     addEventListener('resize', measure);
@@ -207,7 +210,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
         <h1>{isBrand ? `${seoName} Products Price in Bangladesh` : `${seoName} Price in Bangladesh`}</h1>
         <p>{seoIntro}</p>
       </div></section>}
-      {(showTop || kids.length > 0) && <div className="lst-head"><div className="wrap">{showTop && <div ref={subRef} className={'subcats' + (subMore && !subOpen ? ' one-line' : '')}>
+      {(showTop || kids.length > 0) && <div className="lst-head"><div className="wrap">{showTop && <div ref={subRef} className={'subcats' + (subMore ? ' fold' : '')} style={subMore && subH[0] ? { maxHeight: subOpen ? subH[1] : subH[0] } : undefined}>
         {isSearch || isBrand
           ? cats.map(c => <button key={c} className={'pill' + (f.cats.includes(c) ? ' on' : '')} onClick={() => toggle('cats', c)}>{catName(c)} <em>({cnt(p => p.cat === c, 'cats')})</em></button>)
           : cat
