@@ -4614,3 +4614,11 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .fr-btn:hover .fr-lbl, .fr-btn:focus-visible .fr-lbl { padding: 0 34px 0 16px; }
 .float-rail { overflow: visible; padding: 10px 7px 10px 10px; }
 .float-rail { background: linear-gradient(180deg, rgba(255, 255, 255, .22), rgba(255, 255, 255, .04)), linear-gradient(145deg, rgba(10, 60, 107, .94), rgba(0, 39, 65, .96)); }
+
+/* side dock: no capsule background — just the two floating orbs */
+.float-rail { background: none; border: 0; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; padding: 0 12px 0 0; gap: 12px; border-radius: 0; }
+.fr-ic { box-shadow: 0 12px 22px -8px rgba(0, 20, 45, .65), inset 0 1px 0 rgba(255, 255, 255, .3); }
+.fr-btn:not(.cart) .fr-ic { background: linear-gradient(145deg, #1D8BFF, #1877F2 55%, #0F5CC4); border-color: rgba(255, 255, 255, .55); box-shadow: 0 12px 22px -8px rgba(24, 119, 242, .9), inset 0 1px 0 rgba(255, 255, 255, .45); }
+.fr-btn:not(.cart):hover .fr-ic { background: linear-gradient(145deg, #3A9CFF, #1877F2); }
+.fr-btn .badge { border-color: #FFFFFF; }
+.fr-lbl { right: 24px; }
