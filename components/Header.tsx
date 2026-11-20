@@ -38,7 +38,7 @@ function LogoAnim({ logo, anim }: { logo: string; anim: { off: boolean; items: s
   );
 }
 
-function SearchBox({ placeholder }: { placeholder: string }) {
+function SearchBox({ placeholder, onDone }: { placeholder: string; onDone?: () => void }) {
   const router = useRouter();
   const sp = useSearchParams();
   const path = usePathname();
@@ -50,10 +50,10 @@ function SearchBox({ placeholder }: { placeholder: string }) {
   const cats = t.length < 2 ? [] : categories.filter(c => c.name.toLowerCase().includes(t) || c.subs.some(s => s[0].toLowerCase().includes(t))).slice(0, 3);
   const prods = t.length < 2 ? [] : products.filter(p => (p.name + ' ' + p.brand + ' ' + p.sub).toLowerCase().includes(t)).slice(0, 6);
   return (
-    <form ref={ref} className="hsearch" role="search" autoComplete="off" onSubmit={e => { e.preventDefault(); setOpen(false); router.push('/search?q=' + encodeURIComponent(q)); }}>
+    <form ref={ref} className="hsearch" role="search" autoComplete="off" onSubmit={e => { e.preventDefault(); setOpen(false); (document.activeElement as HTMLElement | null)?.blur(); router.push('/search?q=' + encodeURIComponent(q)); onDone?.(); }}>
       <input type="search" value={q} placeholder={placeholder} aria-label="Search" onChange={e => { setQ(e.target.value); setOpen(true); }} onFocus={() => setOpen(true)} />
       <button type="submit" aria-label="Search"><Icon name="search" size={19} /></button>
-      <div className={'suggest' + (open && t.length >= 2 ? ' open' : '')} onClick={() => setOpen(false)}>
+      <div className={'suggest' + (open && t.length >= 2 ? ' open' : '')} onClick={() => { setOpen(false); onDone?.(); }}>
         {!cats.length && !prods.length && <div className="sg-row">No matches. Press Enter to search all products.</div>}
         {cats.length > 0 && <div className="sg-h">Categories</div>}
         {cats.map(c => <Link prefetch={false} key={c.slug} className="sg-row" href={catUrl(c.slug)}><Icon name={c.icon} size={16} />{c.name}<em>{c.count} products</em></Link>)}
@@ -241,7 +241,7 @@ export default function Header() {
       <LiveEditChrome id="header" label="header"><div className="hdr-main"><div className="wrap hdr-main-in">
         <button className="hamb" aria-label="Menu" onClick={() => openDrawer('nav')}><Icon name="menu" size={24} /></button>
         <LogoAnim logo={hd.logo} anim={hd.anim} />
-        <div className={'hsearch-wrap' + (sOpen ? ' open' : '')}><Suspense fallback={<form className="hsearch" />}><SearchBox placeholder={hd.searchPlaceholder} /></Suspense></div>
+        <div className={'hsearch-wrap' + (sOpen ? ' open' : '')}><Suspense fallback={<form className="hsearch" />}><SearchBox placeholder={hd.searchPlaceholder} onDone={() => setSOpen(false)} /></Suspense></div>
         <nav className="hactions">
           <button type="button" className="ha hsearch-btn" aria-label={sOpen ? 'Close search' : 'Search'} aria-expanded={sOpen} onClick={toggleSearch}><span className="ha-ic"><Icon name={sOpen ? 'close' : 'search'} size={20} /></span></button>
           <Link prefetch={false} className="ha hide-m hh" href="/happy-hour"><span className="ha-ic"><Icon name="bolt" size={20} /></span><span className="lbl">Happy Hour</span></Link>
