@@ -4493,3 +4493,24 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
   .f-top { padding-top: 16px; }
   .f-wrap { padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
 }
+/* ---------- phones: the card has everything the desktop card has (ribbon, 4 features, price, Add to Cart, Compare) ---------- */
+@media (max-width: 640px) {
+  .listing .pcard.detailed { padding: 8px 10px 0; }
+  .listing .pcard.detailed .pc-img { height: 130px; padding: 14px 4px 6px; }
+  .listing .pcard.detailed .pc-ribbon, .listing .pcard.detailed .pc-ribbon.none { display: flex; height: 24px; margin: 2px 0 8px; font-size: 11px; border-radius: 6px; gap: 5px; }
+  .listing .pcard.detailed .pc-ribbon.none { visibility: hidden; }
+  .listing .pcard.detailed .pc-name { height: 2.8em; min-height: 2.8em; font-size: 13px; line-height: 1.4; }
+  .listing .pcard.detailed .pc-specs, .listing .pcard.detailed .pc-specs:empty { display: block !important; height: 6.2em; min-height: 6.2em; margin: 8px 0 0; font-size: 11.5px; overflow: hidden; }
+  .listing .pcard.detailed .pc-specs li { height: 1.55em; font-size: 1em; padding-left: 14px; }
+  .listing .pcard.detailed .pc-specs li::before { left: 3px; width: 4px; height: 4px; }
+  .listing .pcard.detailed .pc-body { flex: 1 1 auto; }
+  .listing .pcard.detailed .pc-foot { margin-top: auto; display: grid; grid-template-columns: 1fr; gap: 6px; padding: 4px 0 10px; }
+  .listing .pcard.detailed .pc-foot .pc-price { justify-content: center; gap: 6px; margin: 2px 0 2px; flex-wrap: wrap; }
+  .listing .pcard.detailed .pc-foot .pc-price b { font-size: 17px; }
+  .listing .pcard.detailed .pc-foot .pc-price s { font-size: 12px; }
+  .listing .pcard.detailed .pc-foot .cart-btns { display: block; width: 100%; }
+  .listing .pcard.detailed .pc-foot .btn-buy, .listing .pcard.detailed .pc-cmp { width: 100%; height: 34px; font-size: 12.5px; border-radius: 8px; padding: 0 8px; }
+  .listing .pcard.detailed .pc-cmp { display: flex !important; }
+  .listing .pcard.detailed .flag.save { font-size: 10.5px; padding: 3px 7px; }
+  .pc-pct { font-size: 10.5px; padding: 3px 8px; }
+}
