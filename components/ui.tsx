@@ -65,13 +65,15 @@ export function flyToCart(from: HTMLElement, targets: string[] = ['.fr-btn.cart 
   ghost.style.cssText = 'position:fixed;z-index:58;pointer-events:none;left:' + (a.left + a.width / 2 - size / 2) + 'px;top:' + (a.top + a.height / 2 - size / 2) + 'px;width:' + size + 'px;height:' + size + 'px;object-fit:contain;border-radius:14px;background:#fff;box-shadow:0 18px 36px -10px rgba(0,39,65,.55);padding:6px;box-sizing:border-box;transform-origin:center;';
   document.body.appendChild(ghost);
   const dx = b.left + b.width / 2 - (a.left + a.width / 2), dy = b.top + b.height / 2 - (a.top + a.height / 2);
-  // a wavy swoop: the straight line to the cart plus a sine wave sideways that dies out on arrival, shrinking and turning as it goes
-  const len = Math.hypot(dx, dy) || 1, nx = -dy / len, ny = dx / len, amp = Math.min(70, len * 0.18);
+  // a bow-shaped arc (like a drawn bow): the straight line to the cart plus ONE smooth bulge sideways, biggest in the middle, zero at both ends
+  const len = Math.hypot(dx, dy) || 1;
+  let nx = -dy / len, ny = dx / len; if (ny > 0) { nx = -nx; ny = -ny; } // bulge upwards
+  const amp = Math.min(160, Math.max(50, len * 0.32));
   const ease = (x: number) => x * x * (3 - 2 * x);
   const frames: Keyframe[] = [];
   for (let i = 0; i <= 24; i++) {
-    const k = i / 24, m = ease(k), w = Math.sin(k * Math.PI * 3) * amp * (1 - k);
-    frames.push({ transform: 'translate(' + (dx * m + nx * w) + 'px,' + (dy * m + ny * w) + 'px) scale(' + (1 - 0.88 * m) + ') rotate(' + Math.sin(k * Math.PI * 3) * 14 * (1 - k) + 'deg)', opacity: k > 0.9 ? 1 - (k - 0.9) * 6 : 1, offset: k });
+    const k = i / 24, m = ease(k), w = Math.sin(k * Math.PI) * amp;
+    frames.push({ transform: 'translate(' + (dx * m + nx * w) + 'px,' + (dy * m + ny * w) + 'px) scale(' + (1 - 0.88 * m) + ') rotate(' + k * 25 + 'deg)', opacity: k > 0.92 ? 1 - (k - 0.92) * 8 : 1, offset: k });
   }
   const anim = ghost.animate(frames, { duration: 950, easing: 'linear' });
   anim.onfinish = () => { ghost.remove(); bump(); };
