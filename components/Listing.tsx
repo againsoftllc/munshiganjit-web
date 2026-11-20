@@ -18,7 +18,7 @@ type SetKey = 'stock' | 'brands' | 'subs' | 'cats';
 interface Filters { stock: string[]; brands: string[]; subs: string[]; cats: string[]; min: number; max: number; rating: number; sale: boolean; emi: boolean; attrs: Record<string, string[]> }
 
 const SORTS: [string, string][] = [['default', 'Default'], ['price-asc', 'Price (Low > High)'], ['price-desc', 'Price (High > Low)'], ['sold', 'Best Selling'], ['rating', 'Top Rated'], ['discount', 'Biggest Saving']];
-const STOCKS: [string, string][] = [['in', 'In Stock'], ['preorder', 'Pre Order'], ['upcoming', 'Up Coming'], ['out', 'Out of Stock'], ['call', 'Call for Price']];
+const STOCKS: [string, string][] = [['in', 'In Stock'], ['preorder', 'Pre Order'], ['call', 'Call for Price'], ['upcoming', 'Up Coming'], ['out', 'Out of Stock']];
 /** the availability group of a product: a product with no price is "Call for Price", whatever its stock */
 const skey = (p: Product): string => (p.price > 0 ? p.stock : 'call');
 const AVAIL_ORDER: Record<string, number> = { in: 0, preorder: 1, call: 2, upcoming: 3, out: 4 };
