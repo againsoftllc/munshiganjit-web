@@ -4167,3 +4167,5 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .listing .pcard.detailed .pc-specs:empty { display: none; }
 .listing .pcard.detailed .pc-specs li { position: relative; display: block; padding-left: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: unset; }
 .listing .pcard.detailed .pc-specs li::before { content: ""; position: absolute; left: 6px; top: .62em; width: 5px; height: 5px; border-radius: 50%; background: #98A3B3; }
+/* one scrollbar only: the filter card scrolls, inner lists do not */
+.listing .filters .f-scroll { max-height: none; overflow: visible; }
