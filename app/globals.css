@@ -4227,3 +4227,36 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .listing .filters .fbox > h4 { padding: 12px 0; }
 @media (max-width: 1024px) { .listing { grid-template-columns: 1fr; } }
 @media (max-width: 640px) { .listing .grid.g4:not(.list-view) { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } }
+/* =====================================================================
+   One base size: buttons + normal text follow the MENU ITEM font size on every screen
+   (--menu-fs is the main menu's size; --ui-fs = that size, never below 13px, 14px on phones where the menu is the hamburger)
+   ===================================================================== */
+:root {
+  --ui-fs: clamp(13px, var(--menu-fs), 16px);
+  --t-body: var(--ui-fs);
+  --t-btn: var(--ui-fs);
+  --t-card: var(--ui-fs);
+  --t-small: calc(var(--ui-fs) * .92);
+  --t-lead: calc(var(--ui-fs) * 1.08);
+  --t-label: calc(var(--ui-fs) * .8);
+}
+@media (max-width: 900px) { :root { --ui-fs: 14px; } }
+/* explicit sizes from earlier blocks now use the shared tokens */
+.cat-seo p, .lst-head .subcats .pill, .lst-search input, .lst-bar2 .lst-sort { font-size: var(--t-body); }
+.listing .filters .check { font-size: var(--t-body); }
+.listing .filters .fbox > h4 { font-size: calc(var(--ui-fs) * 1.12); }
+.f-top button, .f-clear { font-size: var(--t-btn); }
+.listing .pcard.detailed .pc-name { font-size: var(--t-card); }
+.listing .pcard.detailed .pc-specs li { font-size: var(--t-small); }
+.listing .pcard.detailed .pc-foot .btn-buy, .listing .pcard.detailed .pc-cmp { font-size: var(--t-btn); }
+.pc-ribbon, .listing .pcard.detailed .flag.save, .pc-pct { font-size: var(--t-small); }
+.fsx-btn, .fsx-all, .seo-pro .seo-btn, .cart-btn, .mf-join button { font-size: var(--t-btn); }
+.fsx-name, .fcx-name, .sv-tx b { font-size: var(--t-card); }
+.fsx-price s, .sv-tx small { font-size: var(--t-small); }
+.hdr-main .ha, .hsearch input { font-size: var(--t-body); }
+.seo-pro .more p, .seo-pro .seo-rich p, .seo-pro .seo-rich, .mf-hero p, .mf-join input { font-size: var(--t-body); }
+.mf-groups a, .mf-pages a, .mf-offices p, .mf-bottom p { font-size: var(--t-small); }
+.mf-offices b { font-size: var(--t-body); }
+.cat-guide p, .cat-guide .cg-points, .cat-guide summary { font-size: var(--t-body); }
+.cat-guide table, .cat-guide .cg-links a { font-size: var(--t-small); }
+@media (max-width: 640px) { .fcx-name { font-size: calc(var(--ui-fs) * .82); } }
