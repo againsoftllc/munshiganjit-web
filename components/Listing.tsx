@@ -5,7 +5,7 @@
    sort/show, grid/list, pagination. Swap `products` for an API call later.
    ===================================================================== */
 import Link from 'next/link';
-import { useEffect, useMemo, useState, type MouseEvent, type ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type MouseEvent, type ReactNode } from 'react';
 import { products, categories, catBySlug, site, type Product, type Stock } from '@/lib/data';
 import { money, STOCK, catUrl, productUrl } from '@/lib/format';
 import { Icon, Stars, ProductCard, Crumb } from './ui';
@@ -59,6 +59,21 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
   }));
   const [sort, setSort] = useState(initial.sort || 'default');
   const [nameQ, setNameQ] = useState('');
+  const [subOpen, setSubOpen] = useState(false);   // sub-category links: one line, or all lines
+  const [subMore, setSubMore] = useState(false);   // true when the links need more than one line
+  const subRef = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const el = subRef.current;
+    if (!el) { setSubMore(false); return; }
+    const measure = () => {
+      const kids = Array.from(el.children) as HTMLElement[];
+      if (kids.length < 2) { setSubMore(false); return; }
+      setSubMore(kids[kids.length - 1].offsetTop > kids[0].offsetTop + 4);
+    };
+    measure();
+    addEventListener('resize', measure);
+    return () => removeEventListener('resize', measure);
+  }, [catSlug, initial.sub, initial.sub2]);
   const [per, setPer] = useState('20');
   const [page, setPage] = useState(1);
   const [view, setView] = useState<'grid' | 'list'>('grid');
@@ -192,7 +207,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
         <h1>{isBrand ? `${seoName} Products Price in Bangladesh` : `${seoName} Price in Bangladesh`}</h1>
         <p>{seoIntro}</p>
       </div></section>}
-      {(showTop || kids.length > 0) && <div className="lst-head"><div className="wrap">{showTop && <div className="subcats">
+      {(showTop || kids.length > 0) && <div className="lst-head"><div className="wrap">{showTop && <div ref={subRef} className={'subcats' + (subMore && !subOpen ? ' one-line' : '')}>
         {isSearch || isBrand
           ? cats.map(c => <button key={c} className={'pill' + (f.cats.includes(c) ? ' on' : '')} onClick={() => toggle('cats', c)}>{catName(c)} <em>({cnt(p => p.cat === c, 'cats')})</em></button>)
           : cat
@@ -201,7 +216,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
                 {cat.subs.filter(s => s[0] !== 'All ' + cat.name).map(s => <Link prefetch={false} key={s[0]} className={'pill' + (sub === s[0] && !initial.sub2 ? ' on' : '')} href={catUrl(cat.slug, { sub: s[0] })}>{s[0]} <em>({s[1]})</em></Link>)}
               </>
             : categories.map(c => <Link prefetch={false} key={c.slug} className="pill" href={catUrl(c.slug)}>{c.name} <em>({c.count})</em></Link>)}
-      </div>}{kids.length > 0 && <div className="subcats sub2-row">
+      </div>}{showTop && subMore && <button type="button" className={'subcat-toggle' + (subOpen ? ' open' : '')} aria-expanded={subOpen} aria-label={subOpen ? 'Show fewer categories' : 'Show all categories'} onClick={() => setSubOpen(o => !o)}><Icon name="down" size={14} /></button>}{kids.length > 0 && <div className="subcats sub2-row">
         <Link prefetch={false} className={'pill' + (initial.sub2 ? '' : ' on')} href={catUrl(cat!.slug, { sub })}>All {sub} <em>({cat!.subs.find(s => s[0] === sub)?.[1]})</em></Link>
         {kids.map(k => <Link prefetch={false} key={k[0]} className={'pill' + (initial.sub2 === k[0] ? ' on' : '')} href={catUrl(cat!.slug, { sub, sub2: k[0] })}>{k[0]} <em>({k[1]})</em></Link>)}
       </div>}</div></div>}

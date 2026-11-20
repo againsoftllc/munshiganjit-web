@@ -4393,3 +4393,15 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .f-top h3 { font-size: calc(var(--ui-fs) * 1.3); }
 .f-top button { font-size: calc(var(--ui-fs) * .9); }
 .f-clear { height: 38px; font-size: calc(var(--ui-fs) * .95); }
+/* sub-category links: one line by default; a small round arrow (only when they wrap) opens / closes the rest */
+.lst-head > .wrap { position: relative; }
+.lst-head .subcats.one-line { max-height: 62px; overflow: hidden; }
+.subcat-toggle { position: absolute; left: 50%; bottom: -15px; transform: translateX(-50%); z-index: 3; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; border: 1px solid #D6DFEA; background: #FFFFFF; color: #1B3A8C; cursor: pointer; box-shadow: 0 6px 14px -6px rgba(0, 39, 65, .5); transition: background .15s, color .15s, transform .25s; }
+.subcat-toggle:hover { background: #1B3A8C; color: #FFFFFF; border-color: #1B3A8C; }
+.subcat-toggle.open .ico { transform: rotate(180deg); }
+.subcat-toggle .ico { transition: transform .25s; }
+.lst-head { margin-bottom: 8px; }
+/* exactly one row visible when collapsed (no clipped second row) */
+.lst-head .wrap:has(.subcat-toggle) { padding-bottom: 22px; }
+.lst-head .wrap:has(.subcat-toggle) .subcats { padding-bottom: 0; }
+.lst-head .subcats.one-line { max-height: calc(14px + var(--ui-fs) * 1.4 + 10px + 1px); }
