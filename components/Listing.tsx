@@ -52,7 +52,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
   const [per, setPer] = useState('20');
   const [page, setPage] = useState(1);
   const [view, setView] = useState<'grid' | 'list'>('grid');
-  const [closed, setClosed] = useState<string[]>([]);
+  const [closed, setClosed] = useState<string[]>(['subs', 'brands', 'rating', 'offer']);
   const [minTxt, setMinTxt] = useState(String(f.min));
   const [maxTxt, setMaxTxt] = useState(String(f.max));
 
@@ -111,7 +111,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
   /* sidebar pieces */
   const box = (k: string, t: string, body: ReactNode) => (
     <div key={k} className={'fbox' + (closed.includes(k) ? ' closed' : '')} data-f={k}>
-      <h4 onClick={() => setClosed(c => (c.includes(k) ? c.filter(x => x !== k) : [...c, k]))}>{t}<Icon name="up" size={16} /></h4>
+      <h4 onClick={() => setClosed(c => (c.includes(k) ? c.filter(x => x !== k) : [...c, k]))}>{t}<Icon name="right" size={16} /></h4>
       <div className="fbody">{body}</div>
     </div>
   );
@@ -200,6 +200,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
         <aside className={'filters' + (drawer === 'filters' ? ' open' : '')} aria-label="Filters">
           <div className="row-between f-close" style={{ display: 'none', marginBottom: 6 }}><b>Filters</b><button onClick={closeDrawer} aria-label="Close"><Icon name="close" size={20} /></button></div>
           <div className="f-top"><h3>Filters</h3><button type="button" onClick={clearAll}>Clear All</button></div>
+          <div className="f-body">
           {box('stock', 'Availability', STOCKS.map(s => ck('stock', s[0], s[1], cnt(p => p.stock === s[0], 'stock'))))}
           {box('price', 'Price Range', <>
             <div className="range">
@@ -235,7 +236,8 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
             <label className="check"><input type="checkbox" data-g="sale" value="1" checked={f.sale} onChange={e => setF(s => ({ ...s, sale: e.target.checked }))} /><span>Discounted</span><em>({cnt(p => p.old)})</em></label>
             <label className="check"><input type="checkbox" data-g="emi" value="1" checked={f.emi} onChange={e => setF(s => ({ ...s, emi: e.target.checked }))} /><span>EMI Available</span><em>({cnt(p => p.emi)})</em></label>
           </>)}
-          <button type="button" className="f-clear" onClick={clearAll}>Clear All</button>
+          </div>
+          <div className="f-foot"><button type="button" className="f-clear" onClick={clearAll}>Clear All</button></div>
         </aside>
 
         <section aria-label="Products">
