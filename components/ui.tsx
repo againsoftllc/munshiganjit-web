@@ -118,7 +118,7 @@ export function ProductCard({ p, detailed = false, qtyNote = false, home = false
           onClick={() => toast(toggleWish(p.id) ? 'Saved to wishlist' : 'Removed from wishlist', 'heart')}><Icon name="heart" size={15} /></button>
       </div>
       <div className="pc-body">
-        {detailed && p.old && p.old > p.price && <span className="pc-ribbon"><Icon name="bolt" size={14} />Special Offer Price</span>}
+        {detailed && <span className={'pc-ribbon' + (p.old && p.old > p.price ? '' : ' none')} aria-hidden={!(p.old && p.old > p.price)}><Icon name="bolt" size={14} />Special Offer Price</span>}
         <span className="pc-brand">{p.brand}</span>
         <Link prefetch={false} className="pc-name notranslate" translate="no" href={url}>{p.name}</Link>
         <ul className="pc-specs">{p.specs.slice(0, 4).map(s => <li key={s}>{s}</li>)}</ul>

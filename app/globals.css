@@ -4297,3 +4297,11 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
   .listing .pcard.detailed .pc-foot { grid-template-columns: 1fr; padding-bottom: 12px; }
   .listing .pcard.detailed .pc-foot .pc-price b { font-size: calc(var(--ui-fs) * 1.35); }
 }
+/* ---------- Always aligned: ribbon slot, 2-line title, 4-line features, price and buttons at the bottom — same line in every card ---------- */
+.pc-ribbon.none { visibility: hidden; }
+.listing .pcard.detailed .pc-name { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 2.8em; min-height: 2.8em; margin: 0; }
+.listing .pcard.detailed .pc-specs { display: block; font-size: calc(var(--ui-fs) * .84); height: 6.2em; min-height: 6.2em; margin: 10px 0 0; overflow: hidden; }
+.listing .pcard.detailed .pc-specs:empty { display: block; }
+.listing .pcard.detailed .pc-specs li { height: 1.55em; line-height: 1.55; font-size: 1em; }
+.listing .pcard.detailed .pc-foot { margin-top: auto; }
+@media (max-width: 640px) { .listing .pcard.detailed .pc-specs { display: none; } .pc-ribbon.none { display: none; } }
