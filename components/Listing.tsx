@@ -294,7 +294,7 @@ export default function Listing({ mode, catSlug, initial, hideCrumb = false, abo
           <div className="f-track" ref={fTrack} aria-hidden="true"><span ref={fThumb} onPointerDown={fDrag} /></div>
           </div>
           <div className="f-foot"><button type="button" className={'f-expand' + (allOpen ? ' on' : '')} aria-pressed={allOpen} aria-label={allOpen ? 'Collapse all filters' : 'Show all filters'} title={allOpen ? 'Collapse all filters' : 'Show all filters'} onClick={() => { if (allOpen) { setAllOpen(false); setOpenKeys([]); } else { setAllOpen(true); setOpenKeys([...groupKeys]); } }}>
-            <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">{allOpen ? <><path d="M5.5 3.5L10 7.5l4.5-4" /><path d="M5.5 16.5L10 12.5l4.5 4" /></> : <><path d="M5.5 7.5L10 3.5l4.5 4" /><path d="M5.5 12.5L10 16.5l4.5-4" /></>}</svg>
+            <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">{allOpen ? <><path d="M5.5 5.5L10 9 14.5 5.5" /><path d="M5.5 14.5L10 11 14.5 14.5" /></> : <><path d="M5.5 8L10 4.5 14.5 8" /><path d="M5.5 12.5L10 16 14.5 12.5" /></>}</svg>
           </button></div>
         </aside>
 

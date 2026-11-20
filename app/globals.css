@@ -4447,3 +4447,9 @@ svg.mf-mark text { fill: transparent; stroke: rgba(255, 255, 255, .14); stroke-w
 .f-expand.on:hover { background: #1B3A8C; color: #FFFFFF; }
 /* no forced min height: the card fits its groups, the icon button sits right under them */
 .listing .filters { min-height: 0; }
+
+/* expand / collapse icon: no box, no background — just the two arrows, close together */
+.f-foot { padding: 4px 16px 6px; }
+.f-expand, .f-expand.on, .f-expand:hover, .f-expand.on:hover { width: 36px; height: 28px; border: 0; border-radius: 0; background: none; box-shadow: none; color: #1B3A8C; padding: 0; }
+.f-expand:hover { color: #ED1B24; transform: none; }
+.f-expand svg { width: 20px; height: 20px; }
